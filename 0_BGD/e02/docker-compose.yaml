@@ -1,0 +1,26 @@
+version: '3'
+
+services: 
+  notesservice:
+    build: .
+    ports:
+      - "8080:8080"
+    networks:
+      - webnet
+    environment:
+      - REDIS_HOST=Redis
+    depends_on:
+      - redis
+  redis:
+    container_name: 'Redis'
+    image: 'redis:latest'
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_volume:/data
+    networks:
+      - webnet
+
+volumes:
+  redis_volume:
+networks:
+  webnet:
