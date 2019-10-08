@@ -7,7 +7,7 @@ function padvanced(A, a, b, h)
     tic
     
     % "to the power" vector
-    p1 = size(A,2) : -1 : 1;
+    p1 = size(A,2) - 1 : -1 : 0;
     
     % needed to transform Y
     p2 = ones(size(A))';
@@ -27,6 +27,9 @@ function padvanced(A, a, b, h)
     toc
   
     plot(a : h : b, Y4);
+    
+    title('Plot Advanced');
+    
     grid on;
 
 end

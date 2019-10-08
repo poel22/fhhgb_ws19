@@ -15,8 +15,8 @@ function pcommon(A, a, b, h)
     for i = a : h : b
         x_ = x_ + 1;
         p = 0;
-        for x = size(A, 2) : -1 : 1
-            p = p + A(size(A, 2) - x + 1) * i ^ x;
+        for x = (size(A, 2) - 1) : -1 : 0
+            p = p + A(size(A, 2) - x) * i ^ x;
         end
         Y = [Y p];
     end
@@ -24,6 +24,9 @@ function pcommon(A, a, b, h)
     toc
     
     plot(a : h : b, Y);
+    
+    title('Plot Common');
+    
     grid on;
 
 end
