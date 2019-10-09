@@ -1,8 +1,8 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Arch Linux) (preloaded format=xelatex 2019.9.8)  8 OCT 2019 14:07
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Arch Linux) (preloaded format=xelatex 2019.8.23)  8 OCT 2019 21:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**ue01
+**ue01.tex
 (./ue01.tex
 LaTeX2e <2018-12-01>
 (/usr/share/texmf-dist/tex/latex/base/article.cls
@@ -485,23 +485,7 @@ Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
 Package hyperref Info: Option `colorlinks' set `true' on input line 24.
 Package Listings Info: Made " a short reference for \lstinline on input line 27
 .
-) (./ue01.aux
-
-LaTeX Warning: Label `fig:1' multiply defined.
-
-
-LaTeX Warning: Label `fig:1' multiply defined.
-
-
-LaTeX Warning: Label `fig:1' multiply defined.
-
-
-LaTeX Warning: Label `fig:1' multiply defined.
-
-
-LaTeX Warning: Label `fig:1' multiply defined.
-
-)
+) (./ue01.aux)
 \openout1 = `ue01.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
@@ -524,7 +508,8 @@ LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 11.
 LaTeX Font Info:    ... okay on input line 11.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 11.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 11.
- (/usr/share/texmf-dist/tex/latex/base/ts1cmr.fd
+
+(/usr/share/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 11.
@@ -636,38 +621,38 @@ Underfull \hbox (badness 10000) in paragraph at lines 42--46
 
  []
 
-[4] (../../matlab/pcommon.m) (../../matlab/padvanced.m [5])
-File: ./img/poly_comp_01.png Graphic file (type bmp)
-<./img/poly_comp_01.png>
-File: ./img/poly_comp_02.png Graphic file (type bmp)
-<./img/poly_comp_02.png>
+[4] (../../matlab/paint.m) [5]
+File: ./img/paint_01.png Graphic file (type bmp)
+<./img/paint_01.png>
  [6]
-File: ./img/poly_comp_03.png Graphic file (type bmp)
-<./img/poly_comp_03.png>
-
-
+File: ./img/paint_02.png Graphic file (type bmp)
+<./img/paint_02.png>
+ [7] (../../matlab/multidist.m)
+(../../matlab/multidistPainter.m) [8]
+File: ./img/multidist_01.png Graphic file (type bmp)
+<./img/multidist_01.png>
+ [9]
+File: ./img/multidist_02.png Graphic file (type bmp)
+<./img/multidist_02.png>
+ 
 AED: lastpage setting LastPage
-[7]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 75.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 75.
+[10]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 89.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 89.
  (./ue01.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 75.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 75.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 89.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 89.
 Package rerunfilecheck Info: File `ue01.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 75.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 89.
  ) 
 Here is how much of TeX's memory you used:
- 12760 strings out of 492922
- 178814 string characters out of 6138852
- 340981 words of memory out of 5000000
- 16643 multiletter control sequences out of 15000+600000
+ 12809 strings out of 492922
+ 179518 string characters out of 6138851
+ 379919 words of memory out of 5000000
+ 16683 multiletter control sequences out of 15000+600000
  33618 words of font info for 47 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 41i,12n,56p,228b,1889s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,11n,56p,232b,1430s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on ue01.pdf (7 pages).
+Output written on ue01.pdf (10 pages).
