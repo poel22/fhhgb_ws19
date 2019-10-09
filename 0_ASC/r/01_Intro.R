@@ -1,0 +1,35 @@
+a <- 10
+b = a * 2
+
+10^(1/2)
+sqrt(10)
+exp(b)
+
+# stat Verteilungen
+rnorm(100)
+runif(100)
+dnorm(0)
+dnorm(1)
+x <- sample(1:100, 100, replace=T)
+unique(x)
+duplicated(x)
+length(unique(x))
+sample(colors(), 3)
+sample(LETTERS, 4)
+plot(dnorm, xlim=c(-4, 4), ylim=c(0,1), ylab="density function")
+
+rt(100, 2)
+x <- seq(-4, 4, length=100)
+nx <- dnorm(x)
+plot(x, nx, type="l")
+lines(x, dt(x,2), col="burlywood")
+lines(x, dt(x,5), col="green")
+lines(x, dt(x,30), col="red")
+dnorm(1)
+dt(1, df=1)
+dt(1, df=30)
+rbinom(100, 10, 0.5)
+lines(x, rbinom(100, 10, 0.2), col="blue")
+binom <- rbinom(100, 10, 0.5)
+table(binom)
+prop.table(table(binom))
