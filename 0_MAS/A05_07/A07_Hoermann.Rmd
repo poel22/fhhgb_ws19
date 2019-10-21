@@ -1,0 +1,41 @@
+---
+title: "A07 Hoermann"
+output: pdf_document
+---
+
+# Aufgabe 07
+## a)
+* n ... index
+* p, e ... regressors (independent variables)
+* s, v, d ... dependent variables
+
+```{r regr_analysis}
+df = read.csv("regr.csv")
+cor(df)
+```
+## Interpretation
+There is a strong correlation between v & s, d & s, v & d and d & e.
+```{r nonlin_multivar_regr}
+Regr = lm(df$s~df$p+df$e+I(df$p^2)+I(df$e^2)+I(df$p*df$e)+I(df$p^2*df$e)+I(df$p*df$e^2)-1)
+summary(Regr)
+```
+```{r}
+Regr2 = lm(df$s~df$p+I(df$e^2)+I(df$p*df$e)+I(df$p^2*df$e)+I(df$p*df$e^2)-1)
+summary(Regr2)
+```
+
+```{r regr_analysis_2}
+df = read.csv("regr2.csv")
+cor(df)
+```
+## Interpretation
+There is a strong correlation between v & s, d & s, v & d and d & e.
+```{r nonlin_multivar_regr_2}
+Regr = lm(df$s~df$p+df$e+I(df$p^2)+I(df$e^2)+I(df$p*df$e)+I(df$p^2*df$e)+I(df$p*df$e^2)-1)
+summary(Regr)
+```
+
+```{r}
+Regr2 = lm(df$s~df$p+I(df$e^2)+I(df$p*df$e)+I(df$p^2*df$e)+I(df$p*df$e^2)-1)
+summary(Regr2)
+```
