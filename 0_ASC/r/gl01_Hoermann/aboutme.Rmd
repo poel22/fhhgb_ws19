@@ -1,0 +1,29 @@
+---
+title: "01_Hoermann"
+output: pdf_document
+---
+
+# Intro
+
+| | |
+| ---: | :--- |
+| Name | Paul Hörmann |
+| Alter | 23 |
+| vorheriger Studiengang | SE, Hagenberg |
+
+## Kenntnisse in R:
+ * schon mal davon gehört
+ * auch schon eine Weile installiert
+ * aber praktisch keine
+
+## Hobbies:
+1. Motorrad fahren
+2. Laufen, Sport
+
+## Berufliche Erfahrungen IT Bereich
+| Firma | Dauer |
+| ----: | :---- |
+| SSI Schäfer | 2 Monate * 2 [^1] |
+| Avocodo GmbH | 7 Monate, momentan |
+
+[^1]: 1* Moskau, RU & 1* Lyon, FR

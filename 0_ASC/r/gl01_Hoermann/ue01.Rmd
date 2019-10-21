@@ -1,0 +1,83 @@
+---
+title: "ue01"
+author: "Paul Hörmann"
+output: pdf_document
+---
+
+**Aufwand:** 3h
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Aufgabe 1
+
+```{r cars, echo=F}
+summary(cars, echo=TRUE)
+```
+
+## a.)
+Durchschnittliche Geschwindigkeit: `r mean(cars$speed)` mp/h.
+
+## b.)
+
+```{r plot, echo=FALSE}
+plot(cars$speed, cars$dist, ylab="Entfernung", xlab="Geschwindigkeit")
+```
+
+Ich habe diverse Internet fixes probiert, aber kein Margin o.ä. hilft.
+
+## c.)
+
+```{r overview, echo=F}
+library(knitr)
+kable(summary(cars))
+```
+
+## d.) Interpretation
+In `f.ref("cars")` ist die durschnittliche (arithmetisches Mittel) Geschwindigkeit zu sehen.
+In @plot ist ein Streudiagramm über Entfernung und Geschwindigkeit zu sehen, jeder Punkt entspricht einer Messung.
+In @overview ist eine Tabelle zu sehen, welche diverse Infos über die Daten liefert, wie zum Beispiel Median oder das arithmetische Mittel.
+
+## Aufgabe 2
+Eigene Datei.
+
+## Aufgabe 3
+```{r norm, echo=F}
+library(plyr)
+x <- round((rnorm(1000)), digits=1)
+hist(x)
+```
+
+## Aufgabe 4
+### Normalverteilung
+Die Normal- oder Gauß-Verteilung (nach Carl Friedrich Gauß) ist in der Stochastik ein wichtiger Typ stetiger Wahrscheinlichkeitsverteilungen. Ihre Wahrscheinlichkeitsdichtefunktion wird auch Gauß-Funktion, Gaußsche Normalverteilung, Gaußsche Verteilungskurve, Gauß-Kurve, Gaußsche Glockenkurve, Gaußsche Glockenfunktion, Gauß-Glocke oder schlicht Glockenkurve genannt.
+
+Die besondere Bedeutung der Normalverteilung beruht unter anderem auf dem zentralen Grenzwertsatz, dem zufolge Verteilungen, die durch additive Überlagerung einer großen Zahl von unabhängigen Einflüssen entstehen, unter schwachen Voraussetzungen annähernd normalverteilt sind. Die Familie der Normalverteilungen bildet eine Lage- und Skalenfamilie.
+
+Die Abweichungen der Messwerte vieler natur-, wirtschafts- und ingenieurwissenschaftlicher Vorgänge vom Erwartungswert lassen sich durch die Normalverteilung (bei biologischen Prozessen oft logarithmische Normalverteilung) entweder exakt oder wenigstens in sehr guter Näherung beschreiben (vor allem Prozesse, die in mehreren Faktoren unabhängig voneinander in verschiedene Richtungen wirken).
+
+Zufallsvariablen mit Normalverteilung benutzt man zur Beschreibung zufälliger Vorgänge wie:
+
+* zufällige Messfehler,
+* zufällige Abweichungen vom Sollmaß bei der Fertigung von Werkstücken,
+* Beschreibung der brownschen Molekularbewegung.
+
+In der Versicherungsmathematik ist die Normalverteilung geeignet zur Modellierung von Schadensdaten im Bereich mittlerer Schadenshöhen.
+
+In der Messtechnik wird häufig eine Normalverteilung angesetzt, die die Streuung der Messfehler beschreibt. Hierbei ist von Bedeutung, wie viele Messpunkte innerhalb einer gewissen Streubreite liegen.
+
+Die Standardabweichung $\sigma$  beschreibt die Breite der Normalverteilung. Die Halbwertsbreite einer Normalverteilung ist das ungefähr ${\displaystyle 2{,}4}$-Fache (genau ${\displaystyle 2{\sqrt {2\ln 2}}}$) der Standardabweichung. Es gilt näherungsweise:
+
+* Im Intervall der Abweichung $\pm \sigma$  vom Erwartungswert sind 68,27 % aller Messwerte zu finden,
+* Im Intervall der Abweichung $\pm 2\sigma$  vom Erwartungswert sind 95,45 % aller Messwerte zu finden,
+* Im Intervall der Abweichung $\pm 3\sigma$  vom Erwartungswert sind 99,73 % aller Messwerte zu finden.
+
+Und ebenso lassen sich umgekehrt für gegebene Wahrscheinlichkeiten die maximalen Abweichungen vom Erwartungswert finden:
+
+* 50 % aller Messwerte haben eine Abweichung von höchstens $0{,}675\sigma$  vom Erwartungswert,
+* 90 % aller Messwerte haben eine Abweichung von höchstens $1{,}645\sigma$  vom Erwartungswert,
+* 95 % aller Messwerte haben eine Abweichung von höchstens $1{,}960\sigma$  vom Erwartungswert,
+* 99 % aller Messwerte haben eine Abweichung von höchstens $2{,}576\sigma$  vom Erwartungswert.
+
+Somit kann neben dem Erwartungswert, der als Schwerpunkt der Verteilung interpretiert werden kann, auch der Standardabweichung eine einfache Bedeutung im Hinblick auf die Größenordnungen der auftretenden Wahrscheinlichkeiten bzw. Häufigkeiten zugeordnet werden.
