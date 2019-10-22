@@ -14,28 +14,32 @@ df = read.csv("regr.csv")
 cor(df)
 ```
 ## Interpretation
-There is a strong correlation between v & s, d & s, v & d and d & e.
+There is a strong correlation between v & s, d & s, v & d and d & e. The low correlation between e and p makes sense, as those are the two independent variables.
+The low linear correlation of e towards s and v could mean that they are somehow other connected. Maybe quadratic.
 ```{r nonlin_multivar_regr}
 Regr = lm(df$s~df$p+df$e+I(df$p^2)+I(df$e^2)+I(df$p*df$e)+I(df$p^2*df$e)+I(df$p*df$e^2)-1)
 summary(Regr)
 ```
+
 ```{r}
-Regr2 = lm(df$s~df$p+I(df$e^2)+I(df$p*df$e)+I(df$p^2*df$e)+I(df$p*df$e^2)-1)
+Regr2 = lm(df$s~df$p+I(df$p*df$e)+I(df$p^2*df$e)+I(df$p*df$e^2)+I(df$p*df$d)) 
 summary(Regr2)
 ```
-
+## regr2.csv
 ```{r regr_analysis_2}
 df = read.csv("regr2.csv")
 cor(df)
 ```
 ## Interpretation
-There is a strong correlation between v & s, d & s, v & d and d & e.
-```{r nonlin_multivar_regr_2}
-Regr = lm(df$s~df$p+df$e+I(df$p^2)+I(df$e^2)+I(df$p*df$e)+I(df$p^2*df$e)+I(df$p*df$e^2)-1)
-summary(Regr)
-```
+There is a strong linear correlation between all the variables (except the index), as the coefficients are nearly all over 0.9. The correlation between e and p is still high, which is surprising as those are the regressors. The analysis leads to the guess that those variables can be described by a linear function.
 
+```{r nonlin_multivar_regr_2}
+ summary(Regr)
+```
+The P values are still pretty high, and the t value close to zero which means no good, but the residual standard error is pretty low, thus maybe some intersection is to the wrong degree.
 ```{r}
-Regr2 = lm(df$s~df$p+I(df$e^2)+I(df$p*df$e)+I(df$p^2*df$e)+I(df$p*df$e^2)-1)
+Regr2 = lm(df$s~I(df$p*df$d)+I(df$e*df$v)+df$e)
 summary(Regr2)
 ```
+
+The output above shows that the values considered vor the estimation fit rather well, but the residual standard error is still a bit high, which could mean that some intersection is missing or to the wrong degree.
