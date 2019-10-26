@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Name</title>
+</head>
+
+<body>
+    <input type="text" name="name" />
+</body>
+
+<script type="text/javascript">
+    window.onload = async () => {
+        const response = await fetch('http://localhost:3000/name');
+        const data = await response.text(); 
+        document.getElementsByName("name")[0].value = data;
+    };
+</script>
+
+</html>
