@@ -1,7 +1,6 @@
 package ex3.bgd;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.SortingParams;
 
 @RestController
 public class ProductController {
@@ -22,8 +20,6 @@ public class ProductController {
     // Speichern/Hochladen von Dateien
     @RequestMapping(value = "/product", method = RequestMethod.POST)
     public void file(@RequestBody Product product) {
-        System.out.println("Posting product >>>");
-        System.out.println("price: " + Double.toString(product.getPrice()));
         product.setHash(Integer.toString(product.getName().hashCode()));
 
         jedis.sadd(REDIS_PRODUCTDATA, product.getHash());
@@ -31,18 +27,10 @@ public class ProductController {
         jedis.hset(product.getHash(), product.toMap());
 
         jedis.zadd(SORTED_KEY, product.getPrice(), product.getHash());
-
-        System.out.println("File was written with hash: " + product.getHash());
-    }
-
-    @RequestMapping(value = "/counter", method = RequestMethod.GET)
-    public String counter() {
-        return jedis.get("fcounter");
     }
 
     @RequestMapping(value = "/product", method = RequestMethod.GET, params = { "name" })
     public Product product(String name) {
-        System.out.println("Getting product for name: " + name);
         return Product.fromMap(jedis.hgetAll(Integer.toString(name.hashCode())));
     }
 
@@ -64,7 +52,7 @@ public class ProductController {
     public List<Product> category(String category) {
         List<Product> products = new ArrayList<>();
 
-        Collection<String> hashes = jedis.smembers(category);
+        Set<String> hashes = jedis.smembers(category);
 
         for (String hash : hashes) {
             Product product = Product.fromMap(jedis.hgetAll(hash));
