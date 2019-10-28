@@ -26,11 +26,11 @@ public class ProductController {
         System.out.println("price: " + Double.toString(product.getPrice()));
         product.setHash(Integer.toString(product.getName().hashCode()));
 
-        jedis.lpush("all:products", product.getHash());
-        jedis.hset(REDIS_PRODUCTDATA, product.getHash(), product.getName());
-        jedis.hmset("product:".concat(product.getHash()), product.toMap());
+        jedis.sadd(REDIS_PRODUCTDATA, product.getHash());
+        jedis.sadd(product.getCategory(), product.getHash());
+        jedis.hset(product.getHash(), product.toMap());
 
-        jedis.zadd(product.getCategory(), product.getPrice(), product.getHash());
+        jedis.zadd(SORTED_KEY, product.getPrice(), product.getHash());
 
         System.out.println("File was written with hash: " + product.getHash());
     }
@@ -42,6 +42,7 @@ public class ProductController {
 
     @RequestMapping(value = "/product", method = RequestMethod.GET, params = { "name" })
     public Product product(String name) {
+        System.out.println("Getting product for name: " + name);
         return Product.fromMap(jedis.hgetAll(Integer.toString(name.hashCode())));
     }
 
@@ -49,10 +50,10 @@ public class ProductController {
     public List<Product> products() {
         List<Product> products = new ArrayList<>();
 
-        Collection<String> hashes = jedis.hgetAll(REDIS_PRODUCTDATA).values();
+        Set<String> hashes = jedis.smembers(REDIS_PRODUCTDATA);
 
         for (String hash : hashes) {
-            Product product = Product.fromMap(jedis.hgetAll("product:".concat(hash)));
+            Product product = Product.fromMap(jedis.hgetAll(hash));
             products.add(product);
         }
 
@@ -63,7 +64,7 @@ public class ProductController {
     public List<Product> category(String category) {
         List<Product> products = new ArrayList<>();
 
-        Collection<String> hashes = jedis.hgetAll(category).values();
+        Collection<String> hashes = jedis.smembers(category);
 
         for (String hash : hashes) {
             Product product = Product.fromMap(jedis.hgetAll(hash));
@@ -77,8 +78,7 @@ public class ProductController {
     public List<Product> filesPrio() {
         List<Product> products = new ArrayList<>();
 
-        jedis.sort("all:products", new SortingParams().alpha().by("product:*->price"));
-        Set<String> hashes = jedis.zrange(SORTED_KEY, 0, 5);
+        Set<String> hashes = jedis.zrange(SORTED_KEY, 0, 4);
 
         for (String hash : hashes) {
             Product product = Product.fromMap(jedis.hgetAll(hash));
