@@ -1,0 +1,26 @@
+version: '3'
+
+services: 
+  web:
+    container_name: 'nodeapp_c1'
+    image: nodeapp:0.0
+    command: node app.js 
+    links:
+      - "namegenserver:namegen"
+    ports:
+      - "3000:3000"
+    networks:
+      - webnet
+    depends_on:
+      - namegenserver
+  namegenserver:
+    container_name: 'namegen_c1'
+    image: namegen:0.0
+    command: dotnet run --project namegen --urls "http://0.0.0.0:5000"
+    expose:
+      - 5000
+    networks:
+      - webnet
+
+networks:
+  webnet:
