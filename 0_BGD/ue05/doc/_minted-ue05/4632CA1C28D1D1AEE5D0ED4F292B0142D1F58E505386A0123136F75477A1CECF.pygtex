@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{FROM}\PYG{l+s}{ mcr.microsoft.com/dotnet/core/sdk:3.0}
+
+\PYG{k}{WORKDIR}\PYG{l+s}{ /root}
+
+\PYG{k}{COPY} namegen namegen
+
+\PYG{k}{RUN} dotnet build namegen
+
+\PYG{k}{EXPOSE}\PYG{l+s}{ 5000}
+
+\PYG{k}{CMD} dotnet run \PYGZhy{}\PYGZhy{}urls \PYG{l+s+s2}{\PYGZdq{}http://0.0.0.0:5000\PYGZdq{}}
+\end{Verbatim}

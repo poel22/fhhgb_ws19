@@ -1,0 +1,82 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{package} \PYG{n+nn}{ex3.bgd}\PYG{o}{;}
+
+\PYG{k+kn}{import} \PYG{n+nn}{java.util.HashMap}\PYG{o}{;}
+\PYG{k+kn}{import} \PYG{n+nn}{java.util.Map}\PYG{o}{;}
+
+\PYG{k+kd}{public} \PYG{k+kd}{class} \PYG{n+nc}{Product} \PYG{o}{\PYGZob{}}
+    \PYG{k+kd}{private} \PYG{n}{String} \PYG{n}{hash}\PYG{o}{;}
+    \PYG{k+kd}{private} \PYG{n}{String} \PYG{n}{name}\PYG{o}{;}
+    \PYG{k+kd}{private} \PYG{n}{String} \PYG{n}{category}\PYG{o}{;}
+    \PYG{k+kd}{private} \PYG{n}{String} \PYG{n}{description}\PYG{o}{;}
+    \PYG{k+kd}{private} \PYG{k+kt}{double} \PYG{n}{price}\PYG{o}{;}
+
+    \PYG{k+kd}{public} \PYG{n+nf}{Product}\PYG{o}{()} \PYG{o}{\PYGZob{}}
+
+    \PYG{o}{\PYGZcb{}}
+
+    \PYG{k+kd}{public} \PYG{n}{String} \PYG{n+nf}{getHash}\PYG{o}{()} \PYG{o}{\PYGZob{}}
+        \PYG{k}{return} \PYG{n}{hash}\PYG{o}{;}
+    \PYG{o}{\PYGZcb{}}
+
+    \PYG{k+kd}{public} \PYG{k+kt}{void} \PYG{n+nf}{setHash}\PYG{o}{(}\PYG{n}{String} \PYG{n}{hash}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+        \PYG{k}{this}\PYG{o}{.}\PYG{n+na}{hash} \PYG{o}{=} \PYG{n}{hash}\PYG{o}{;}
+    \PYG{o}{\PYGZcb{}}
+
+    \PYG{k+kd}{public} \PYG{n}{String} \PYG{n+nf}{getName}\PYG{o}{()} \PYG{o}{\PYGZob{}}
+        \PYG{k}{return} \PYG{n}{name}\PYG{o}{;}
+    \PYG{o}{\PYGZcb{}}
+
+    \PYG{k+kd}{public} \PYG{k+kt}{void} \PYG{n+nf}{setName}\PYG{o}{(}\PYG{n}{String} \PYG{n}{name}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+        \PYG{k}{this}\PYG{o}{.}\PYG{n+na}{name} \PYG{o}{=} \PYG{n}{name}\PYG{o}{;}
+    \PYG{o}{\PYGZcb{}}
+
+    \PYG{k+kd}{public} \PYG{n}{String} \PYG{n+nf}{getCategory}\PYG{o}{()} \PYG{o}{\PYGZob{}}
+        \PYG{k}{return} \PYG{n}{category}\PYG{o}{;}
+    \PYG{o}{\PYGZcb{}}
+
+    \PYG{k+kd}{public} \PYG{k+kt}{void} \PYG{n+nf}{setCategory}\PYG{o}{(}\PYG{n}{String} \PYG{n}{category}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+        \PYG{k}{this}\PYG{o}{.}\PYG{n+na}{category} \PYG{o}{=} \PYG{n}{category}\PYG{o}{;}
+    \PYG{o}{\PYGZcb{}}
+
+    \PYG{k+kd}{public} \PYG{n}{String} \PYG{n+nf}{getDescription}\PYG{o}{()} \PYG{o}{\PYGZob{}}
+        \PYG{k}{return} \PYG{n}{description}\PYG{o}{;}
+    \PYG{o}{\PYGZcb{}}
+
+    \PYG{k+kd}{public} \PYG{k+kt}{void} \PYG{n+nf}{setDescription}\PYG{o}{(}\PYG{n}{String} \PYG{n}{description}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+        \PYG{k}{this}\PYG{o}{.}\PYG{n+na}{description} \PYG{o}{=} \PYG{n}{description}\PYG{o}{;}
+    \PYG{o}{\PYGZcb{}}
+
+    \PYG{k+kd}{public} \PYG{k+kt}{double} \PYG{n+nf}{getPrice}\PYG{o}{()} \PYG{o}{\PYGZob{}}
+        \PYG{k}{return} \PYG{n}{price}\PYG{o}{;}
+    \PYG{o}{\PYGZcb{}}
+
+    \PYG{k+kd}{public} \PYG{k+kt}{void} \PYG{n+nf}{setPrice}\PYG{o}{(}\PYG{k+kt}{double} \PYG{n}{price}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+        \PYG{k}{this}\PYG{o}{.}\PYG{n+na}{price} \PYG{o}{=} \PYG{n}{price}\PYG{o}{;}
+    \PYG{o}{\PYGZcb{}}
+
+    \PYG{k+kd}{public} \PYG{n}{Map}\PYG{o}{\PYGZlt{}}\PYG{n}{String}\PYG{o}{,} \PYG{n}{String}\PYG{o}{\PYGZgt{}} \PYG{n+nf}{toMap}\PYG{o}{()} \PYG{o}{\PYGZob{}}
+        \PYG{n}{Map}\PYG{o}{\PYGZlt{}}\PYG{n}{String}\PYG{o}{,} \PYG{n}{String}\PYG{o}{\PYGZgt{}} \PYG{n}{result} \PYG{o}{=} \PYG{k}{new} \PYG{n}{HashMap}\PYG{o}{\PYGZlt{}\PYGZgt{}();}
+        \PYG{n}{result}\PYG{o}{.}\PYG{n+na}{put}\PYG{o}{(}\PYG{l+s}{\PYGZdq{}hash\PYGZdq{}}\PYG{o}{,} \PYG{n}{hash}\PYG{o}{);}
+        \PYG{n}{result}\PYG{o}{.}\PYG{n+na}{put}\PYG{o}{(}\PYG{l+s}{\PYGZdq{}name\PYGZdq{}}\PYG{o}{,} \PYG{n}{name}\PYG{o}{);}
+        \PYG{n}{result}\PYG{o}{.}\PYG{n+na}{put}\PYG{o}{(}\PYG{l+s}{\PYGZdq{}category\PYGZdq{}}\PYG{o}{,} \PYG{n}{category}\PYG{o}{);}
+        \PYG{n}{result}\PYG{o}{.}\PYG{n+na}{put}\PYG{o}{(}\PYG{l+s}{\PYGZdq{}description\PYGZdq{}}\PYG{o}{,} \PYG{n}{description}\PYG{o}{);}
+        \PYG{n}{result}\PYG{o}{.}\PYG{n+na}{put}\PYG{o}{(}\PYG{l+s}{\PYGZdq{}price\PYGZdq{}}\PYG{o}{,} \PYG{n}{Double}\PYG{o}{.}\PYG{n+na}{toString}\PYG{o}{(}\PYG{n}{price}\PYG{o}{));}
+
+        \PYG{k}{return} \PYG{n}{result}\PYG{o}{;}
+    \PYG{o}{\PYGZcb{}}
+
+    \PYG{k+kd}{public} \PYG{k+kd}{static} \PYG{n}{Product} \PYG{n+nf}{fromMap}\PYG{o}{(}\PYG{n}{Map}\PYG{o}{\PYGZlt{}}\PYG{n}{String}\PYG{o}{,} \PYG{n}{String}\PYG{o}{\PYGZgt{}} \PYG{n}{map}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+        \PYG{n}{Product} \PYG{n}{result} \PYG{o}{=} \PYG{k}{new} \PYG{n}{Product}\PYG{o}{();}
+
+        \PYG{n}{result}\PYG{o}{.}\PYG{n+na}{setHash}\PYG{o}{(}\PYG{n}{map}\PYG{o}{.}\PYG{n+na}{get}\PYG{o}{(}\PYG{l+s}{\PYGZdq{}hash\PYGZdq{}}\PYG{o}{));}
+        \PYG{n}{result}\PYG{o}{.}\PYG{n+na}{setName}\PYG{o}{(}\PYG{n}{map}\PYG{o}{.}\PYG{n+na}{get}\PYG{o}{(}\PYG{l+s}{\PYGZdq{}name\PYGZdq{}}\PYG{o}{));}
+        \PYG{n}{result}\PYG{o}{.}\PYG{n+na}{setCategory}\PYG{o}{(}\PYG{n}{map}\PYG{o}{.}\PYG{n+na}{get}\PYG{o}{(}\PYG{l+s}{\PYGZdq{}category\PYGZdq{}}\PYG{o}{));}
+        \PYG{n}{result}\PYG{o}{.}\PYG{n+na}{setDescription}\PYG{o}{(}\PYG{n}{map}\PYG{o}{.}\PYG{n+na}{get}\PYG{o}{(}\PYG{l+s}{\PYGZdq{}description\PYGZdq{}}\PYG{o}{));}
+        \PYG{n}{result}\PYG{o}{.}\PYG{n+na}{setPrice}\PYG{o}{(}\PYG{n}{Double}\PYG{o}{.}\PYG{n+na}{parseDouble}\PYG{o}{(}\PYG{n}{map}\PYG{o}{.}\PYG{n+na}{get}\PYG{o}{(}\PYG{l+s}{\PYGZdq{}price\PYGZdq{}}\PYG{o}{)));}
+
+        \PYG{k}{return} \PYG{n}{result}\PYG{o}{;}
+    \PYG{o}{\PYGZcb{}}
+
+\PYG{o}{\PYGZcb{}}
+\end{Verbatim}

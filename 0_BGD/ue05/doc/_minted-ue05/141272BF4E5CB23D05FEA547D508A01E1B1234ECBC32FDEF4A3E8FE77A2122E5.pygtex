@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{FROM}\PYG{l+s}{ node:latest}
+
+\PYG{k}{WORKDIR}\PYG{l+s}{ /root}
+
+\PYG{k}{COPY} web web
+
+\PYG{k}{WORKDIR}\PYG{l+s}{ web}
+
+\PYG{k}{RUN} npm i
+
+\PYG{k}{EXPOSE}\PYG{l+s}{ 3000}
+
+\PYG{k}{CMD} node app.js
+\end{Verbatim}
