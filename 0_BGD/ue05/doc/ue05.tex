@@ -11,52 +11,56 @@
 \begin{document}
 
 \section*{Aufgabe 1: namegen Service}
-\begin{enumerate}[leftmargin=!,labelindent=5pt]
-	\item \textit{\textbf{a}} Backend:
-		\inputminted[
-			linenos=true,
-			fontsize=\footnotesize,
-			frame=lines,
-			framesep=2mm,
-			baselinestretch=1.2
-		]
-		{docker}{../a01/src/ng/Dockerfile}
+	
+\subsection*{Namegen Service:}
+\inputminted[
+	linenos=true,
+	fontsize=\footnotesize,
+	frame=lines,
+	framesep=2mm,
+	baselinestretch=1.2
+]{docker}{../a01/src/ng/Dockerfile}
 
-	\item \textit{\textbf{b}} Frontend:
-		\inputminted[
-			linenos=true,
-			fontsize=\footnotesize,
-			frame=lines,
-			framesep=2mm,
-			baselinestretch=1.2
-		]{docker}{../a01/src/w/Dockerfile}
-		\newpage
+\subsection*{Node App:}
+\inputminted[
+	linenos=true,
+	fontsize=\footnotesize,
+	frame=lines,
+	framesep=2mm,
+	baselinestretch=1.2
+]{docker}{../a01/src/w/Dockerfile}
+\newpage
 
-\end{enumerate}
+\subsection*{Compose file:}
+\inputminted[
+	linenos=true,
+	fontsize=\footnotesize,
+	frame=lines,
+	framesep=2mm,
+	baselinestretch=1.2
+]{yaml}{../docker-compose.yaml}
+\newpage
+
 \newpage
 
 \section*{Aufgabe 2: Webshop}
-\begin{enumerate}[leftmargin=!,labelindent=5pt]
-	\item Product.java:
-		\inputminted[
-			linenos=true,
-			fontsize=\footnotesize,
-			frame=lines,
-			framesep=2mm,
-			baselinestretch=1.2
-		]{Java}{../a02/src/main/java/ex3/bgd/Product.java}
-		\newpage
-	\item ProductController.java:
-		\inputminted[
-			linenos=true,
-			fontsize=\footnotesize,
-			frame=lines,
-			framesep=2mm,
-			baselinestretch=1.2
-		]{Java}{../a02/src/main/java/ex3/bgd/ProductController.java}
-		\newpage
-
-\end{enumerate}
+\subsection*{Product.java:}
+\inputminted[
+	linenos=true,
+	fontsize=\footnotesize,
+	frame=lines,
+	framesep=2mm,
+	baselinestretch=1.2
+]{Java}{../a02/src/main/java/ex3/bgd/Product.java}
+\newpage
+\subsection*{ProductController.java:}
+\inputminted[
+	linenos=true,
+	fontsize=\footnotesize,
+	frame=lines,
+	framesep=2mm,
+	baselinestretch=1.2
+]{Java}{../a02/src/main/java/ex3/bgd/ProductController.java}
 \newpage
 
 \end{document}

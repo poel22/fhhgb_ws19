@@ -1,0 +1,28 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nt}{version}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}3\PYGZsq{}}
+
+\PYG{n+nt}{services}\PYG{p}{:} 
+  \PYG{n+nt}{web}\PYG{p}{:}
+    \PYG{n+nt}{container\PYGZus{}name}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}nodeapp\PYGZus{}c1\PYGZsq{}}
+    \PYG{n+nt}{image}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{nodeapp:0.0}
+    \PYG{n+nt}{command}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{node app.js} 
+    \PYG{n+nt}{links}\PYG{p}{:}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+s}{\PYGZdq{}namegenserver:namegen\PYGZdq{}}
+    \PYG{n+nt}{ports}\PYG{p}{:}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+s}{\PYGZdq{}3000:3000\PYGZdq{}}
+    \PYG{n+nt}{networks}\PYG{p}{:}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{webnet}
+    \PYG{n+nt}{depends\PYGZus{}on}\PYG{p}{:}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{namegenserver}
+  \PYG{n+nt}{namegenserver}\PYG{p}{:}
+    \PYG{n+nt}{container\PYGZus{}name}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}namegen\PYGZus{}c1\PYGZsq{}}
+    \PYG{n+nt}{image}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{namegen:0.0}
+    \PYG{n+nt}{command}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{dotnet run \PYGZhy{}\PYGZhy{}project namegen \PYGZhy{}\PYGZhy{}urls \PYGZdq{}http://0.0.0.0:5000\PYGZdq{}}
+    \PYG{n+nt}{expose}\PYG{p}{:}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{5000}
+    \PYG{n+nt}{networks}\PYG{p}{:}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{webnet}
+
+\PYG{n+nt}{networks}\PYG{p}{:}
+  \PYG{n+nt}{webnet}\PYG{p}{:}
+\end{Verbatim}
