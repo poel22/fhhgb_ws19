@@ -1,0 +1,65 @@
+---
+title: "A12_Hoermann"
+author: "Paul Hörmann"
+date: "11/3/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Function definition
+```{r}
+i = c(1:10000)
+x = c(1:9)
+calcor <- function(i) {
+  y = sample(x, 9);
+  cor(x, y, method="kendall")
+}
+rk = sapply(i, calcor)
+```
+
+## Summary
+```{r}
+summary(rk)
+```
+## Standard deviation
+```{r}
+sd(rk)
+```
+
+## Density plot
+```{r}
+plot(density(rk))
+```
+
+## Transform values
+```{r}
+transform <- function(i) {
+  0.5 * log((1 + i) / (1 - i))
+}
+rkt = sapply(rk, transform)
+```
+
+## Summary
+```{r}
+summary(rkt)
+```
+
+## Standard deviation
+```{r}
+sd(rkt)
+```
+
+## Density plot (original scaling)
+```{r}
+plot(density(rkt))
+```
+
+## Density plot (adjusted scaling)
+```{r}
+plot(density(rkt), ylim=c(0,1.5), xlim=c(-1, 1))
+```
+
+Same conclusion as in previous example, flattening of distribution.
