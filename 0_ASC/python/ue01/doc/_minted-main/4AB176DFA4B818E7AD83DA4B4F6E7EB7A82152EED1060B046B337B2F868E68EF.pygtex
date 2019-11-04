@@ -1,0 +1,53 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{os}
+\PYG{k+kn}{import} \PYG{n+nn}{re}
+\PYG{k+kn}{import} \PYG{n+nn}{pprint}
+
+\PYG{n}{genome\PYGZus{}parts} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}A\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}C\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}G\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}T\PYGZsq{}}\PYG{p}{]}
+\PYG{n}{sequences} \PYG{o}{=} \PYG{p}{[]}
+\PYG{n}{sequence} \PYG{o}{=} \PYG{p}{[]}
+\PYG{k}{for} \PYG{n}{line} \PYG{o+ow}{in} \PYG{n+nb}{open}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}./ecoli.txt\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}r\PYGZdq{}}\PYG{p}{):}
+    \PYG{n}{line} \PYG{o}{=} \PYG{n}{line}\PYG{o}{.}\PYG{n}{replace}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}}\PYG{p}{)}
+    \PYG{k}{if} \PYG{n}{re}\PYG{o}{.}\PYG{n}{match}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}\PYGZgt{}.*\PYGZsq{}}\PYG{p}{,} \PYG{n}{line}\PYG{p}{)} \PYG{o}{!=} \PYG{n+nb+bp}{None}\PYG{p}{:}
+        \PYG{n}{sequences}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{sequence}\PYG{p}{))}
+        \PYG{n}{sequence} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{k}{elif} \PYG{n}{line} \PYG{o}{!=} \PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}} \PYG{o+ow}{and} \PYG{n}{line} \PYG{o}{!=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:}
+        \PYG{n}{sequence}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{line}\PYG{p}{)}
+
+\PYG{n}{sequences}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{sequence}\PYG{p}{))}
+
+\PYG{k}{del} \PYG{n}{sequences}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+
+\PYG{n}{stat\PYGZus{}all} \PYG{o}{=} \PYG{p}{\PYGZob{}\PYGZcb{}}
+\PYG{n}{stat\PYGZus{}single\PYGZus{}list} \PYG{o}{=} \PYG{p}{[]}
+\PYG{n}{length\PYGZus{}all} \PYG{o}{=} \PYG{l+m+mi}{0}
+
+\PYG{k}{for} \PYG{n}{g} \PYG{o+ow}{in} \PYG{n}{genome\PYGZus{}parts}\PYG{p}{:}
+    \PYG{n}{stat\PYGZus{}all}\PYG{p}{[}\PYG{n}{g}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mi}{0}
+
+\PYG{k}{for} \PYG{n}{s} \PYG{o+ow}{in} \PYG{n}{sequences}\PYG{p}{:}
+    \PYG{n}{stat\PYGZus{}sum} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{n}{stat\PYGZus{}single} \PYG{o}{=} \PYG{p}{\PYGZob{}\PYGZcb{}}
+    \PYG{k}{for} \PYG{n}{g} \PYG{o+ow}{in} \PYG{n}{genome\PYGZus{}parts}\PYG{p}{:}
+        \PYG{n}{length} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{re}\PYG{o}{.}\PYG{n}{findall}\PYG{p}{(}\PYG{n}{g}\PYG{p}{,} \PYG{n}{s}\PYG{p}{))}
+        \PYG{n}{stat\PYGZus{}all}\PYG{p}{[}\PYG{n}{g}\PYG{p}{]} \PYG{o}{=} \PYG{n}{stat\PYGZus{}all}\PYG{p}{[}\PYG{n}{g}\PYG{p}{]} \PYG{o}{+} \PYG{n}{length}
+        \PYG{n}{stat\PYGZus{}single}\PYG{p}{[}\PYG{n}{g}\PYG{p}{]} \PYG{o}{=} \PYG{n}{length}
+        \PYG{n}{stat\PYGZus{}sum} \PYG{o}{=} \PYG{n}{stat\PYGZus{}sum} \PYG{o}{+} \PYG{n}{length}
+    \PYG{n}{stat\PYGZus{}single}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}sum\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{stat\PYGZus{}sum}
+    \PYG{n}{stat\PYGZus{}single\PYGZus{}list}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{stat\PYGZus{}single}\PYG{p}{)}
+
+\PYG{n}{overall\PYGZus{}sum} \PYG{o}{=} \PYG{l+m+mi}{0}
+
+\PYG{k}{for} \PYG{n}{stat} \PYG{o+ow}{in} \PYG{n}{stat\PYGZus{}single\PYGZus{}list}\PYG{p}{:}
+    \PYG{n}{overall\PYGZus{}sum} \PYG{o}{=} \PYG{n}{overall\PYGZus{}sum} \PYG{o}{+} \PYG{n}{stat}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}sum\PYGZsq{}}\PYG{p}{]}
+    \PYG{k}{for} \PYG{n}{g} \PYG{o+ow}{in} \PYG{n}{genome\PYGZus{}parts}\PYG{p}{:}
+        \PYG{n}{stat}\PYG{p}{[}\PYG{n}{g}\PYG{p}{]} \PYG{o}{=} \PYG{n}{stat}\PYG{p}{[}\PYG{n}{g}\PYG{p}{]} \PYG{o}{/} \PYG{n}{stat}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}sum\PYGZsq{}}\PYG{p}{]}
+
+\PYG{k}{for} \PYG{n}{g} \PYG{o+ow}{in} \PYG{n}{genome\PYGZus{}parts}\PYG{p}{:}
+    \PYG{n}{stat\PYGZus{}all}\PYG{p}{[}\PYG{n}{g}\PYG{p}{]} \PYG{o}{=} \PYG{n}{stat\PYGZus{}all}\PYG{p}{[}\PYG{n}{g}\PYG{p}{]} \PYG{o}{/} \PYG{n}{overall\PYGZus{}sum}
+
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}all:\PYGZdq{}}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{stat\PYGZus{}all}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}single:\PYGZdq{}}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{stat\PYGZus{}single\PYGZus{}list}\PYG{p}{)}
+\end{Verbatim}

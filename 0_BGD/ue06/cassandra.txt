@@ -1,0 +1,251 @@
+SyntaxException: line 1:0 no viable alternative at input 'DATE' ([DATE]...)
+cqlsh> DATE
+   ... ;
+SyntaxException: line 1:0 no viable alternative at input 'DATE' ([DATE]...)
+cqlsh> clear
+
+cqlsh> CREATE KEYSPACE fileomat WITH replication = {'class':'SimpleStrategy','replication_factor':1};
+cqlsh> clear
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+cqlsh> USE fileomat;
+cqlsh:fileomat> create table file (
+            ... user text,
+            ... user text,
+            ... priority int,
+            ... name text,
+            ... file blob,
+            ... primary key(hash))
+            ... ;
+InvalidRequest: Error from server: code=2200 [Invalid query] message="Multiple definition of identifier user"
+cqlsh:fileomat> create table file (user text, hash text, priority int, name text, file blob, primary key(hash));
+cqlsh:fileomat> select * from file;
+
+ hash | file | name | priority | user
+------+------+------+----------+------
+
+(0 rows)
+cqlsh:fileomat> describe file;
+
+CREATE TABLE fileomat.file (
+    hash text PRIMARY KEY,
+    file blob,
+    name text,
+    priority int,
+    user text
+) WITH bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+
+cqlsh:fileomat> insert into file (user, hash, priority, name, file) values 
+            ... ('ascheibe', 'asdlkfj', 3, 'text.txt', textAsBlob('asdf'));
+cqlsh:fileomat> select * from file;
+
+ hash    | file       | name     | priority | user
+---------+------------+----------+----------+----------
+ asdlkfj | 0x61736466 | text.txt |        3 | ascheibe
+
+(1 rows)
+cqlsh:fileomat> insert into file (user, hash, priority, name, file) values ('phoerma', 'asdlkl', 5, 'text1.txt', textAsBlob('asdfkjl'));
+cqlsh:fileomat> select * from file;
+
+ hash    | file             | name      | priority | user
+---------+------------------+-----------+----------+----------
+  asdlkl | 0x617364666b6a6c | text1.txt |        5 |  phoerma
+ asdlkfj |       0x61736466 |  text.txt |        3 | ascheibe
+
+(2 rows)
+cqlsh:fileomat> select * from file where hash = 'asdlkl';
+
+ hash   | file             | name      | priority | user
+--------+------------------+-----------+----------+---------
+ asdlkl | 0x617364666b6a6c | text1.txt |        5 | phoerma
+
+(1 rows)
+cqlsh:fileomat> select hash, blobAsText(file) from file where hash = 'asdlkl';
+
+ hash   | system.blobastext(file)
+--------+-------------------------
+ asdlkl |                 asdfkjl
+
+(1 rows)
+cqlsh:fileomat> select hash, blobAsText(file), priority as p, user as u from file where hash = 'asdlkl';
+
+ hash   | system.blobastext(file) | p | u
+--------+-------------------------+---+---------
+ asdlkl |                 asdfkjl | 5 | phoerma
+
+(1 rows)
+cqlsh:fileomat> select hash, blobAsText(file) as f, priority as p, user as u from file where hash = 'asdlkl';
+
+ hash   | f       | p | u
+--------+---------+---+---------
+ asdlkl | asdfkjl | 5 | phoerma
+
+(1 rows)
+cqlsh:fileomat> select hash as h, blobAsText(file) as f, priority as p, user as u from file where hash = 'asdlkl';
+
+ h      | f       | p | u
+--------+---------+---+---------
+ asdlkl | asdfkjl | 5 | phoerma
+
+(1 rows)
+cqlsh:fileomat> select * from file where user = ascheibe;
+SyntaxException: line 1:40 no viable alternative at input ';' (...from file where user = [ascheibe];)
+cqlsh:fileomat> select * from file where user = 'ascheibe';
+InvalidRequest: Error from server: code=2200 [Invalid query] message="Cannot execute this query as it might involve data filtering and thus may have unpredictable performance. If you want to execute this query despite the performance unpredictability, use ALLOW FILTERING"
+cqlsh:fileomat> create index on file(user);
+cqlsh:fileomat> select * from file where user = 'ascheibe';
+
+ hash    | file       | name     | priority | user
+---------+------------+----------+----------+----------
+ asdlkfj | 0x61736466 | text.txt |        3 | ascheibe
+
+(1 rows)
+cqlsh:fileomat> create table file_prio(
+            ... user text,
+            ... priority int,
+            ... name text,
+            ... hash text,
+            ... primary key (user,priority)
+            ...   
+            ... )
+            ... with clustering order by (priority desc);
+cqlsh:fileomat> insert into file_prio (user, priority, name) values ('ascheibe', 6, 'test1.txt');
+cqlsh:fileomat> select * from file_prio
+            ... ;
+
+ user     | priority | hash | name
+----------+----------+------+-----------
+ ascheibe |        6 | null | test1.txt
+
+(1 rows)
+cqlsh:fileomat> insert into file_prio (user, priority, name) values ('ascheibe', 1, 'test3.txt');
+cqlsh:fileomat> insert into file_prio (user, priority, name) values ('ascheibe', 100, 'test0.txt');
+cqlsh:fileomat> insert into file_prio (user, priority, name) values ('kebap', 34, 'test0.txt');
+cqlsh:fileomat> select * from file_prio ;
+
+ user     | priority | hash | name
+----------+----------+------+-----------
+ ascheibe |      100 | null | test0.txt
+ ascheibe |        6 | null | test1.txt
+ ascheibe |        1 | null | test3.txt
+    kebap |       34 | null | test0.txt
+
+(4 rows)
+cqlsh:fileomat> insert into file_prio (user, priority, name) values ('aaaa', 0, 'test15txt');
+cqlsh:fileomat> select * from file_prio ;
+
+ user     | priority | hash | name
+----------+----------+------+-----------
+ ascheibe |      100 | null | test0.txt
+ ascheibe |        6 | null | test1.txt
+ ascheibe |        1 | null | test3.txt
+    kebap |       34 | null | test0.txt
+     aaaa |        0 | null | test15txt
+
+(5 rows)
+cqlsh:fileomat> insert into file_prio (user, priority, name) values ('aaaa', 2, 'tes115txt');
+cqlsh:fileomat> insert into file_prio (user, priority, name) values ('aaaaaaaaa', 5, 'tas115txt');
+cqlsh:fileomat> select * from file_prio ;
+
+ user      | priority | hash | name
+-----------+----------+------+-----------
+  ascheibe |      100 | null | test0.txt
+  ascheibe |        6 | null | test1.txt
+  ascheibe |        1 | null | test3.txt
+ aaaaaaaaa |        5 | null | tas115txt
+     kebap |       34 | null | test0.txt
+      aaaa |        2 | null | tes115txt
+      aaaa |        0 | null | test15txt
+
+(7 rows)
+cqlsh:fileomat> select * from file_prio where user = 'ascheibe';
+
+ user     | priority | hash | name
+----------+----------+------+-----------
+ ascheibe |      100 | null | test0.txt
+ ascheibe |        6 | null | test1.txt
+ ascheibe |        1 | null | test3.txt
+
+(3 rows)
+cqlsh:fileomat> select * from file_prio where user = 'ascheibe' LIMIT 2;
+
+ user     | priority | hash | name
+----------+----------+------+-----------
+ ascheibe |      100 | null | test0.txt
+ ascheibe |        6 | null | test1.txt
+
+(2 rows)
+cqlsh:fileomat> select * from file_prio where user = 'ascheibe' AND priority < 100;
+
+ user     | priority | hash | name
+----------+----------+------+-----------
+ ascheibe |        6 | null | test1.txt
+ ascheibe |        1 | null | test3.txt
+
+(2 rows)
+cqlsh:fileomat> create table tag (        
+            ... tag text,
+            ... name text,
+            ... hash text,
+            ... user text,
+            ... primary key(tag,hash));
+cqlsh:fileomat> create index on tag(user);
+cqlsh:fileomat> insert into tag (tag, name, hash, user) values ('work', 'file.txt', 'asdjflk', 'user1');
+cqlsh:fileomat> insert into tag (tag, name, hash, user) values ('work', 'file1.txt', 'asdjfl', 'user1');
+cqlsh:fileomat> insert into tag (tag, name, hash, user) values ('other', 'file5.txt', 'asdjf', 'user1');
+cqlsh:fileomat> insert into tag (tag, name, hash, user) values ('other', 'file4.txt', 'asdj', 'user2');
+cqlsh:fileomat> select * from tag;
+
+ tag   | hash    | name      | user
+-------+---------+-----------+-------
+ other |    asdj | file4.txt | user2
+ other |   asdjf | file5.txt | user1
+  work |  asdjfl | file1.txt | user1
+  work | asdjflk |  file.txt | user1
+
+(4 rows)
+cqlsh:fileomat> select * from tag where tag = 'work' and user = 'user1';
+
+ tag  | hash    | name      | user
+------+---------+-----------+-------
+ work |  asdjfl | file1.txt | user1
+ work | asdjflk |  file.txt | user1
+
+(2 rows)
+cqlsh:fileomat> exit
+root@097e506c2865:/# exit
+exit
+ ⚓  ~  

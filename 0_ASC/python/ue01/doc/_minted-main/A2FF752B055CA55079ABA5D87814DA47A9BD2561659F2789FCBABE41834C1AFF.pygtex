@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{input\PYGZus{}string} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}
+\PYG{n}{input\PYGZus{}number} \PYG{o}{=} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}
+\PYG{n}{max\PYGZus{}number} \PYG{o}{=} \PYG{l+m+mi}{0}
+\PYG{n}{length} \PYG{o}{=} \PYG{l+m+mi}{0}
+\PYG{k}{while} \PYG{n}{input\PYGZus{}number} \PYG{o}{!=} \PYG{l+m+mi}{0}\PYG{p}{:}
+    \PYG{n}{input\PYGZus{}string} \PYG{o}{=} \PYG{n+nb}{input}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Bitte Seriennummer eingeben: \PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{input\PYGZus{}number} \PYG{o}{=} \PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{input\PYGZus{}string}\PYG{p}{)}
+    \PYG{k}{if} \PYG{n}{input\PYGZus{}number} \PYG{o}{!=} \PYG{l+m+mi}{0}\PYG{p}{:}
+        \PYG{n}{length} \PYG{o}{=} \PYG{n}{length} \PYG{o}{+} \PYG{l+m+mi}{1}
+        \PYG{k}{if} \PYG{n}{input\PYGZus{}number} \PYG{o}{\PYGZgt{}} \PYG{n}{max\PYGZus{}number}\PYG{p}{:}
+            \PYG{n}{max\PYGZus{}number} \PYG{o}{=} \PYG{n}{input\PYGZus{}number}
+
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Es gibt ca \PYGZdq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{max\PYGZus{}number} \PYG{o}{+} \PYG{n}{max\PYGZus{}number} \PYG{o}{/} \PYG{n}{length} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{} Geräte.\PYGZdq{}}\PYG{p}{)}
+\end{Verbatim}
