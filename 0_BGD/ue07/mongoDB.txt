@@ -1,0 +1,218 @@
+Welcome to fish, the friendly interactive shell
+ ⚓  ~  docker exec -it MongoDB bash
+root@c65c8de7d1ff:/# mongo
+MongoDB shell version v4.2.1
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("419c79e9-2c53-4756-8b00-733a07283117") }
+MongoDB server version: 4.2.1
+Welcome to the MongoDB shell.
+For interactive help, type "help".
+For more comprehensive documentation, see
+	http://docs.mongodb.org/
+Questions? Try the support group
+	http://groups.google.com/group/mongodb-user
+Server has startup warnings: 
+2019-11-04T15:35:32.301+0000 I  STORAGE  [initandlisten] 
+2019-11-04T15:35:32.301+0000 I  STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2019-11-04T15:35:32.301+0000 I  STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2019-11-04T15:35:32.979+0000 I  CONTROL  [initandlisten] 
+2019-11-04T15:35:32.979+0000 I  CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-11-04T15:35:32.979+0000 I  CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-11-04T15:35:32.979+0000 I  CONTROL  [initandlisten] 
+---
+Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+and anyone you share the URL with. MongoDB may use this information to make product
+improvements and to suggest MongoDB products and deployment options to you.
+
+To enable free monitoring, run the following command: db.enableFreeMonitoring()
+To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+
+> ls
+[native code]
+> dir
+2019-11-04T15:36:07.802+0000 E  QUERY    [js] uncaught exception: ReferenceError: dir is not defined :
+@(shell):1:1
+> ls
+[native code]
+> db.user.insertOne({ _id: "phoermann@trash-mail.com", name: "Paul", posts: [ { header: "Test Header", text: "Lorem Ipsum" } ] });
+{ "acknowledged" : true, "insertedId" : "phoermann@trash-mail.com" }
+> db.user.find({  })
+{ "_id" : "phoermann@trash-mail.com", "name" : "Paul", "posts" : [ { "header" : "Test Header", "text" : "Lorem Ipsum" } ] }
+> db.user.find({ _id: "phoermann" })
+> db.user.find({ _id: "phoermann@trash-mail.com" })
+{ "_id" : "phoermann@trash-mail.com", "name" : "Paul", "posts" : [ { "header" : "Test Header", "text" : "Lorem Ipsum" } ] }
+> db.user.find({ _id: "phoermann@trash-mail.com" }).pretty()
+{
+	"_id" : "phoermann@trash-mail.com",
+	"name" : "Paul",
+	"posts" : [
+		{
+			"header" : "Test Header",
+			"text" : "Lorem Ipsum"
+		}
+	]
+}
+> db.user.find({ _id: "phoermann@trash-mail.com" }).pretty().posts
+> db.user.find({ _id: "phoermann@trash-mail.com" }).pretty()
+{
+	"_id" : "phoermann@trash-mail.com",
+	"name" : "Paul",
+	"posts" : [
+		{
+			"header" : "Test Header",
+			"text" : "Lorem Ipsum"
+		}
+	]
+}
+> ⏎                                                                                                                                                                                                                                     ⚓  ~  docker exec -it MongoDB bash
+root@c65c8de7d1ff:/# mongo
+MongoDB shell version v4.2.1
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("9504dec9-b5ad-4a0d-b0cd-e413211e073a") }
+MongoDB server version: 4.2.1
+Server has startup warnings: 
+2019-11-04T15:50:37.407+0000 I  STORAGE  [initandlisten] 
+2019-11-04T15:50:37.407+0000 I  STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2019-11-04T15:50:37.407+0000 I  STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2019-11-04T15:50:38.348+0000 I  CONTROL  [initandlisten] 
+2019-11-04T15:50:38.348+0000 I  CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-11-04T15:50:38.348+0000 I  CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-11-04T15:50:38.348+0000 I  CONTROL  [initandlisten] 
+---
+Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+and anyone you share the URL with. MongoDB may use this information to make product
+improvements and to suggest MongoDB products and deployment options to you.
+
+To enable free monitoring, run the following command: db.enableFreeMonitoring()
+To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+
+> db.user.find({})
+{ "_id" : "phoermann@trash-mail.com", "name" : "Paul", "posts" : [ { "header" : "Test Header", "text" : "Lorem Ipsum" } ] }
+> db.user.updateOne({ _id: "phoermann@trash-mail.com"}, {$addToSet: { posts: {"header": "Test Header 2", "text": "ASDF"})
+... ;
+... 
+... ^C
+
+> ^C
+bye
+root@c65c8de7d1ff:/# mongo
+MongoDB shell version v4.2.1
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("989d2026-8b47-420e-89b8-64bf866f5f5f") }
+MongoDB server version: 4.2.1
+Server has startup warnings: 
+2019-11-04T15:50:37.407+0000 I  STORAGE  [initandlisten] 
+2019-11-04T15:50:37.407+0000 I  STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2019-11-04T15:50:37.407+0000 I  STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2019-11-04T15:50:38.348+0000 I  CONTROL  [initandlisten] 
+2019-11-04T15:50:38.348+0000 I  CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-11-04T15:50:38.348+0000 I  CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-11-04T15:50:38.348+0000 I  CONTROL  [initandlisten] 
+---
+Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+and anyone you share the URL with. MongoDB may use this information to make product
+improvements and to suggest MongoDB products and deployment options to you.
+
+To enable free monitoring, run the following command: db.enableFreeMonitoring()
+To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+
+> db.user.updateOne({ _id: "phoermann@trash-mail.com"}, {$addToSet: { posts: {"header": "Test Header 2", "text": "ASDF"}})
+... ;
+... }
+2019-11-04T15:52:45.390+0000 E  QUERY    [js] uncaught exception: SyntaxError: missing } after property list :
+@(shell):1:119
+> db.user.updateOne({ _id: "phoermann@trash-mail.com"}, {$addToSet: { posts: {"header": "Test Header 2", "text": "ASDF"}}});
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.user.find({})
+{ "_id" : "phoermann@trash-mail.com", "name" : "Paul", "posts" : [ { "header" : "Test Header", "text" : "Lorem Ipsum" }, { "header" : "Test Header 2", "text" : "ASDF" } ] }
+> db.user.find({_id: "phoermann@trash-mail.com"}, {name: 0, _id: 0});
+{ "posts" : [ { "header" : "Test Header", "text" : "Lorem Ipsum" }, { "header" : "Test Header 2", "text" : "ASDF" } ] }
+> db.user.find({ "posts.header": "Lorem Ipsum" });
+> db.test.insert({ asdf: "adsf" });
+WriteResult({ "nInserted" : 1 })
+> db.test.findOne()
+{ "_id" : ObjectId("5dc04c4947beb307652e8ffc"), "asdf" : "adsf" }
+> db.user.drop()
+true
+> db.user.insertOne({ _id: "phoermann@mail.com", name: "Paul" })
+{ "acknowledged" : true, "insertedId" : "phoermann@mail.com" }
+> db.posts.insertOne({ header: "Header 1", text: "Lorem Ipsum"})
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("5dc04dde47beb307652e8ffd")
+}
+> db.posts.find().pretty()
+{
+	"_id" : ObjectId("5dc04dde47beb307652e8ffd"),
+	"header" : "Header 1",
+	"text" : "Lorem Ipsum"
+}
+> db.like.insertOne({ postId: ObjectId("5dc04dde47beb307652e8ffd"), type: 5, comment: "nice", user: "franz@gmail.com" });
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("5dc04e5947beb307652e8ffe")
+}
+> db.like.find()
+{ "_id" : ObjectId("5dc04e5947beb307652e8ffe"), "postId" : ObjectId("5dc04dde47beb307652e8ffd"), "type" : 5, "comment" : "nice", "user" : "franz@gmail.com" }
+> db.posts.find({ _id: ObjectId("5dc04e5947beb307652e8ffe") })
+> db.posts.find({ _id: ObjectId("5dc04dde47beb307652e8ffd") })
+{ "_id" : ObjectId("5dc04dde47beb307652e8ffd"), "header" : "Header 1", "text" : "Lorem Ipsum" }
+> db.posts.aggregate([{$match: {header: "Header 1"}}, {$lookup: {from:"like", localField: "_id", foreignField: "postId"}}])
+2019-11-04T16:19:55.432+0000 E  QUERY    [js] uncaught exception: Error: command failed: {
+	"ok" : 0,
+	"errmsg" : "must specify 'as' field for a $lookup",
+	"code" : 9,
+	"codeName" : "FailedToParse"
+} : aggregate failed :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+doassert@src/mongo/shell/assert.js:18:14
+_assertCommandWorked@src/mongo/shell/assert.js:583:17
+assert.commandWorked@src/mongo/shell/assert.js:673:16
+DB.prototype._runAggregate@src/mongo/shell/db.js:266:5
+DBCollection.prototype.aggregate@src/mongo/shell/collection.js:1012:12
+@(shell):1:1
+> db.posts.aggregate([{$match: {header: "Header 1"}}, {$lookup: from:"like", localField: "_id", foreignField: "postId", as "likes"}])
+2019-11-04T16:20:29.085+0000 E  QUERY    [js] uncaught exception: SyntaxError: missing } after property list :
+@(shell):1:66
+> db.posts.aggregate([{$match: {header: "Header 1"}}, {$lookup: {from:"like", localField: "_id", foreignField: "postId", as: "likes"}}])
+{ "_id" : ObjectId("5dc04dde47beb307652e8ffd"), "header" : "Header 1", "text" : "Lorem Ipsum", "likes" : [ { "_id" : ObjectId("5dc04e5947beb307652e8ffe"), "postId" : ObjectId("5dc04dde47beb307652e8ffd"), "type" : 5, "comment" : "nice", "user" : "franz@gmail.com" } ] }
+> db.friend.insertOne({ email: "phoermann@trash-mail.com", friend: "franz@gmail.com" })
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("5dc0512347beb307652e8fff")
+}
+> db.posts.aggregate([{$match: {header: "Header 1"}}, {$lookup: {from:"like", localField: "_id", foreignField: "friend", as: "friends"}}])
+{ "_id" : ObjectId("5dc04dde47beb307652e8ffd"), "header" : "Header 1", "text" : "Lorem Ipsum", "friends" : [ ] }
+> db.posts.aggregate([{$match: {header: "Header 1"}}, {$lookup: {from:"friend", localField: "_id", foreignField: "friend", as: "friends"}}])
+{ "_id" : ObjectId("5dc04dde47beb307652e8ffd"), "header" : "Header 1", "text" : "Lorem Ipsum", "friends" : [ ] }
+> db.posts.aggregate([{$match: {header: "Header 1"}}, {$lookup: {from:"friend", localField: "friend", foreignField: "_id", as: "friends"}}])
+{ "_id" : ObjectId("5dc04dde47beb307652e8ffd"), "header" : "Header 1", "text" : "Lorem Ipsum", "friends" : [ ] }
+> db.users.aggregate([{$match: {header: "Header 1"}}, {$lookup: {from:"", localField: "friend", foreignField: "_id", as: "friends"}}])
+2019-11-04T16:28:34.356+0000 E  QUERY    [js] uncaught exception: Error: command failed: {
+	"ok" : 0,
+	"errmsg" : "invalid $lookup namespace: test.",
+	"code" : 73,
+	"codeName" : "InvalidNamespace"
+} : aggregate failed :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+doassert@src/mongo/shell/assert.js:18:14
+_assertCommandWorked@src/mongo/shell/assert.js:583:17
+assert.commandWorked@src/mongo/shell/assert.js:673:16
+DB.prototype._runAggregate@src/mongo/shell/db.js:266:5
+DBCollection.prototype.aggregate@src/mongo/shell/collection.js:1012:12
+@(shell):1:1
+> db.post.aggregate([{$match: {header: "Header 1"}}, {$lookup: {from:"friend", localField: "friend", foreignField: "_id", as: "friends"}}])
+> db.friend.aggregate([{$match: {user: "phoermann@gmail.com"}}, {$lookup: {from:"friend", localField: "email", foreignField: "_id", as: "friends"}}])
+> db.friend.aggregate([{$match: {user: "phoermann@gmail.com"}}, {$lookup: {from:"friend", localField: "email", foreignField: "_id", as: "friends"}}])
