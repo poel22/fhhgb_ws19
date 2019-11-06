@@ -1,37 +1,35 @@
 import os
 import urllib.request
+import random
+import gzip
 import re
 
-url = "http://imgt.org/IMGTrepertoire/index.php?section=LocusGenes&repertoire=genetable&species=human&group="
+filePath = "./ftpSourceView.txt";
 
-urlList = [ 'IGHV', 'IGHD', 'IGHJ' ]
+fileContent = open(filePath).readlines();
 
-def writeTxtFile(dlList, codex):
-    path = r"./genes"
-    if not os.path.exists(path) : os.makedirs(path)
+sourceUrl = fileContent[0].split()[1]
+print("URL: " + sourceUrl)
 
-    f = open(path + "/" + str(codex) + ".txt", "w")
-    for i in dlList:
-        f.writelines(i + "\n")
-    f.close()
+unzippedFiles = []
 
-def loadAntibodyFiles (urlList):
 
-    for i in urlList:
-        fileH = urllib.request.urlopen(url + i)
+for i in range(1000):
+    data = {}
+    fullUrl = sourceUrl + fileContent[2:][random.randint(0, len(fileContent) - 2)].split('"')[1] # faster than r"(\".*\")"
+    content = gzip.GzipFile(fileobj=urllib.request.urlopen(fullUrl)).readlines()
+    split = content[0].split()
+    data["header"] = split[1]
+    data["pdbid"] = split[3]
+    for line in content[1:]:
+        match = re.match(r"TITLE\s\d?\s?(.*)", line)
+        if match != None:
+            data["title"] = match.group(1)
+        elif line.startswith("ATOM"):
+            split = line.split();
+            # TODO
+        else:
+            match = re.match(r".*CHAIN:\s(.*);", line)
+            data["chain"] = match.group(1)
+        print(data["title"])
 
-        listOfGenes = []
-        listOfAlleles = []
-
-        for j in fileH.readlines():
-            # print(j)
-            moGene = re.search(r"<.*class=\"gene_note\".*><.*>(.*)</.*></.*>", str(j))
-            moAllele = re.search(r"<.*class=\"allele_note\".*><.*>(.*)</.*></.*>", str(j))
-            if moGene != None:
-                listOfGenes.append(moGene.group(1))
-            if moAllele != None:
-                listOfGenes.append(moAllele.group(1))
-        writeTxtFile(listOfGenes, i);
-        writeTxtFile(listOfAlleles, i + "Allele")
-
-loadAntibodyFiles(urlList)

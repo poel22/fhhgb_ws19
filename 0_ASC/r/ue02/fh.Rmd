@@ -1,0 +1,142 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+head(iris)
+```
+
+```{r}
+attach(iris)
+mean(Sepal.Length)
+median(Sepal.Length)
+table(Sepal.Length)
+quantile(Sepal.Length, probs=c(.333, .666))
+range(Sepal.Length)
+var(Sepal.Length)
+sd(Sepal.Length)
+sqrt(var(Sepal.Length))
+IQR(Sepal.Length)
+boxplot(Sepal.Length~Species, data=iris)
+```
+```{r}
+library(ggplot2)
+ggplot(iris, aes(x=Species, y=Sepal.Length)) + geom_boxplot()
+```
+
+# covarianz
+
+```{r}
+cov(Sepal.Length, Petal.Length)
+detach(iris)
+cor(Sepal.Length, Petal.Length, method="pearson")
+cor(Sepal.Length, Petal.Length, method="kendall")
+
+plot(Sepal.Length, Petal.Length)
+
+ggplot(iris, aes(x=Sepal.Length, y=Petal.Length)) +
+  geom_point(size=1, shape=1) +
+  geom_smooth(method="lm", level=0.95) +
+  geom_density_2d() +
+  stat_ellipse(type="norm")
+```
+
+## Scheinkorrelation
+* 3. Faktor
+* Inhomogenitäten (zb 2 gruppen von elefanten)
+* Ausreißer
+* relative Häufigkeiten (Tode Grippe & Herzinfarkte)
+
+## Korrelation nominale Daten
+```{r}
+library(tadaatoolbox)
+attach(diamonds)
+x <- chisq.test(cut, color)
+str(x)
+nom_chisqu(cut, color)
+nom_phi(cut, color)
+
+detach(iris)
+```
+ 
+## Konstrukte
+```{r}
+x <- 7
+if(x==7) {
+  x <- x + 1
+  y <- 3
+} else y <- 6
+c(x,y)
+x <- rnorm(2)
+if (any(x < 0))
+  print("at least one negative number in x")
+if (all(x < 0))
+  print("all values are negative")
+
+# if else
+ifelse(x == c(8,6), c("A1", "A2"), c("B1", "B2"))
+
+switch(2, a=11, b=12, c=13, d=14)
+switch("c", a=11, b=12, c=13, d=14)
+switch("c", a=11, b=12, c=13, d=14, 100)
+
+# loops
+i = 0
+while(i < 3)
+  i = i + 1
+i
+```
+
+
+```{r}
+h = 0
+n = 0
+i = 0
+while (abs(h - n) < 10) {
+  i = i + 1
+  if (rbinom(1, 1, 0.5) == 0) {
+    n = n + 1
+  } else {
+    h = h + 1
+  }
+}
+print(i)
+print(h)
+print(n)
+
+colnames(iris)
+for(col in 1:ncol(iris)) {
+  if (is.numeric(iris[[col]])) cat(col, "is a numeric column")
+  else cat(col, "is not a numeric column")
+}
+```
+## APPLY
+```{r}
+head(cars)
+apply(X=cars, MARGIN=2, FUN=max)
+apply(cars, 2, quantiles, 0.25)
+# lapply (list)
+# sapply (v/m)
+# mapply: >1 Datesatz
+# tapply
+```
+
+```{r}
+head(airquality)
+splitAir <- split(airquality, airquality$Month)
+mean(unlist(splitAir[["5"]]["Ozone"]), na.rm=T)
+
+tapply(airquality$Ozone, airquality$Month, mean, na.rm=T)
+tapply(iris$Sepal.Length, iris$Species, mean)
+
+aggregate(Sepal.Length~Species, iris, mean)
+aggregate(Sepal.Length~Species, iris, FUN=function(x) {
+  c(MW=mean(x), MEDIAN=median(x))
+})
+
+diamant <- aggregate(price~cut+color, diamonds, mean)
+xtabs(price~., data=diamant)
+aggregate(cbind(price, carat)~cut, diamonds, mean)
+```
+

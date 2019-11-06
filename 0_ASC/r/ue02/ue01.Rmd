@@ -1,0 +1,26 @@
+---
+title: "R02_Hoermann"
+author: "Paul Hörmann"
+date: "11/6/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Aufgabe 1: Konstrukte
+```{r}
+df = data.frame(rnorm(100, mean=50, s=20))
+count = 0;
+min(df)
+max(df)
+for i in indf[[1]] {
+  if (i < 60) {
+  } else {
+    c = c + 1;
+  }
+}
+
+```
+
