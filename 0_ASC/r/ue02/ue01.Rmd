@@ -10,17 +10,49 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Aufgabe 1: Konstrukte
+### a.
 ```{r}
 df = data.frame(rnorm(100, mean=50, s=20))
-count = 0;
+count <- 0;
 min(df)
 max(df)
-for i in indf[[1]] {
+for (i in df[[1]]) {
   if (i < 60) {
   } else {
-    c = c + 1;
+    count <- count + 1
   }
 }
+count
+```
 
+### b.
+```{r}
+head(iris)
+df_log = cbind(log(iris[,c(1:4)]), Species=iris[,5])
+df_log
+```
+### c.
+```{r}
+is.sorted = function(x) {
+  index = 1
+  toReturn = TRUE
+  for (val in tail(x, -1)) {
+    if (val < x[index]) toReturn = FALSE
+    index = index + 1
+  }
+  toReturn
+  
+}
+is.sorted(c(1:9))
+```
+
+
+```{r}
+is.sorted(c(9:1))
+```
+
+
+```{r}
+is.sorted(c(4:20, 19:4))
 ```
 
