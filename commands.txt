@@ -10,3 +10,9 @@ db.subjects.insertOne({ _id: "sub1", degprg: "prg1", semester: 1, description: "
 db.subjects.insertOne({ _id: "sub2", degprg: "prg2", semester: 2, description: "Lorem Ipsum", ects: 10 })
 db.subjects.insertOne({ _id: "sub3", degprg: "prg1", semester: 2, description: "Lorem Ipsum", ects: 8 })
 db.subjects.find().pretty()
+db.grades.insertOne({ _id: "rt1", subjectid: "sub1", studentid: "mat1", grade: 3 })
+db.grades.insertOne({ _id: "rt2", subjectid: "sub3", studentid: "mat1", grade: 3 })
+db.grades.insertOne({ _id: "rt3", subjectid: "sub2", studentid: "mat3", grade: 3 })
+db.degprg.aggregate([{$match: {_id: "prg1"}}, {$lookup: {from:"subjects", localField: "_id", foreignField: "degprg", as: "subjects"}}])
+db.students.aggregate([{$match: {_id: "mat1"}}, {$lookup: {from:"grades", localField: "_id", foreignField: "studentid", as: "grades"}}])
+db.subjects.find({_id: "sub1"}, {_id: 0});
