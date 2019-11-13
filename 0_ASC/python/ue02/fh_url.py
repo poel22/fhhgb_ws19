@@ -25,7 +25,8 @@ def loadAntibodyFiles (urlList):
 
         for j in fileH.readlines():
             # print(j)
-            moGene = re.search(r"<.*class=\"gene_note\".*><.*>(.*)</.*></.*>", str(j))
+
+            moGene = re.search(r"<a href=\"(\w\d\d-\w\d\d.html)\">(\w\d\d-\w\d\d)<\/a>", str(j))
             moAllele = re.search(r"<.*class=\"allele_note\".*><.*>(.*)</.*></.*>", str(j))
             if moGene != None:
                 listOfGenes.append(moGene.group(1))
