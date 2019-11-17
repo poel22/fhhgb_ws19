@@ -1,17 +1,8 @@
----
-title: "GL04/1 Hoermann"
-author: "Paul Hörmann"
-date: "11/6/2019"
-output: pdf_document
----
-
-```{r setup, include=FALSE}
+## ----setup, include=FALSE------------------------------------------------
 knitr::opts_chunk$set(echo = TRUE)
-```
 
-## Aufgabe 1: Konstrukte
-### a.
-```{r}
+
+## ------------------------------------------------------------------------
 df = data.frame(rnorm(100, mean=50, s=20))
 count <- 0;
 min(df)
@@ -23,16 +14,15 @@ for (i in df[[1]]) {
   }
 }
 count
-```
 
-### b.
-```{r}
+
+## ------------------------------------------------------------------------
 head(iris)
 df_log = cbind(log(iris[,c(1:4)]), Species=iris[,5])
 head(df_log)
-```
-### c.
-```{r}
+
+
+## ------------------------------------------------------------------------
 is.sorted = function(x) {
   index = 1
   toReturn = TRUE
@@ -44,45 +34,37 @@ is.sorted = function(x) {
   
 }
 is.sorted(c(1:9))
-```
 
 
-```{r}
+## ------------------------------------------------------------------------
 is.sorted(c(9:1))
-```
 
 
-```{r}
+## ------------------------------------------------------------------------
 is.sorted(c(4:20, 19:4))
-```
 
-## Aufgabe 2: Deskriptive Statistik
 
-### a)
-
-```{r}
+## ------------------------------------------------------------------------
 ger_comp = data.frame(read.csv(file="./Germany_largest_companies.csv", sep=";"))
 head(ger_comp)
-```
 
-```{r}
+
+## ------------------------------------------------------------------------
 boxplot(ger_comp[,c(4, 7)])
-```
 
-```{r}
+
+## ------------------------------------------------------------------------
 boxplot(ger_comp[,6], xlab="Assets")
-```
 
-```{r}
+
+## ------------------------------------------------------------------------
 boxplot(ger_comp[,5], xlab="Profits")
-```
-```{r}
+
+## ------------------------------------------------------------------------
 cor(ger_comp[,c(4:7)])
-```
 
-### b)
 
-```{r}
+## ------------------------------------------------------------------------
 house_prices = data.frame(read.csv(file="./HousePricesAroundtheWorld.csv", sep=";")[,c(1, 2, 4)])
 credit_growth = data.frame(read.csv(file="./CreditGrowth.csv", sep=";"))[,3]
 
@@ -93,9 +75,8 @@ combined = cbind(house_prices, credit_growth)
 head(combined)
 
 boxplot(combined[,c(3, 4)])
-```
 
-```{r}
+
+## ------------------------------------------------------------------------
 cor(combined[,c(3, 4)])
-```
 
