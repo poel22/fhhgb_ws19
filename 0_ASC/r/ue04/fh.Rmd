@@ -1,0 +1,45 @@
+---
+title: "R Notebook"
+output: pdf_document
+---
+
+# Mitschrift
+## Confidenz Intervall
+
+$$ 
+\bar{x} = Z_{1-\frac{\alpha}{2}}\pm\frac{\sigma}{\sqrt{n}}
+$$
+where $\frac{\sigma}{\sqrt{n}}$ represents standard error
+
+## How to make hypothesis tests
+1. define $H_{0}$ and alternative hypothesis $H_{1}$
+    * where $H_{1}$ is something new or innovative
+2. get sample (Stichprobe)
+3. define $\alpha$-error (default 0.05)
+4. select test type
+
+### How to choose test type
+see lecture slides
+* scala type (Skalentyp)
+    1. metric
+    2. ordinal
+    3. nominal
+* sample size
+    1. n < 30 t-test
+    2. else: gauß test
+* what to compare
+    1. no groups
+    2. 2 groups
+    3. >2 groups
+      
+
+
+
+
+
+
+
+
+
+
+
