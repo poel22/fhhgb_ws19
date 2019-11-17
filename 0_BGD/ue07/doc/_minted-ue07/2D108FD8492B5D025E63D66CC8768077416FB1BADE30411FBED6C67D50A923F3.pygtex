@@ -1,0 +1,220 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nx}{Welcome} \PYG{n+nx}{to} \PYG{n+nx}{fish}\PYG{p}{,} \PYG{n+nx}{the} \PYG{n+nx}{friendly} \PYG{n+nx}{interactive} \PYG{n+nx}{shell}
+ \PYG{err}{⚓}  \PYG{o}{\PYGZti{}}  \PYG{n+nx}{docker} \PYG{n+nx}{exec} \PYG{o}{\PYGZhy{}}\PYG{n+nx}{it} \PYG{n+nx}{MongoDB} \PYG{n+nx}{bash}
+\PYG{n+nx}{root}\PYG{err}{@}\PYG{n+nx}{c65c8de7d1ff}\PYG{o}{:}\PYG{err}{/\PYGZsh{} mongo}
+\PYG{n+nx}{MongoDB} \PYG{n+nx}{shell} \PYG{n+nx}{version} \PYG{n+nx}{v4}\PYG{l+m+mf}{.2.1}
+\PYG{n+nx}{connecting} \PYG{n+nx}{to}\PYG{o}{:} \PYG{n+nx}{mongodb}\PYG{o}{:}\PYG{c+c1}{//127.0.0.1:27017/?compressors=disabled\PYGZam{}gssapiServiceName=mongodb}
+\PYG{n+nx}{Implicit} \PYG{n+nx}{session}\PYG{o}{:} \PYG{n+nx}{session} \PYG{p}{\PYGZob{}} \PYG{l+s+s2}{\PYGZdq{}id\PYGZdq{}} \PYG{o}{:} \PYG{n+nx}{UUID}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}419c79e9\PYGZhy{}2c53\PYGZhy{}4756\PYGZhy{}8b00\PYGZhy{}733a07283117\PYGZdq{}}\PYG{p}{)} \PYG{p}{\PYGZcb{}}
+\PYG{n+nx}{MongoDB} \PYG{n+nx}{server} \PYG{n+nx}{version}\PYG{o}{:} \PYG{l+m+mf}{4.2.1}
+\PYG{n+nx}{Welcome} \PYG{n+nx}{to} \PYG{n+nx}{the} \PYG{n+nx}{MongoDB} \PYG{n+nx}{shell}\PYG{p}{.}
+\PYG{n+nx}{For} \PYG{n+nx}{interactive} \PYG{n+nx}{help}\PYG{p}{,} \PYG{n+nx}{type} \PYG{l+s+s2}{\PYGZdq{}help\PYGZdq{}}\PYG{p}{.}
+\PYG{n+nx}{For} \PYG{n+nx}{more} \PYG{n+nx}{comprehensive} \PYG{n+nx}{documentation}\PYG{p}{,} \PYG{n+nx}{see}
+	\PYG{n+nx}{http}\PYG{o}{:}\PYG{c+c1}{//docs.mongodb.org/}
+\PYG{n+nx}{Questions}\PYG{o}{?} \PYG{n+nx}{Try} \PYG{n+nx}{the} \PYG{n+nx}{support} \PYG{n+nx}{group}
+	\PYG{n+nx}{http}\PYG{o}{:}\PYG{c+c1}{//groups.google.com/group/mongodb\PYGZhy{}user}
+\PYG{n+nx}{Server} \PYG{n+nx}{has} \PYG{n+nx}{startup} \PYG{n+nx}{warnings}\PYG{o}{:} 
+\PYG{l+m+mi}{2019}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{11}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{04}\PYG{n+nx}{T15}\PYG{o}{:}\PYG{l+m+mi}{35}\PYG{o}{:}\PYG{l+m+mf}{32.301}\PYG{o}{+}\PYG{l+m+mi}{0000} \PYG{n+nx}{I}  \PYG{n+nx}{STORAGE}  \PYG{p}{[}\PYG{n+nx}{initandlisten}\PYG{p}{]} 
+\PYG{l+m+mi}{2019}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{11}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{04}\PYG{n+nx}{T15}\PYG{o}{:}\PYG{l+m+mi}{35}\PYG{o}{:}\PYG{l+m+mf}{32.301}\PYG{o}{+}\PYG{l+m+mi}{0000} \PYG{n+nx}{I}  \PYG{n+nx}{STORAGE}  \PYG{p}{[}\PYG{n+nx}{initandlisten}\PYG{p}{]} \PYG{o}{**} \PYG{n+nx}{WARNING}\PYG{o}{:} \PYG{n+nx}{Using} \PYG{n+nx}{the} \PYG{n+nx}{XFS} \PYG{n+nx}{filesystem} \PYG{n+nx}{is} \PYG{n+nx}{strongly} \PYG{n+nx}{recommended} \PYG{k+kd}{with} \PYG{n+nx}{the} \PYG{n+nx}{WiredTiger} \PYG{n+nx}{storage} \PYG{n+nx}{engine}
+\PYG{l+m+mi}{2019}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{11}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{04}\PYG{n+nx}{T15}\PYG{o}{:}\PYG{l+m+mi}{35}\PYG{o}{:}\PYG{l+m+mf}{32.301}\PYG{o}{+}\PYG{l+m+mi}{0000} \PYG{n+nx}{I}  \PYG{n+nx}{STORAGE}  \PYG{p}{[}\PYG{n+nx}{initandlisten}\PYG{p}{]} \PYG{o}{**}          \PYG{n+nx}{See} \PYG{n+nx}{http}\PYG{o}{:}\PYG{c+c1}{//dochub.mongodb.org/core/prodnotes\PYGZhy{}filesystem}
+\PYG{l+m+mi}{2019}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{11}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{04}\PYG{n+nx}{T15}\PYG{o}{:}\PYG{l+m+mi}{35}\PYG{o}{:}\PYG{l+m+mf}{32.979}\PYG{o}{+}\PYG{l+m+mi}{0000} \PYG{n+nx}{I}  \PYG{n+nx}{CONTROL}  \PYG{p}{[}\PYG{n+nx}{initandlisten}\PYG{p}{]} 
+\PYG{l+m+mi}{2019}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{11}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{04}\PYG{n+nx}{T15}\PYG{o}{:}\PYG{l+m+mi}{35}\PYG{o}{:}\PYG{l+m+mf}{32.979}\PYG{o}{+}\PYG{l+m+mi}{0000} \PYG{n+nx}{I}  \PYG{n+nx}{CONTROL}  \PYG{p}{[}\PYG{n+nx}{initandlisten}\PYG{p}{]} \PYG{o}{**} \PYG{n+nx}{WARNING}\PYG{o}{:} \PYG{n+nx}{Access} \PYG{n+nx}{control} \PYG{n+nx}{is} \PYG{n+nx}{not} \PYG{n+nx}{enabled} \PYG{k}{for} \PYG{n+nx}{the} \PYG{n+nx}{database}\PYG{p}{.}
+\PYG{l+m+mi}{2019}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{11}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{04}\PYG{n+nx}{T15}\PYG{o}{:}\PYG{l+m+mi}{35}\PYG{o}{:}\PYG{l+m+mf}{32.979}\PYG{o}{+}\PYG{l+m+mi}{0000} \PYG{n+nx}{I}  \PYG{n+nx}{CONTROL}  \PYG{p}{[}\PYG{n+nx}{initandlisten}\PYG{p}{]} \PYG{o}{**}          \PYG{n+nx}{Read} \PYG{n+nx}{and} \PYG{n+nx}{write} \PYG{n+nx}{access} \PYG{n+nx}{to} \PYG{n+nx}{data} \PYG{n+nx}{and} \PYG{n+nx}{configuration} \PYG{n+nx}{is} \PYG{n+nx}{unrestricted}\PYG{p}{.}
+\PYG{l+m+mi}{2019}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{11}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{04}\PYG{n+nx}{T15}\PYG{o}{:}\PYG{l+m+mi}{35}\PYG{o}{:}\PYG{l+m+mf}{32.979}\PYG{o}{+}\PYG{l+m+mi}{0000} \PYG{n+nx}{I}  \PYG{n+nx}{CONTROL}  \PYG{p}{[}\PYG{n+nx}{initandlisten}\PYG{p}{]} 
+\PYG{o}{\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{n+nx}{Enable} \PYG{n+nx}{MongoDB}\PYG{l+s+s1}{\PYGZsq{}s free cloud\PYGZhy{}based monitoring service, which will then receive and display}
+\PYG{l+s+s1}{metrics about your deployment (disk utilization, CPU, operation statistics, etc).}
+
+\PYG{l+s+s1}{The monitoring data will be available on a MongoDB website with a unique URL accessible to you}
+\PYG{l+s+s1}{and anyone you share the URL with. MongoDB may use this information to make product}
+\PYG{l+s+s1}{improvements and to suggest MongoDB products and deployment options to you.}
+
+\PYG{l+s+s1}{To enable free monitoring, run the following command: db.enableFreeMonitoring()}
+\PYG{l+s+s1}{To permanently disable this reminder, run the following command: db.disableFreeMonitoring()}
+\PYG{l+s+s1}{\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+
+\PYG{l+s+s1}{\PYGZgt{} ls}
+\PYG{l+s+s1}{[native code]}
+\PYG{l+s+s1}{\PYGZgt{} dir}
+\PYG{l+s+s1}{2019\PYGZhy{}11\PYGZhy{}04T15:36:07.802+0000 E  QUERY    [js] uncaught exception: ReferenceError: dir is not defined :}
+\PYG{l+s+s1}{@(shell):1:1}
+\PYG{l+s+s1}{\PYGZgt{} ls}
+\PYG{l+s+s1}{[native code]}
+\PYG{l+s+s1}{\PYGZgt{} db.user.insertOne(\PYGZob{} \PYGZus{}id: \PYGZdq{}phoermann@trash\PYGZhy{}mail.com\PYGZdq{}, name: \PYGZdq{}Paul\PYGZdq{}, posts: [ \PYGZob{} header: \PYGZdq{}Test Header\PYGZdq{}, text: \PYGZdq{}Lorem Ipsum\PYGZdq{} \PYGZcb{} ] \PYGZcb{});}
+\PYG{l+s+s1}{\PYGZob{} \PYGZdq{}acknowledged\PYGZdq{} : true, \PYGZdq{}insertedId\PYGZdq{} : \PYGZdq{}phoermann@trash\PYGZhy{}mail.com\PYGZdq{} \PYGZcb{}}
+\PYG{l+s+s1}{\PYGZgt{} db.user.find(\PYGZob{}  \PYGZcb{})}
+\PYG{l+s+s1}{\PYGZob{} \PYGZdq{}\PYGZus{}id\PYGZdq{} : \PYGZdq{}phoermann@trash\PYGZhy{}mail.com\PYGZdq{}, \PYGZdq{}name\PYGZdq{} : \PYGZdq{}Paul\PYGZdq{}, \PYGZdq{}posts\PYGZdq{} : [ \PYGZob{} \PYGZdq{}header\PYGZdq{} : \PYGZdq{}Test Header\PYGZdq{}, \PYGZdq{}text\PYGZdq{} : \PYGZdq{}Lorem Ipsum\PYGZdq{} \PYGZcb{} ] \PYGZcb{}}
+\PYG{l+s+s1}{\PYGZgt{} db.user.find(\PYGZob{} \PYGZus{}id: \PYGZdq{}phoermann\PYGZdq{} \PYGZcb{})}
+\PYG{l+s+s1}{\PYGZgt{} db.user.find(\PYGZob{} \PYGZus{}id: \PYGZdq{}phoermann@trash\PYGZhy{}mail.com\PYGZdq{} \PYGZcb{})}
+\PYG{l+s+s1}{\PYGZob{} \PYGZdq{}\PYGZus{}id\PYGZdq{} : \PYGZdq{}phoermann@trash\PYGZhy{}mail.com\PYGZdq{}, \PYGZdq{}name\PYGZdq{} : \PYGZdq{}Paul\PYGZdq{}, \PYGZdq{}posts\PYGZdq{} : [ \PYGZob{} \PYGZdq{}header\PYGZdq{} : \PYGZdq{}Test Header\PYGZdq{}, \PYGZdq{}text\PYGZdq{} : \PYGZdq{}Lorem Ipsum\PYGZdq{} \PYGZcb{} ] \PYGZcb{}}
+\PYG{l+s+s1}{\PYGZgt{} db.user.find(\PYGZob{} \PYGZus{}id: \PYGZdq{}phoermann@trash\PYGZhy{}mail.com\PYGZdq{} \PYGZcb{}).pretty()}
+\PYG{l+s+s1}{\PYGZob{}}
+\PYG{l+s+s1}{	\PYGZdq{}\PYGZus{}id\PYGZdq{} : \PYGZdq{}phoermann@trash\PYGZhy{}mail.com\PYGZdq{},}
+\PYG{l+s+s1}{	\PYGZdq{}name\PYGZdq{} : \PYGZdq{}Paul\PYGZdq{},}
+\PYG{l+s+s1}{	\PYGZdq{}posts\PYGZdq{} : [}
+\PYG{l+s+s1}{		\PYGZob{}}
+\PYG{l+s+s1}{			\PYGZdq{}header\PYGZdq{} : \PYGZdq{}Test Header\PYGZdq{},}
+\PYG{l+s+s1}{			\PYGZdq{}text\PYGZdq{} : \PYGZdq{}Lorem Ipsum\PYGZdq{}}
+\PYG{l+s+s1}{		\PYGZcb{}}
+\PYG{l+s+s1}{	]}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{\PYGZgt{} db.user.find(\PYGZob{} \PYGZus{}id: \PYGZdq{}phoermann@trash\PYGZhy{}mail.com\PYGZdq{} \PYGZcb{}).pretty().posts}
+\PYG{l+s+s1}{\PYGZgt{} db.user.find(\PYGZob{} \PYGZus{}id: \PYGZdq{}phoermann@trash\PYGZhy{}mail.com\PYGZdq{} \PYGZcb{}).pretty()}
+\PYG{l+s+s1}{\PYGZob{}}
+\PYG{l+s+s1}{	\PYGZdq{}\PYGZus{}id\PYGZdq{} : \PYGZdq{}phoermann@trash\PYGZhy{}mail.com\PYGZdq{},}
+\PYG{l+s+s1}{	\PYGZdq{}name\PYGZdq{} : \PYGZdq{}Paul\PYGZdq{},}
+\PYG{l+s+s1}{	\PYGZdq{}posts\PYGZdq{} : [}
+\PYG{l+s+s1}{		\PYGZob{}}
+\PYG{l+s+s1}{			\PYGZdq{}header\PYGZdq{} : \PYGZdq{}Test Header\PYGZdq{},}
+\PYG{l+s+s1}{			\PYGZdq{}text\PYGZdq{} : \PYGZdq{}Lorem Ipsum\PYGZdq{}}
+\PYG{l+s+s1}{		\PYGZcb{}}
+\PYG{l+s+s1}{	]}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{\PYGZgt{} ⏎                                                                                                                                                                                                                                     ⚓  \PYGZti{}  docker exec \PYGZhy{}it MongoDB bash}
+\PYG{l+s+s1}{root@c65c8de7d1ff:/\PYGZsh{} mongo}
+\PYG{l+s+s1}{MongoDB shell version v4.2.1}
+\PYG{l+s+s1}{connecting to: mongodb://127.0.0.1:27017/?compressors=disabled\PYGZam{}gssapiServiceName=mongodb}
+\PYG{l+s+s1}{Implicit session: session \PYGZob{} \PYGZdq{}id\PYGZdq{} : UUID(\PYGZdq{}9504dec9\PYGZhy{}b5ad\PYGZhy{}4a0d\PYGZhy{}b0cd\PYGZhy{}e413211e073a\PYGZdq{}) \PYGZcb{}}
+\PYG{l+s+s1}{MongoDB server version: 4.2.1}
+\PYG{l+s+s1}{Server has startup warnings: }
+\PYG{l+s+s1}{2019\PYGZhy{}11\PYGZhy{}04T15:50:37.407+0000 I  STORAGE  [initandlisten] }
+\PYG{l+s+s1}{2019\PYGZhy{}11\PYGZhy{}04T15:50:37.407+0000 I  STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine}
+\PYG{l+s+s1}{2019\PYGZhy{}11\PYGZhy{}04T15:50:37.407+0000 I  STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes\PYGZhy{}filesystem}
+\PYG{l+s+s1}{2019\PYGZhy{}11\PYGZhy{}04T15:50:38.348+0000 I  CONTROL  [initandlisten] }
+\PYG{l+s+s1}{2019\PYGZhy{}11\PYGZhy{}04T15:50:38.348+0000 I  CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.}
+\PYG{l+s+s1}{2019\PYGZhy{}11\PYGZhy{}04T15:50:38.348+0000 I  CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.}
+\PYG{l+s+s1}{2019\PYGZhy{}11\PYGZhy{}04T15:50:38.348+0000 I  CONTROL  [initandlisten] }
+\PYG{l+s+s1}{\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{l+s+s1}{Enable MongoDB\PYGZsq{}}\PYG{n+nx}{s} \PYG{n+nx}{free} \PYG{n+nx}{cloud}\PYG{o}{\PYGZhy{}}\PYG{n+nx}{based} \PYG{n+nx}{monitoring} \PYG{n+nx}{service}\PYG{p}{,} \PYG{n+nx}{which} \PYG{n+nx}{will} \PYG{n+nx}{then} \PYG{n+nx}{receive} \PYG{n+nx}{and} \PYG{n+nx}{display}
+\PYG{n+nx}{metrics} \PYG{n+nx}{about} \PYG{n+nx}{your} \PYG{n+nx}{deployment} \PYG{p}{(}\PYG{n+nx}{disk} \PYG{n+nx}{utilization}\PYG{p}{,} \PYG{n+nx}{CPU}\PYG{p}{,} \PYG{n+nx}{operation} \PYG{n+nx}{statistics}\PYG{p}{,} \PYG{n+nx}{etc}\PYG{p}{).}
+
+\PYG{n+nx}{The} \PYG{n+nx}{monitoring} \PYG{n+nx}{data} \PYG{n+nx}{will} \PYG{n+nx}{be} \PYG{n+nx}{available} \PYG{n+nx}{on} \PYG{n+nx}{a} \PYG{n+nx}{MongoDB} \PYG{n+nx}{website} \PYG{k+kd}{with} \PYG{n+nx}{a} \PYG{n+nx}{unique} \PYG{n+nx}{URL} \PYG{n+nx}{accessible} \PYG{n+nx}{to} \PYG{n+nx}{you}
+\PYG{n+nx}{and} \PYG{n+nx}{anyone} \PYG{n+nx}{you} \PYG{n+nx}{share} \PYG{n+nx}{the} \PYG{n+nx}{URL} \PYG{k+kd}{with}\PYG{p}{.} \PYG{n+nx}{MongoDB} \PYG{n+nx}{may} \PYG{n+nx}{use} \PYG{k}{this} \PYG{n+nx}{information} \PYG{n+nx}{to} \PYG{n+nx}{make} \PYG{n+nx}{product}
+\PYG{n+nx}{improvements} \PYG{n+nx}{and} \PYG{n+nx}{to} \PYG{n+nx}{suggest} \PYG{n+nx}{MongoDB} \PYG{n+nx}{products} \PYG{n+nx}{and} \PYG{n+nx}{deployment} \PYG{n+nx}{options} \PYG{n+nx}{to} \PYG{n+nx}{you}\PYG{p}{.}
+
+\PYG{n+nx}{To} \PYG{n+nx}{enable} \PYG{n+nx}{free} \PYG{n+nx}{monitoring}\PYG{p}{,} \PYG{n+nx}{run} \PYG{n+nx}{the} \PYG{n+nx}{following} \PYG{n+nx}{command}\PYG{o}{:} \PYG{n+nx}{db}\PYG{p}{.}\PYG{n+nx}{enableFreeMonitoring}\PYG{p}{()}
+\PYG{n+nx}{To} \PYG{n+nx}{permanently} \PYG{n+nx}{disable} \PYG{k}{this} \PYG{n+nx}{reminder}\PYG{p}{,} \PYG{n+nx}{run} \PYG{n+nx}{the} \PYG{n+nx}{following} \PYG{n+nx}{command}\PYG{o}{:} \PYG{n+nx}{db}\PYG{p}{.}\PYG{n+nx}{disableFreeMonitoring}\PYG{p}{()}
+\PYG{o}{\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+
+\PYG{o}{\PYGZgt{}} \PYG{n+nx}{db}\PYG{p}{.}\PYG{n+nx}{user}\PYG{p}{.}\PYG{n+nx}{find}\PYG{p}{(\PYGZob{}\PYGZcb{})}
+\PYG{p}{\PYGZob{}} \PYG{l+s+s2}{\PYGZdq{}\PYGZus{}id\PYGZdq{}} \PYG{o}{:} \PYG{l+s+s2}{\PYGZdq{}phoermann@trash\PYGZhy{}mail.com\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}name\PYGZdq{}} \PYG{o}{:} \PYG{l+s+s2}{\PYGZdq{}Paul\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}posts\PYGZdq{}} \PYG{o}{:} \PYG{p}{[} \PYG{p}{\PYGZob{}} \PYG{l+s+s2}{\PYGZdq{}header\PYGZdq{}} \PYG{o}{:} \PYG{l+s+s2}{\PYGZdq{}Test Header\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}text\PYGZdq{}} \PYG{o}{:} \PYG{l+s+s2}{\PYGZdq{}Lorem Ipsum\PYGZdq{}} \PYG{p}{\PYGZcb{}} \PYG{p}{]} \PYG{p}{\PYGZcb{}}
+\PYG{o}{\PYGZgt{}} \PYG{n+nx}{db}\PYG{p}{.}\PYG{n+nx}{user}\PYG{p}{.}\PYG{n+nx}{updateOne}\PYG{p}{(\PYGZob{}} \PYG{n+nx}{\PYGZus{}id}\PYG{o}{:} \PYG{l+s+s2}{\PYGZdq{}phoermann@trash\PYGZhy{}mail.com\PYGZdq{}}\PYG{p}{\PYGZcb{},} \PYG{p}{\PYGZob{}}\PYG{n+nx}{\PYGZdl{}addToSet}\PYG{o}{:} \PYG{p}{\PYGZob{}} \PYG{n+nx}{posts}\PYG{o}{:} \PYG{p}{\PYGZob{}}\PYG{l+s+s2}{\PYGZdq{}header\PYGZdq{}}\PYG{o}{:} \PYG{l+s+s2}{\PYGZdq{}Test Header 2\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}text\PYGZdq{}}\PYG{o}{:} \PYG{l+s+s2}{\PYGZdq{}ASDF\PYGZdq{}}\PYG{p}{\PYGZcb{})}
+\PYG{p}{...} \PYG{p}{;}
+\PYG{p}{...} 
+\PYG{p}{...} \PYG{o}{\PYGZca{}}\PYG{n+nx}{C}
+
+\PYG{o}{\PYGZgt{}} \PYG{o}{\PYGZca{}}\PYG{n+nx}{C}
+\PYG{n+nx}{bye}
+\PYG{n+nx}{root}\PYG{err}{@}\PYG{n+nx}{c65c8de7d1ff}\PYG{o}{:}\PYG{err}{/\PYGZsh{} mongo}
+\PYG{n+nx}{MongoDB} \PYG{n+nx}{shell} \PYG{n+nx}{version} \PYG{n+nx}{v4}\PYG{l+m+mf}{.2.1}
+\PYG{n+nx}{connecting} \PYG{n+nx}{to}\PYG{o}{:} \PYG{n+nx}{mongodb}\PYG{o}{:}\PYG{c+c1}{//127.0.0.1:27017/?compressors=disabled\PYGZam{}gssapiServiceName=mongodb}
+\PYG{n+nx}{Implicit} \PYG{n+nx}{session}\PYG{o}{:} \PYG{n+nx}{session} \PYG{p}{\PYGZob{}} \PYG{l+s+s2}{\PYGZdq{}id\PYGZdq{}} \PYG{o}{:} \PYG{n+nx}{UUID}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}989d2026\PYGZhy{}8b47\PYGZhy{}420e\PYGZhy{}89b8\PYGZhy{}64bf866f5f5f\PYGZdq{}}\PYG{p}{)} \PYG{p}{\PYGZcb{}}
+\PYG{n+nx}{MongoDB} \PYG{n+nx}{server} \PYG{n+nx}{version}\PYG{o}{:} \PYG{l+m+mf}{4.2.1}
+\PYG{n+nx}{Server} \PYG{n+nx}{has} \PYG{n+nx}{startup} \PYG{n+nx}{warnings}\PYG{o}{:} 
+\PYG{l+m+mi}{2019}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{11}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{04}\PYG{n+nx}{T15}\PYG{o}{:}\PYG{l+m+mi}{50}\PYG{o}{:}\PYG{l+m+mf}{37.407}\PYG{o}{+}\PYG{l+m+mi}{0000} \PYG{n+nx}{I}  \PYG{n+nx}{STORAGE}  \PYG{p}{[}\PYG{n+nx}{initandlisten}\PYG{p}{]} 
+\PYG{l+m+mi}{2019}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{11}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{04}\PYG{n+nx}{T15}\PYG{o}{:}\PYG{l+m+mi}{50}\PYG{o}{:}\PYG{l+m+mf}{37.407}\PYG{o}{+}\PYG{l+m+mi}{0000} \PYG{n+nx}{I}  \PYG{n+nx}{STORAGE}  \PYG{p}{[}\PYG{n+nx}{initandlisten}\PYG{p}{]} \PYG{o}{**} \PYG{n+nx}{WARNING}\PYG{o}{:} \PYG{n+nx}{Using} \PYG{n+nx}{the} \PYG{n+nx}{XFS} \PYG{n+nx}{filesystem} \PYG{n+nx}{is} \PYG{n+nx}{strongly} \PYG{n+nx}{recommended} \PYG{k+kd}{with} \PYG{n+nx}{the} \PYG{n+nx}{WiredTiger} \PYG{n+nx}{storage} \PYG{n+nx}{engine}
+\PYG{l+m+mi}{2019}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{11}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{04}\PYG{n+nx}{T15}\PYG{o}{:}\PYG{l+m+mi}{50}\PYG{o}{:}\PYG{l+m+mf}{37.407}\PYG{o}{+}\PYG{l+m+mi}{0000} \PYG{n+nx}{I}  \PYG{n+nx}{STORAGE}  \PYG{p}{[}\PYG{n+nx}{initandlisten}\PYG{p}{]} \PYG{o}{**}          \PYG{n+nx}{See} \PYG{n+nx}{http}\PYG{o}{:}\PYG{c+c1}{//dochub.mongodb.org/core/prodnotes\PYGZhy{}filesystem}
+\PYG{l+m+mi}{2019}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{11}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{04}\PYG{n+nx}{T15}\PYG{o}{:}\PYG{l+m+mi}{50}\PYG{o}{:}\PYG{l+m+mf}{38.348}\PYG{o}{+}\PYG{l+m+mi}{0000} \PYG{n+nx}{I}  \PYG{n+nx}{CONTROL}  \PYG{p}{[}\PYG{n+nx}{initandlisten}\PYG{p}{]} 
+\PYG{l+m+mi}{2019}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{11}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{04}\PYG{n+nx}{T15}\PYG{o}{:}\PYG{l+m+mi}{50}\PYG{o}{:}\PYG{l+m+mf}{38.348}\PYG{o}{+}\PYG{l+m+mi}{0000} \PYG{n+nx}{I}  \PYG{n+nx}{CONTROL}  \PYG{p}{[}\PYG{n+nx}{initandlisten}\PYG{p}{]} \PYG{o}{**} \PYG{n+nx}{WARNING}\PYG{o}{:} \PYG{n+nx}{Access} \PYG{n+nx}{control} \PYG{n+nx}{is} \PYG{n+nx}{not} \PYG{n+nx}{enabled} \PYG{k}{for} \PYG{n+nx}{the} \PYG{n+nx}{database}\PYG{p}{.}
+\PYG{l+m+mi}{2019}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{11}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{04}\PYG{n+nx}{T15}\PYG{o}{:}\PYG{l+m+mi}{50}\PYG{o}{:}\PYG{l+m+mf}{38.348}\PYG{o}{+}\PYG{l+m+mi}{0000} \PYG{n+nx}{I}  \PYG{n+nx}{CONTROL}  \PYG{p}{[}\PYG{n+nx}{initandlisten}\PYG{p}{]} \PYG{o}{**}          \PYG{n+nx}{Read} \PYG{n+nx}{and} \PYG{n+nx}{write} \PYG{n+nx}{access} \PYG{n+nx}{to} \PYG{n+nx}{data} \PYG{n+nx}{and} \PYG{n+nx}{configuration} \PYG{n+nx}{is} \PYG{n+nx}{unrestricted}\PYG{p}{.}
+\PYG{l+m+mi}{2019}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{11}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{04}\PYG{n+nx}{T15}\PYG{o}{:}\PYG{l+m+mi}{50}\PYG{o}{:}\PYG{l+m+mf}{38.348}\PYG{o}{+}\PYG{l+m+mi}{0000} \PYG{n+nx}{I}  \PYG{n+nx}{CONTROL}  \PYG{p}{[}\PYG{n+nx}{initandlisten}\PYG{p}{]} 
+\PYG{o}{\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{n+nx}{Enable} \PYG{n+nx}{MongoDB}\PYG{l+s+s1}{\PYGZsq{}s free cloud\PYGZhy{}based monitoring service, which will then receive and display}
+\PYG{l+s+s1}{metrics about your deployment (disk utilization, CPU, operation statistics, etc).}
+
+\PYG{l+s+s1}{The monitoring data will be available on a MongoDB website with a unique URL accessible to you}
+\PYG{l+s+s1}{and anyone you share the URL with. MongoDB may use this information to make product}
+\PYG{l+s+s1}{improvements and to suggest MongoDB products and deployment options to you.}
+
+\PYG{l+s+s1}{To enable free monitoring, run the following command: db.enableFreeMonitoring()}
+\PYG{l+s+s1}{To permanently disable this reminder, run the following command: db.disableFreeMonitoring()}
+\PYG{l+s+s1}{\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+
+\PYG{l+s+s1}{\PYGZgt{} db.user.updateOne(\PYGZob{} \PYGZus{}id: \PYGZdq{}phoermann@trash\PYGZhy{}mail.com\PYGZdq{}\PYGZcb{}, \PYGZob{}\PYGZdl{}addToSet: \PYGZob{} posts: \PYGZob{}\PYGZdq{}header\PYGZdq{}: \PYGZdq{}Test Header 2\PYGZdq{}, \PYGZdq{}text\PYGZdq{}: \PYGZdq{}ASDF\PYGZdq{}\PYGZcb{}\PYGZcb{})}
+\PYG{l+s+s1}{... ;}
+\PYG{l+s+s1}{... \PYGZcb{}}
+\PYG{l+s+s1}{2019\PYGZhy{}11\PYGZhy{}04T15:52:45.390+0000 E  QUERY    [js] uncaught exception: SyntaxError: missing \PYGZcb{} after property list :}
+\PYG{l+s+s1}{@(shell):1:119}
+\PYG{l+s+s1}{\PYGZgt{} db.user.updateOne(\PYGZob{} \PYGZus{}id: \PYGZdq{}phoermann@trash\PYGZhy{}mail.com\PYGZdq{}\PYGZcb{}, \PYGZob{}\PYGZdl{}addToSet: \PYGZob{} posts: \PYGZob{}\PYGZdq{}header\PYGZdq{}: \PYGZdq{}Test Header 2\PYGZdq{}, \PYGZdq{}text\PYGZdq{}: \PYGZdq{}ASDF\PYGZdq{}\PYGZcb{}\PYGZcb{}\PYGZcb{});}
+\PYG{l+s+s1}{\PYGZob{} \PYGZdq{}acknowledged\PYGZdq{} : true, \PYGZdq{}matchedCount\PYGZdq{} : 1, \PYGZdq{}modifiedCount\PYGZdq{} : 1 \PYGZcb{}}
+\PYG{l+s+s1}{\PYGZgt{} db.user.find(\PYGZob{}\PYGZcb{})}
+\PYG{l+s+s1}{\PYGZob{} \PYGZdq{}\PYGZus{}id\PYGZdq{} : \PYGZdq{}phoermann@trash\PYGZhy{}mail.com\PYGZdq{}, \PYGZdq{}name\PYGZdq{} : \PYGZdq{}Paul\PYGZdq{}, \PYGZdq{}posts\PYGZdq{} : [ \PYGZob{} \PYGZdq{}header\PYGZdq{} : \PYGZdq{}Test Header\PYGZdq{}, \PYGZdq{}text\PYGZdq{} : \PYGZdq{}Lorem Ipsum\PYGZdq{} \PYGZcb{}, \PYGZob{} \PYGZdq{}header\PYGZdq{} : \PYGZdq{}Test Header 2\PYGZdq{}, \PYGZdq{}text\PYGZdq{} : \PYGZdq{}ASDF\PYGZdq{} \PYGZcb{} ] \PYGZcb{}}
+\PYG{l+s+s1}{\PYGZgt{} db.user.find(\PYGZob{}\PYGZus{}id: \PYGZdq{}phoermann@trash\PYGZhy{}mail.com\PYGZdq{}\PYGZcb{}, \PYGZob{}name: 0, \PYGZus{}id: 0\PYGZcb{});}
+\PYG{l+s+s1}{\PYGZob{} \PYGZdq{}posts\PYGZdq{} : [ \PYGZob{} \PYGZdq{}header\PYGZdq{} : \PYGZdq{}Test Header\PYGZdq{}, \PYGZdq{}text\PYGZdq{} : \PYGZdq{}Lorem Ipsum\PYGZdq{} \PYGZcb{}, \PYGZob{} \PYGZdq{}header\PYGZdq{} : \PYGZdq{}Test Header 2\PYGZdq{}, \PYGZdq{}text\PYGZdq{} : \PYGZdq{}ASDF\PYGZdq{} \PYGZcb{} ] \PYGZcb{}}
+\PYG{l+s+s1}{\PYGZgt{} db.user.find(\PYGZob{} \PYGZdq{}posts.header\PYGZdq{}: \PYGZdq{}Lorem Ipsum\PYGZdq{} \PYGZcb{});}
+\PYG{l+s+s1}{\PYGZgt{} db.test.insert(\PYGZob{} asdf: \PYGZdq{}adsf\PYGZdq{} \PYGZcb{});}
+\PYG{l+s+s1}{WriteResult(\PYGZob{} \PYGZdq{}nInserted\PYGZdq{} : 1 \PYGZcb{})}
+\PYG{l+s+s1}{\PYGZgt{} db.test.findOne()}
+\PYG{l+s+s1}{\PYGZob{} \PYGZdq{}\PYGZus{}id\PYGZdq{} : ObjectId(\PYGZdq{}5dc04c4947beb307652e8ffc\PYGZdq{}), \PYGZdq{}asdf\PYGZdq{} : \PYGZdq{}adsf\PYGZdq{} \PYGZcb{}}
+\PYG{l+s+s1}{\PYGZgt{} db.user.drop()}
+\PYG{l+s+s1}{true}
+\PYG{l+s+s1}{\PYGZgt{} db.user.insertOne(\PYGZob{} \PYGZus{}id: \PYGZdq{}phoermann@mail.com\PYGZdq{}, name: \PYGZdq{}Paul\PYGZdq{} \PYGZcb{})}
+\PYG{l+s+s1}{\PYGZob{} \PYGZdq{}acknowledged\PYGZdq{} : true, \PYGZdq{}insertedId\PYGZdq{} : \PYGZdq{}phoermann@mail.com\PYGZdq{} \PYGZcb{}}
+\PYG{l+s+s1}{\PYGZgt{} db.posts.insertOne(\PYGZob{} header: \PYGZdq{}Header 1\PYGZdq{}, text: \PYGZdq{}Lorem Ipsum\PYGZdq{}\PYGZcb{})}
+\PYG{l+s+s1}{\PYGZob{}}
+\PYG{l+s+s1}{	\PYGZdq{}acknowledged\PYGZdq{} : true,}
+\PYG{l+s+s1}{	\PYGZdq{}insertedId\PYGZdq{} : ObjectId(\PYGZdq{}5dc04dde47beb307652e8ffd\PYGZdq{})}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{\PYGZgt{} db.posts.find().pretty()}
+\PYG{l+s+s1}{\PYGZob{}}
+\PYG{l+s+s1}{	\PYGZdq{}\PYGZus{}id\PYGZdq{} : ObjectId(\PYGZdq{}5dc04dde47beb307652e8ffd\PYGZdq{}),}
+\PYG{l+s+s1}{	\PYGZdq{}header\PYGZdq{} : \PYGZdq{}Header 1\PYGZdq{},}
+\PYG{l+s+s1}{	\PYGZdq{}text\PYGZdq{} : \PYGZdq{}Lorem Ipsum\PYGZdq{}}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{\PYGZgt{} db.like.insertOne(\PYGZob{} postId: ObjectId(\PYGZdq{}5dc04dde47beb307652e8ffd\PYGZdq{}), type: 5, comment: \PYGZdq{}nice\PYGZdq{}, user: \PYGZdq{}franz@gmail.com\PYGZdq{} \PYGZcb{});}
+\PYG{l+s+s1}{\PYGZob{}}
+\PYG{l+s+s1}{	\PYGZdq{}acknowledged\PYGZdq{} : true,}
+\PYG{l+s+s1}{	\PYGZdq{}insertedId\PYGZdq{} : ObjectId(\PYGZdq{}5dc04e5947beb307652e8ffe\PYGZdq{})}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{\PYGZgt{} db.like.find()}
+\PYG{l+s+s1}{\PYGZob{} \PYGZdq{}\PYGZus{}id\PYGZdq{} : ObjectId(\PYGZdq{}5dc04e5947beb307652e8ffe\PYGZdq{}), \PYGZdq{}postId\PYGZdq{} : ObjectId(\PYGZdq{}5dc04dde47beb307652e8ffd\PYGZdq{}), \PYGZdq{}type\PYGZdq{} : 5, \PYGZdq{}comment\PYGZdq{} : \PYGZdq{}nice\PYGZdq{}, \PYGZdq{}user\PYGZdq{} : \PYGZdq{}franz@gmail.com\PYGZdq{} \PYGZcb{}}
+\PYG{l+s+s1}{\PYGZgt{} db.posts.find(\PYGZob{} \PYGZus{}id: ObjectId(\PYGZdq{}5dc04e5947beb307652e8ffe\PYGZdq{}) \PYGZcb{})}
+\PYG{l+s+s1}{\PYGZgt{} db.posts.find(\PYGZob{} \PYGZus{}id: ObjectId(\PYGZdq{}5dc04dde47beb307652e8ffd\PYGZdq{}) \PYGZcb{})}
+\PYG{l+s+s1}{\PYGZob{} \PYGZdq{}\PYGZus{}id\PYGZdq{} : ObjectId(\PYGZdq{}5dc04dde47beb307652e8ffd\PYGZdq{}), \PYGZdq{}header\PYGZdq{} : \PYGZdq{}Header 1\PYGZdq{}, \PYGZdq{}text\PYGZdq{} : \PYGZdq{}Lorem Ipsum\PYGZdq{} \PYGZcb{}}
+\PYG{l+s+s1}{\PYGZgt{} db.posts.aggregate([\PYGZob{}\PYGZdl{}match: \PYGZob{}header: \PYGZdq{}Header 1\PYGZdq{}\PYGZcb{}\PYGZcb{}, \PYGZob{}\PYGZdl{}lookup: \PYGZob{}from:\PYGZdq{}like\PYGZdq{}, localField: \PYGZdq{}\PYGZus{}id\PYGZdq{}, foreignField: \PYGZdq{}postId\PYGZdq{}\PYGZcb{}\PYGZcb{}])}
+\PYG{l+s+s1}{2019\PYGZhy{}11\PYGZhy{}04T16:19:55.432+0000 E  QUERY    [js] uncaught exception: Error: command failed: \PYGZob{}}
+\PYG{l+s+s1}{	\PYGZdq{}ok\PYGZdq{} : 0,}
+\PYG{l+s+s1}{	\PYGZdq{}errmsg\PYGZdq{} : \PYGZdq{}must specify \PYGZsq{}}\PYG{n+nx}{as}\PYG{err}{\PYGZsq{}} \PYG{n+nx}{field} \PYG{k}{for} \PYG{n+nx}{a} \PYG{n+nx}{\PYGZdl{}lookup}\PYG{l+s+s2}{\PYGZdq{},}
+\PYG{l+s+s2}{	\PYGZdq{}}\PYG{n+nx}{code}\PYG{l+s+s2}{\PYGZdq{} : 9,}
+\PYG{l+s+s2}{	\PYGZdq{}}\PYG{n+nx}{codeName}\PYG{l+s+s2}{\PYGZdq{} : \PYGZdq{}}\PYG{n+nx}{FailedToParse}\PYG{l+s+s2}{\PYGZdq{}}
+\PYG{l+s+s2}{\PYGZcb{} : aggregate failed :}
+\PYG{l+s+s2}{\PYGZus{}getErrorWithCode@src/mongo/shell/utils.js:25:13}
+\PYG{l+s+s2}{doassert@src/mongo/shell/assert.js:18:14}
+\PYG{l+s+s2}{\PYGZus{}assertCommandWorked@src/mongo/shell/assert.js:583:17}
+\PYG{l+s+s2}{assert.commandWorked@src/mongo/shell/assert.js:673:16}
+\PYG{l+s+s2}{DB.prototype.\PYGZus{}runAggregate@src/mongo/shell/db.js:266:5}
+\PYG{l+s+s2}{DBCollection.prototype.aggregate@src/mongo/shell/collection.js:1012:12}
+\PYG{l+s+s2}{@(shell):1:1}
+\PYG{l+s+s2}{\PYGZgt{} db.posts.aggregate([\PYGZob{}\PYGZdl{}match: \PYGZob{}header: \PYGZdq{}}\PYG{n+nx}{Header} \PYG{l+m+mi}{1}\PYG{l+s+s2}{\PYGZdq{}\PYGZcb{}\PYGZcb{}, \PYGZob{}\PYGZdl{}lookup: from:\PYGZdq{}}\PYG{n+nx}{like}\PYG{l+s+s2}{\PYGZdq{}, localField: \PYGZdq{}}\PYG{n+nx}{\PYGZus{}id}\PYG{l+s+s2}{\PYGZdq{}, foreignField: \PYGZdq{}}\PYG{n+nx}{postId}\PYG{l+s+s2}{\PYGZdq{}, as \PYGZdq{}}\PYG{n+nx}{likes}\PYG{l+s+s2}{\PYGZdq{}\PYGZcb{}])}
+\PYG{l+s+s2}{2019\PYGZhy{}11\PYGZhy{}04T16:20:29.085+0000 E  QUERY    [js] uncaught exception: SyntaxError: missing \PYGZcb{} after property list :}
+\PYG{l+s+s2}{@(shell):1:66}
+\PYG{l+s+s2}{\PYGZgt{} db.posts.aggregate([\PYGZob{}\PYGZdl{}match: \PYGZob{}header: \PYGZdq{}}\PYG{n+nx}{Header} \PYG{l+m+mi}{1}\PYG{l+s+s2}{\PYGZdq{}\PYGZcb{}\PYGZcb{}, \PYGZob{}\PYGZdl{}lookup: \PYGZob{}from:\PYGZdq{}}\PYG{n+nx}{like}\PYG{l+s+s2}{\PYGZdq{}, localField: \PYGZdq{}}\PYG{n+nx}{\PYGZus{}id}\PYG{l+s+s2}{\PYGZdq{}, foreignField: \PYGZdq{}}\PYG{n+nx}{postId}\PYG{l+s+s2}{\PYGZdq{}, as: \PYGZdq{}}\PYG{n+nx}{likes}\PYG{l+s+s2}{\PYGZdq{}\PYGZcb{}\PYGZcb{}])}
+\PYG{l+s+s2}{\PYGZob{} \PYGZdq{}}\PYG{n+nx}{\PYGZus{}id}\PYG{l+s+s2}{\PYGZdq{} : ObjectId(\PYGZdq{}}\PYG{l+m+mi}{5}\PYG{n+nx}{dc04dde47beb307652e8ffd}\PYG{l+s+s2}{\PYGZdq{}), \PYGZdq{}}\PYG{n+nx}{header}\PYG{l+s+s2}{\PYGZdq{} : \PYGZdq{}}\PYG{n+nx}{Header} \PYG{l+m+mi}{1}\PYG{l+s+s2}{\PYGZdq{}, \PYGZdq{}}\PYG{n+nx}{text}\PYG{l+s+s2}{\PYGZdq{} : \PYGZdq{}}\PYG{n+nx}{Lorem} \PYG{n+nx}{Ipsum}\PYG{l+s+s2}{\PYGZdq{}, \PYGZdq{}}\PYG{n+nx}{likes}\PYG{l+s+s2}{\PYGZdq{} : [ \PYGZob{} \PYGZdq{}}\PYG{n+nx}{\PYGZus{}id}\PYG{l+s+s2}{\PYGZdq{} : ObjectId(\PYGZdq{}}\PYG{l+m+mi}{5}\PYG{n+nx}{dc04e5947beb307652e8ffe}\PYG{l+s+s2}{\PYGZdq{}), \PYGZdq{}}\PYG{n+nx}{postId}\PYG{l+s+s2}{\PYGZdq{} : ObjectId(\PYGZdq{}}\PYG{l+m+mi}{5}\PYG{n+nx}{dc04dde47beb307652e8ffd}\PYG{l+s+s2}{\PYGZdq{}), \PYGZdq{}}\PYG{n+nx}{type}\PYG{l+s+s2}{\PYGZdq{} : 5, \PYGZdq{}}\PYG{n+nx}{comment}\PYG{l+s+s2}{\PYGZdq{} : \PYGZdq{}}\PYG{n+nx}{nice}\PYG{l+s+s2}{\PYGZdq{}, \PYGZdq{}}\PYG{n+nx}{user}\PYG{l+s+s2}{\PYGZdq{} : \PYGZdq{}}\PYG{n+nx}{franz}\PYG{err}{@}\PYG{n+nx}{gmail}\PYG{p}{.}\PYG{n+nx}{com}\PYG{l+s+s2}{\PYGZdq{} \PYGZcb{} ] \PYGZcb{}}
+\PYG{l+s+s2}{\PYGZgt{} db.friend.insertOne(\PYGZob{} email: \PYGZdq{}}\PYG{n+nx}{phoermann}\PYG{err}{@}\PYG{n+nx}{trash}\PYG{o}{\PYGZhy{}}\PYG{n+nx}{mail}\PYG{p}{.}\PYG{n+nx}{com}\PYG{l+s+s2}{\PYGZdq{}, friend: \PYGZdq{}}\PYG{n+nx}{franz}\PYG{err}{@}\PYG{n+nx}{gmail}\PYG{p}{.}\PYG{n+nx}{com}\PYG{l+s+s2}{\PYGZdq{} \PYGZcb{})}
+\PYG{l+s+s2}{\PYGZob{}}
+\PYG{l+s+s2}{	\PYGZdq{}}\PYG{n+nx}{acknowledged}\PYG{l+s+s2}{\PYGZdq{} : true,}
+\PYG{l+s+s2}{	\PYGZdq{}}\PYG{n+nx}{insertedId}\PYG{l+s+s2}{\PYGZdq{} : ObjectId(\PYGZdq{}}\PYG{l+m+mi}{5}\PYG{n+nx}{dc0512347beb307652e8fff}\PYG{l+s+s2}{\PYGZdq{})}
+\PYG{l+s+s2}{\PYGZcb{}}
+\PYG{l+s+s2}{\PYGZgt{} db.posts.aggregate([\PYGZob{}\PYGZdl{}match: \PYGZob{}header: \PYGZdq{}}\PYG{n+nx}{Header} \PYG{l+m+mi}{1}\PYG{l+s+s2}{\PYGZdq{}\PYGZcb{}\PYGZcb{}, \PYGZob{}\PYGZdl{}lookup: \PYGZob{}from:\PYGZdq{}}\PYG{n+nx}{like}\PYG{l+s+s2}{\PYGZdq{}, localField: \PYGZdq{}}\PYG{n+nx}{\PYGZus{}id}\PYG{l+s+s2}{\PYGZdq{}, foreignField: \PYGZdq{}}\PYG{n+nx}{friend}\PYG{l+s+s2}{\PYGZdq{}, as: \PYGZdq{}}\PYG{n+nx}{friends}\PYG{l+s+s2}{\PYGZdq{}\PYGZcb{}\PYGZcb{}])}
+\PYG{l+s+s2}{\PYGZob{} \PYGZdq{}}\PYG{n+nx}{\PYGZus{}id}\PYG{l+s+s2}{\PYGZdq{} : ObjectId(\PYGZdq{}}\PYG{l+m+mi}{5}\PYG{n+nx}{dc04dde47beb307652e8ffd}\PYG{l+s+s2}{\PYGZdq{}), \PYGZdq{}}\PYG{n+nx}{header}\PYG{l+s+s2}{\PYGZdq{} : \PYGZdq{}}\PYG{n+nx}{Header} \PYG{l+m+mi}{1}\PYG{l+s+s2}{\PYGZdq{}, \PYGZdq{}}\PYG{n+nx}{text}\PYG{l+s+s2}{\PYGZdq{} : \PYGZdq{}}\PYG{n+nx}{Lorem} \PYG{n+nx}{Ipsum}\PYG{l+s+s2}{\PYGZdq{}, \PYGZdq{}}\PYG{n+nx}{friends}\PYG{l+s+s2}{\PYGZdq{} : [ ] \PYGZcb{}}
+\PYG{l+s+s2}{\PYGZgt{} db.posts.aggregate([\PYGZob{}\PYGZdl{}match: \PYGZob{}header: \PYGZdq{}}\PYG{n+nx}{Header} \PYG{l+m+mi}{1}\PYG{l+s+s2}{\PYGZdq{}\PYGZcb{}\PYGZcb{}, \PYGZob{}\PYGZdl{}lookup: \PYGZob{}from:\PYGZdq{}}\PYG{n+nx}{friend}\PYG{l+s+s2}{\PYGZdq{}, localField: \PYGZdq{}}\PYG{n+nx}{\PYGZus{}id}\PYG{l+s+s2}{\PYGZdq{}, foreignField: \PYGZdq{}}\PYG{n+nx}{friend}\PYG{l+s+s2}{\PYGZdq{}, as: \PYGZdq{}}\PYG{n+nx}{friends}\PYG{l+s+s2}{\PYGZdq{}\PYGZcb{}\PYGZcb{}])}
+\PYG{l+s+s2}{\PYGZob{} \PYGZdq{}}\PYG{n+nx}{\PYGZus{}id}\PYG{l+s+s2}{\PYGZdq{} : ObjectId(\PYGZdq{}}\PYG{l+m+mi}{5}\PYG{n+nx}{dc04dde47beb307652e8ffd}\PYG{l+s+s2}{\PYGZdq{}), \PYGZdq{}}\PYG{n+nx}{header}\PYG{l+s+s2}{\PYGZdq{} : \PYGZdq{}}\PYG{n+nx}{Header} \PYG{l+m+mi}{1}\PYG{l+s+s2}{\PYGZdq{}, \PYGZdq{}}\PYG{n+nx}{text}\PYG{l+s+s2}{\PYGZdq{} : \PYGZdq{}}\PYG{n+nx}{Lorem} \PYG{n+nx}{Ipsum}\PYG{l+s+s2}{\PYGZdq{}, \PYGZdq{}}\PYG{n+nx}{friends}\PYG{l+s+s2}{\PYGZdq{} : [ ] \PYGZcb{}}
+\PYG{l+s+s2}{\PYGZgt{} db.posts.aggregate([\PYGZob{}\PYGZdl{}match: \PYGZob{}header: \PYGZdq{}}\PYG{n+nx}{Header} \PYG{l+m+mi}{1}\PYG{l+s+s2}{\PYGZdq{}\PYGZcb{}\PYGZcb{}, \PYGZob{}\PYGZdl{}lookup: \PYGZob{}from:\PYGZdq{}}\PYG{n+nx}{friend}\PYG{l+s+s2}{\PYGZdq{}, localField: \PYGZdq{}}\PYG{n+nx}{friend}\PYG{l+s+s2}{\PYGZdq{}, foreignField: \PYGZdq{}}\PYG{n+nx}{\PYGZus{}id}\PYG{l+s+s2}{\PYGZdq{}, as: \PYGZdq{}}\PYG{n+nx}{friends}\PYG{l+s+s2}{\PYGZdq{}\PYGZcb{}\PYGZcb{}])}
+\PYG{l+s+s2}{\PYGZob{} \PYGZdq{}}\PYG{n+nx}{\PYGZus{}id}\PYG{l+s+s2}{\PYGZdq{} : ObjectId(\PYGZdq{}}\PYG{l+m+mi}{5}\PYG{n+nx}{dc04dde47beb307652e8ffd}\PYG{l+s+s2}{\PYGZdq{}), \PYGZdq{}}\PYG{n+nx}{header}\PYG{l+s+s2}{\PYGZdq{} : \PYGZdq{}}\PYG{n+nx}{Header} \PYG{l+m+mi}{1}\PYG{l+s+s2}{\PYGZdq{}, \PYGZdq{}}\PYG{n+nx}{text}\PYG{l+s+s2}{\PYGZdq{} : \PYGZdq{}}\PYG{n+nx}{Lorem} \PYG{n+nx}{Ipsum}\PYG{l+s+s2}{\PYGZdq{}, \PYGZdq{}}\PYG{n+nx}{friends}\PYG{l+s+s2}{\PYGZdq{} : [ ] \PYGZcb{}}
+\PYG{l+s+s2}{\PYGZgt{} db.users.aggregate([\PYGZob{}\PYGZdl{}match: \PYGZob{}header: \PYGZdq{}}\PYG{n+nx}{Header} \PYG{l+m+mi}{1}\PYG{l+s+s2}{\PYGZdq{}\PYGZcb{}\PYGZcb{}, \PYGZob{}\PYGZdl{}lookup: \PYGZob{}from:\PYGZdq{}\PYGZdq{}, localField: \PYGZdq{}}\PYG{n+nx}{friend}\PYG{l+s+s2}{\PYGZdq{}, foreignField: \PYGZdq{}}\PYG{n+nx}{\PYGZus{}id}\PYG{l+s+s2}{\PYGZdq{}, as: \PYGZdq{}}\PYG{n+nx}{friends}\PYG{l+s+s2}{\PYGZdq{}\PYGZcb{}\PYGZcb{}])}
+\PYG{l+s+s2}{2019\PYGZhy{}11\PYGZhy{}04T16:28:34.356+0000 E  QUERY    [js] uncaught exception: Error: command failed: \PYGZob{}}
+\PYG{l+s+s2}{	\PYGZdq{}}\PYG{n+nx}{ok}\PYG{l+s+s2}{\PYGZdq{} : 0,}
+\PYG{l+s+s2}{	\PYGZdq{}}\PYG{n+nx}{errmsg}\PYG{l+s+s2}{\PYGZdq{} : \PYGZdq{}}\PYG{n+nx}{invalid} \PYG{n+nx}{\PYGZdl{}lookup} \PYG{n+nx}{namespace}\PYG{o}{:} \PYG{n+nx}{test}\PYG{p}{.}\PYG{l+s+s2}{\PYGZdq{},}
+\PYG{l+s+s2}{	\PYGZdq{}}\PYG{n+nx}{code}\PYG{l+s+s2}{\PYGZdq{} : 73,}
+\PYG{l+s+s2}{	\PYGZdq{}}\PYG{n+nx}{codeName}\PYG{l+s+s2}{\PYGZdq{} : \PYGZdq{}}\PYG{n+nx}{InvalidNamespace}\PYG{l+s+s2}{\PYGZdq{}}
+\PYG{l+s+s2}{\PYGZcb{} : aggregate failed :}
+\PYG{l+s+s2}{\PYGZus{}getErrorWithCode@src/mongo/shell/utils.js:25:13}
+\PYG{l+s+s2}{doassert@src/mongo/shell/assert.js:18:14}
+\PYG{l+s+s2}{\PYGZus{}assertCommandWorked@src/mongo/shell/assert.js:583:17}
+\PYG{l+s+s2}{assert.commandWorked@src/mongo/shell/assert.js:673:16}
+\PYG{l+s+s2}{DB.prototype.\PYGZus{}runAggregate@src/mongo/shell/db.js:266:5}
+\PYG{l+s+s2}{DBCollection.prototype.aggregate@src/mongo/shell/collection.js:1012:12}
+\PYG{l+s+s2}{@(shell):1:1}
+\PYG{l+s+s2}{\PYGZgt{} db.post.aggregate([\PYGZob{}\PYGZdl{}match: \PYGZob{}header: \PYGZdq{}}\PYG{n+nx}{Header} \PYG{l+m+mi}{1}\PYG{l+s+s2}{\PYGZdq{}\PYGZcb{}\PYGZcb{}, \PYGZob{}\PYGZdl{}lookup: \PYGZob{}from:\PYGZdq{}}\PYG{n+nx}{friend}\PYG{l+s+s2}{\PYGZdq{}, localField: \PYGZdq{}}\PYG{n+nx}{friend}\PYG{l+s+s2}{\PYGZdq{}, foreignField: \PYGZdq{}}\PYG{n+nx}{\PYGZus{}id}\PYG{l+s+s2}{\PYGZdq{}, as: \PYGZdq{}}\PYG{n+nx}{friends}\PYG{l+s+s2}{\PYGZdq{}\PYGZcb{}\PYGZcb{}])}
+\PYG{l+s+s2}{\PYGZgt{} db.friend.aggregate([\PYGZob{}\PYGZdl{}match: \PYGZob{}user: \PYGZdq{}}\PYG{n+nx}{phoermann}\PYG{err}{@}\PYG{n+nx}{gmail}\PYG{p}{.}\PYG{n+nx}{com}\PYG{l+s+s2}{\PYGZdq{}\PYGZcb{}\PYGZcb{}, \PYGZob{}\PYGZdl{}lookup: \PYGZob{}from:\PYGZdq{}}\PYG{n+nx}{friend}\PYG{l+s+s2}{\PYGZdq{}, localField: \PYGZdq{}}\PYG{n+nx}{email}\PYG{l+s+s2}{\PYGZdq{}, foreignField: \PYGZdq{}}\PYG{n+nx}{\PYGZus{}id}\PYG{l+s+s2}{\PYGZdq{}, as: \PYGZdq{}}\PYG{n+nx}{friends}\PYG{l+s+s2}{\PYGZdq{}\PYGZcb{}\PYGZcb{}])}
+\PYG{l+s+s2}{\PYGZgt{} db.friend.aggregate([\PYGZob{}\PYGZdl{}match: \PYGZob{}user: \PYGZdq{}}\PYG{n+nx}{phoermann}\PYG{err}{@}\PYG{n+nx}{gmail}\PYG{p}{.}\PYG{n+nx}{com}\PYG{l+s+s2}{\PYGZdq{}\PYGZcb{}\PYGZcb{}, \PYGZob{}\PYGZdl{}lookup: \PYGZob{}from:\PYGZdq{}}\PYG{n+nx}{friend}\PYG{l+s+s2}{\PYGZdq{}, localField: \PYGZdq{}}\PYG{n+nx}{email}\PYG{l+s+s2}{\PYGZdq{}, foreignField: \PYGZdq{}}\PYG{n+nx}{\PYGZus{}id}\PYG{l+s+s2}{\PYGZdq{}, as: \PYGZdq{}}\PYG{n+nx}{friends}\PYG{err}{\PYGZdq{}}\PYG{p}{\PYGZcb{}\PYGZcb{}])}
+\end{Verbatim}

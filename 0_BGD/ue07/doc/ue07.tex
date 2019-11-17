@@ -1,0 +1,32 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{preamble}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Edit These for yourself
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\course{BGD2}
+\newcommand\hwnumber{7}
+\newcommand\userID{S1910595010, Paul Hörmann}
+
+\begin{document}
+
+\section*{Aufgabe 1: MongoDB}
+\inputminted[
+	linenos=true,
+	fontsize=\footnotesize,
+	frame=lines,
+	framesep=2mm,
+	baselinestretch=1.2
+	]{js}{../commands.txt}
+	
+\section*{Aufgabe 2: Cassandra}
+\inputminted[
+	linenos=true,
+	fontsize=\footnotesize,
+	frame=lines,
+	framesep=2mm,
+	baselinestretch=1.2,
+	breaklines=true
+	]{sql}{../Cassandra.txt}
+
+\end{document}
