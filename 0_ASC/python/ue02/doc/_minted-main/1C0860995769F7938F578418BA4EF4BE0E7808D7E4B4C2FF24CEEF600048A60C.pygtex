@@ -1,0 +1,41 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} version 3.8.0}
+\PYG{k+kn}{import} \PYG{n+nn}{re}
+\PYG{k+kn}{import} \PYG{n+nn}{pprint}
+
+\PYG{n}{pp} \PYG{o}{=} \PYG{n}{pprint}\PYG{o}{.}\PYG{n}{PrettyPrinter}\PYG{p}{(}\PYG{n}{indent}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{)}
+
+\PYG{n}{emailFile} \PYG{o}{=} \PYG{n+nb}{open}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}./imgtSpeciesGeneInformation.txt\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}r\PYGZdq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} pattern = re.compile(r\PYGZdq{}((\PYGZbs{}w*\PYGZbs{}s?)*);((\PYGZbs{}w*\PYGZbs{}d*\PYGZhy{}?)*);\PYGZdq{})}
+
+\PYG{n}{res\PYGZus{}dict} \PYG{o}{=} \PYG{p}{\PYGZob{}\PYGZcb{}}
+\PYG{n}{avail\PYGZus{}gen} \PYG{o}{=} \PYG{p}{[]}
+\PYG{n}{line\PYGZus{}nr} \PYG{o}{=} \PYG{l+m+mi}{0}
+
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n}{emailFile}\PYG{o}{.}\PYG{n}{readlines}\PYG{p}{()[}\PYG{l+m+mi}{1}\PYG{p}{:]:}
+    \PYG{n}{mo} \PYG{o}{=} \PYG{n}{re}\PYG{o}{.}\PYG{n}{search}\PYG{p}{(}\PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}((\PYGZbs{}w*\PYGZbs{}s*)*);((\PYGZbs{}w|\PYGZbs{}d|\PYGZhy{}|/)*);.*\PYGZdq{}}\PYG{p}{,} \PYG{n}{i}\PYG{p}{)}
+    \PYG{n}{line\PYGZus{}nr} \PYG{o}{+=} \PYG{l+m+mi}{1}
+    \PYG{k}{if} \PYG{n}{mo} \PYG{o}{!=} \PYG{n+nb+bp}{None}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{mo}\PYG{o}{.}\PYG{n}{group}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{))} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{4}\PYG{p}{:}
+            \PYG{k}{continue}
+        \PYG{k}{if} \PYG{n}{mo}\PYG{o}{.}\PYG{n}{group}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n}{res\PYGZus{}dict}\PYG{p}{:}
+            \PYG{n}{res\PYGZus{}dict}\PYG{p}{[}\PYG{n}{mo}\PYG{o}{.}\PYG{n}{group}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)]} \PYG{o}{=} \PYG{p}{\PYGZob{}\PYGZcb{}}
+        \PYG{k}{if} \PYG{n}{mo}\PYG{o}{.}\PYG{n}{group}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)[}\PYG{l+m+mi}{3}\PYG{p}{]} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n}{res\PYGZus{}dict}\PYG{p}{[}\PYG{n}{mo}\PYG{o}{.}\PYG{n}{group}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)]:}
+            \PYG{n}{res\PYGZus{}dict}\PYG{p}{[}\PYG{n}{mo}\PYG{o}{.}\PYG{n}{group}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)][}\PYG{n}{mo}\PYG{o}{.}\PYG{n}{group}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)[}\PYG{l+m+mi}{3}\PYG{p}{]]} \PYG{o}{=} \PYG{l+m+mi}{0}
+        \PYG{n}{res\PYGZus{}dict}\PYG{p}{[}\PYG{n}{mo}\PYG{o}{.}\PYG{n}{group}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)][}\PYG{n}{mo}\PYG{o}{.}\PYG{n}{group}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)[}\PYG{l+m+mi}{3}\PYG{p}{]]} \PYG{o}{+=} \PYG{l+m+mi}{1}
+        \PYG{n}{avail\PYGZus{}gen}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{mo}\PYG{o}{.}\PYG{n}{group}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)[}\PYG{l+m+mi}{3}\PYG{p}{])}
+
+\PYG{n}{avail\PYGZus{}gen} \PYG{o}{=} \PYG{n+nb}{set}\PYG{p}{(}\PYG{n}{avail\PYGZus{}gen}\PYG{p}{)}
+
+\PYG{k}{for} \PYG{n}{g} \PYG{o+ow}{in} \PYG{n}{avail\PYGZus{}gen}\PYG{p}{:}
+    \PYG{k}{for} \PYG{n}{k} \PYG{o+ow}{in} \PYG{n}{res\PYGZus{}dict}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n}{g} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n}{res\PYGZus{}dict}\PYG{p}{[}\PYG{n}{k}\PYG{p}{]:}
+            \PYG{n}{res\PYGZus{}dict}\PYG{p}{[}\PYG{n}{k}\PYG{p}{][}\PYG{n}{g}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mi}{0}
+
+\PYG{c+c1}{\PYGZsh{} TODO: final calculation missing}
+
+\PYG{n}{pp}\PYG{o}{.}\PYG{n}{pprint}\PYG{p}{(}\PYG{n}{res\PYGZus{}dict}\PYG{p}{)}
+
+\PYG{n}{emailFile}\PYG{o}{.}\PYG{n}{close}\PYG{p}{()}
+\end{Verbatim}

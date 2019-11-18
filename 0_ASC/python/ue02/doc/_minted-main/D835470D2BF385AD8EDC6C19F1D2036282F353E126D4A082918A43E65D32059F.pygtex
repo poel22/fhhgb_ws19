@@ -1,0 +1,19 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} version 3.8.0}
+\PYG{k+kn}{import} \PYG{n+nn}{sqlite3}
+\PYG{k+kn}{import} \PYG{n+nn}{pprint}
+
+\PYG{n}{pp} \PYG{o}{=} \PYG{n}{pprint}\PYG{o}{.}\PYG{n}{PrettyPrinter}\PYG{p}{(}\PYG{n}{indent}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{)}
+
+\PYG{n}{con} \PYG{o}{=} \PYG{n}{sqlite3}\PYG{o}{.}\PYG{n}{connect}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./protein.db\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{cur} \PYG{o}{=} \PYG{n}{con}\PYG{o}{.}\PYG{n}{cursor}\PYG{p}{()}
+
+\PYG{n}{result} \PYG{o}{=} \PYG{n}{cur}\PYG{o}{.}\PYG{n}{execute}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}select * from proteins where pbid like (\PYGZsq{}}\PYG{l+s+si}{\PYGZpc{}5\PYGZpc{}}\PYG{l+s+s2}{\PYGZsq{})\PYGZdq{}}\PYG{p}{)}
+
+\PYG{k}{for} \PYG{n}{line} \PYG{o+ow}{in} \PYG{n}{result}\PYG{o}{.}\PYG{n}{fetchall}\PYG{p}{():}
+    \PYG{n}{pp}\PYG{o}{.}\PYG{n}{pprint}\PYG{p}{(}\PYG{n}{line}\PYG{p}{)}
+
+\PYG{n}{con}\PYG{o}{.}\PYG{n}{commit}\PYG{p}{()}
+\PYG{n}{con}\PYG{o}{.}\PYG{n}{close}\PYG{p}{()}
+\end{Verbatim}

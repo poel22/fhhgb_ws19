@@ -1,0 +1,88 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} version 3.8.0}
+\PYG{k+kn}{import} \PYG{n+nn}{urllib.request}
+\PYG{k+kn}{import} \PYG{n+nn}{re}
+\PYG{k+kn}{import} \PYG{n+nn}{pprint}
+
+\PYG{n}{PP} \PYG{o}{=} \PYG{n}{pprint}\PYG{o}{.}\PYG{n}{PrettyPrinter}\PYG{p}{(}\PYG{n}{indent}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+
+\PYG{n}{BASE\PYGZus{}URL} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}https://www.icd\PYGZhy{}code.de/icd/code/\PYGZdq{}}
+\PYG{n}{STARTING\PYGZus{}URL} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}ICD\PYGZhy{}10\PYGZhy{}GM.html\PYGZdq{}}
+\PYG{n}{LIST\PYGZus{}OF\PYGZus{}IDS} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}H\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}J\PYGZdq{}}\PYG{p}{]}
+
+
+\PYG{k}{def} \PYG{n+nf}{build\PYGZus{}tree}\PYG{p}{(}\PYG{n}{url}\PYG{p}{,} \PYG{n}{ids}\PYG{p}{,} \PYG{n}{base}\PYG{p}{):}
+    \PYG{n}{tree} \PYG{o}{=} \PYG{p}{\PYGZob{}\PYGZcb{}}
+    \PYG{n+nb}{file} \PYG{o}{=} \PYG{n}{urllib}\PYG{o}{.}\PYG{n}{request}\PYG{o}{.}\PYG{n}{urlopen}\PYG{p}{(}\PYG{n}{url}\PYG{p}{)}
+    \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{readlines}\PYG{p}{():}
+        \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n}{ids}\PYG{p}{:}
+            \PYG{n}{identification} \PYG{o}{=} \PYG{n}{re}\PYG{o}{.}\PYG{n}{search}\PYG{p}{(}\PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}\PYGZlt{}a href=}\PYG{l+s+se}{\PYGZbs{}\PYGZdq{}}\PYG{l+s+s2}{(\PYGZdq{}} \PYG{o}{+} \PYG{n}{i} \PYG{o}{+} \PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}\PYGZbs{}d\PYGZbs{}d\PYGZhy{}\PYGZdq{}} \PYG{o}{+} \PYG{n}{i} \PYG{o}{+}
+                                       \PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}\PYGZbs{}d\PYGZbs{}d.html)}\PYG{l+s+se}{\PYGZbs{}\PYGZdq{}}\PYG{l+s+s2}{\PYGZgt{}(\PYGZbs{}w\PYGZbs{}d\PYGZbs{}d\PYGZhy{}\PYGZbs{}w\PYGZbs{}d\PYGZbs{}d)\PYGZlt{}\PYGZbs{}/a\PYGZgt{}\PYGZlt{}\PYGZbs{}/td\PYGZgt{}\PYGZlt{}td\PYGZgt{}(.+?)\PYGZlt{}a\PYGZdq{}}\PYG{p}{,}
+                                       \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{j}\PYG{p}{))}
+            \PYG{k}{if} \PYG{n}{identification} \PYG{o+ow}{is} \PYG{n+nb+bp}{None}\PYG{p}{:}
+                \PYG{k}{continue}
+            \PYG{n}{key} \PYG{o}{=} \PYG{n}{identification}\PYG{o}{.}\PYG{n}{group}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{)}
+            \PYG{n}{tree}\PYG{p}{[}\PYG{n}{key}\PYG{p}{]} \PYG{o}{=} \PYG{p}{\PYGZob{}}
+                \PYG{l+s+s2}{\PYGZdq{}link\PYGZdq{}}\PYG{p}{:} \PYG{n}{base} \PYG{o}{+} \PYG{n}{identification}\PYG{o}{.}\PYG{n}{group}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{),}
+                \PYG{l+s+s2}{\PYGZdq{}detail\PYGZdq{}}\PYG{p}{:} \PYG{n}{base} \PYG{o}{+} \PYG{n}{identification}\PYG{o}{.}\PYG{n}{group}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{),}
+                \PYG{l+s+s2}{\PYGZdq{}more\PYGZdq{}}\PYG{p}{:} \PYG{n}{parse\PYGZus{}second\PYGZus{}level}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,} \PYG{n}{base}\PYG{p}{,} \PYG{n}{base} \PYG{o}{+} \PYG{n}{identification}\PYG{o}{.}\PYG{n}{group}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{))}
+            \PYG{p}{\PYGZcb{}}
+    \PYG{n}{PP}\PYG{o}{.}\PYG{n}{pprint}\PYG{p}{(}\PYG{n}{tree}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} def parse\PYGZus{}first\PYGZus{}level(url, ids, base, tree):}
+
+
+\PYG{k}{def} \PYG{n+nf}{parse\PYGZus{}second\PYGZus{}level}\PYG{p}{(}\PYG{n}{cur\PYGZus{}id}\PYG{p}{,} \PYG{n}{base}\PYG{p}{,} \PYG{n}{link}\PYG{p}{):}
+    \PYG{n}{tree} \PYG{o}{=} \PYG{p}{\PYGZob{}\PYGZcb{}}
+    \PYG{k}{for} \PYG{n}{line} \PYG{o+ow}{in} \PYG{n}{urllib}\PYG{o}{.}\PYG{n}{request}\PYG{o}{.}\PYG{n}{urlopen}\PYG{p}{(}\PYG{n}{link}\PYG{p}{)}\PYG{o}{.}\PYG{n}{readlines}\PYG{p}{():}
+        \PYG{n}{matches} \PYG{o}{=} \PYG{n}{re}\PYG{o}{.}\PYG{n}{findall}\PYG{p}{(}\PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}\PYGZlt{}a href=}\PYG{l+s+se}{\PYGZbs{}\PYGZdq{}}\PYG{l+s+s2}{(\PYGZdq{}} \PYG{o}{+} \PYG{n}{cur\PYGZus{}id} \PYG{o}{+}
+                             \PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}\PYGZbs{}d\PYGZbs{}d\PYGZhy{}\PYGZbs{}w\PYGZbs{}d\PYGZbs{}d.html)}\PYG{l+s+se}{\PYGZbs{}\PYGZdq{}}\PYG{l+s+s2}{\PYGZgt{}(\PYGZbs{}w\PYGZbs{}d\PYGZbs{}d\PYGZhy{}\PYGZbs{}w\PYGZbs{}d\PYGZbs{}d)\PYGZlt{}\PYGZbs{}/a\PYGZgt{}(.+?)(\PYGZlt{}br\PYGZbs{}/\PYGZgt{}|\PYGZlt{}\PYGZbs{}/td\PYGZgt{})\PYGZdq{}}\PYG{p}{,}
+                             \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{line}\PYG{p}{))}
+        \PYG{k}{if} \PYG{n}{matches} \PYG{o+ow}{is} \PYG{n+nb+bp}{None}\PYG{p}{:}
+            \PYG{k}{continue}
+        \PYG{k}{for} \PYG{n}{match} \PYG{o+ow}{in} \PYG{n}{matches}\PYG{p}{:}
+            \PYG{n}{key} \PYG{o}{=} \PYG{n}{match}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}
+            \PYG{n}{sublink} \PYG{o}{=} \PYG{n}{base} \PYG{o}{+} \PYG{n}{match}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+            \PYG{n}{tree}\PYG{p}{[}\PYG{n}{key}\PYG{p}{]} \PYG{o}{=} \PYG{p}{\PYGZob{}}
+                \PYG{l+s+s2}{\PYGZdq{}link\PYGZdq{}}\PYG{p}{:} \PYG{n}{sublink}\PYG{p}{,}
+                \PYG{l+s+s2}{\PYGZdq{}detail\PYGZdq{}}\PYG{p}{:} \PYG{n}{match}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]}\PYG{o}{.}\PYG{n}{strip}\PYG{p}{(),}
+                \PYG{l+s+s2}{\PYGZdq{}more\PYGZdq{}}\PYG{p}{:} \PYG{n}{parse\PYGZus{}third\PYGZus{}level}\PYG{p}{(}\PYG{n}{cur\PYGZus{}id}\PYG{p}{,} \PYG{n}{base}\PYG{p}{,} \PYG{n}{sublink}\PYG{p}{)}
+            \PYG{p}{\PYGZcb{}}
+    \PYG{k}{return} \PYG{n}{tree}
+
+
+\PYG{k}{def} \PYG{n+nf}{parse\PYGZus{}third\PYGZus{}level}\PYG{p}{(}\PYG{n}{cur\PYGZus{}id}\PYG{p}{,} \PYG{n}{base}\PYG{p}{,} \PYG{n}{link}\PYG{p}{):}
+    \PYG{n}{tree} \PYG{o}{=} \PYG{p}{\PYGZob{}\PYGZcb{}}
+    \PYG{k}{for} \PYG{n}{line} \PYG{o+ow}{in} \PYG{n}{urllib}\PYG{o}{.}\PYG{n}{request}\PYG{o}{.}\PYG{n}{urlopen}\PYG{p}{(}\PYG{n}{link}\PYG{p}{)}\PYG{o}{.}\PYG{n}{readlines}\PYG{p}{():}
+        \PYG{n}{matches} \PYG{o}{=} \PYG{n}{re}\PYG{o}{.}\PYG{n}{findall}\PYG{p}{(}\PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}\PYGZlt{}a href=}\PYG{l+s+se}{\PYGZbs{}\PYGZdq{}}\PYG{l+s+s2}{(\PYGZdq{}} \PYG{o}{+} \PYG{n}{cur\PYGZus{}id} \PYG{o}{+}
+                             \PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}\PYGZbs{}d\PYGZbs{}d(?:.\PYGZhy{}\PYGZbs{}*?)?.html)}\PYG{l+s+se}{\PYGZbs{}\PYGZdq{}}\PYG{l+s+s2}{\PYGZgt{}(\PYGZdq{}} \PYG{o}{+} \PYG{n}{cur\PYGZus{}id} \PYG{o}{+}
+                             \PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}\PYGZbs{}d\PYGZbs{}d(?:.\PYGZhy{}\PYGZbs{}*?)?)\PYGZlt{}\PYGZbs{}/a\PYGZgt{}(.+?)(\PYGZlt{}br\PYGZbs{}/\PYGZgt{}|\PYGZlt{}\PYGZbs{}/td\PYGZgt{})\PYGZdq{}}\PYG{p}{,} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{line}\PYG{p}{))}
+        \PYG{k}{if} \PYG{n}{matches} \PYG{o+ow}{is} \PYG{n+nb+bp}{None}\PYG{p}{:}
+            \PYG{k}{continue}
+        \PYG{k}{for} \PYG{n}{match} \PYG{o+ow}{in} \PYG{n}{matches}\PYG{p}{:}
+            \PYG{n}{key} \PYG{o}{=} \PYG{n}{match}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}
+            \PYG{n}{sublink} \PYG{o}{=} \PYG{n}{base} \PYG{o}{+} \PYG{n}{match}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+            \PYG{n}{tree}\PYG{p}{[}\PYG{n}{key}\PYG{p}{]} \PYG{o}{=} \PYG{p}{\PYGZob{}}
+                \PYG{l+s+s2}{\PYGZdq{}link\PYGZdq{}}\PYG{p}{:} \PYG{n}{sublink}\PYG{p}{,}
+                \PYG{l+s+s2}{\PYGZdq{}detail\PYGZdq{}}\PYG{p}{:} \PYG{n}{match}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]}\PYG{o}{.}\PYG{n}{strip}\PYG{p}{(),}
+                \PYG{l+s+s2}{\PYGZdq{}more\PYGZdq{}}\PYG{p}{:} \PYG{n}{parse\PYGZus{}fourth\PYGZus{}level}\PYG{p}{(}\PYG{n}{cur\PYGZus{}id}\PYG{p}{,} \PYG{n}{base}\PYG{p}{,} \PYG{n}{sublink}\PYG{p}{)}
+            \PYG{p}{\PYGZcb{}}
+    \PYG{k}{return} \PYG{n}{tree}
+
+
+\PYG{k}{def} \PYG{n+nf}{parse\PYGZus{}fourth\PYGZus{}level}\PYG{p}{(}\PYG{n}{cur\PYGZus{}id}\PYG{p}{,} \PYG{n}{base}\PYG{p}{,} \PYG{n}{link}\PYG{p}{):}
+    \PYG{n}{tree} \PYG{o}{=} \PYG{p}{\PYGZob{}\PYGZcb{}}
+    \PYG{k}{for} \PYG{n}{line} \PYG{o+ow}{in} \PYG{n}{urllib}\PYG{o}{.}\PYG{n}{request}\PYG{o}{.}\PYG{n}{urlopen}\PYG{p}{(}\PYG{n}{link}\PYG{p}{)}\PYG{o}{.}\PYG{n}{readlines}\PYG{p}{():}
+        \PYG{n}{matches} \PYG{o}{=} \PYG{n}{re}\PYG{o}{.}\PYG{n}{findall}\PYG{p}{(}\PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}\PYGZlt{}tr\PYGZgt{}\PYGZlt{}td valign=}\PYG{l+s+se}{\PYGZbs{}\PYGZdq{}}\PYG{l+s+s2}{top}\PYG{l+s+se}{\PYGZbs{}\PYGZdq{}}\PYG{l+s+s2}{\PYGZgt{}\PYGZlt{}div class=}\PYG{l+s+se}{\PYGZbs{}\PYGZdq{}}\PYG{l+s+s2}{code\PYGZus{}bottom}\PYG{l+s+se}{\PYGZbs{}\PYGZdq{}}\PYG{l+s+s2}{\PYGZgt{}(\PYGZdq{}} \PYG{o}{+} \PYG{n}{cur\PYGZus{}id} \PYG{o}{+}
+                             \PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}\PYGZbs{}d\PYGZbs{}d\PYGZbs{}.\PYGZbs{}d\PYGZbs{}d?(?:\PYGZhy{}?\PYGZbs{}*?)?)\PYGZlt{}\PYGZbs{}/div\PYGZgt{}\PYGZlt{}\PYGZbs{}/td\PYGZgt{}\PYGZlt{}td colspan=}\PYG{l+s+se}{\PYGZbs{}\PYGZdq{}}\PYG{l+s+s2}{2}\PYG{l+s+se}{\PYGZbs{}\PYGZdq{}}\PYG{l+s+s2}{\PYGZgt{}(.+?)\PYGZlt{}\PYGZbs{}/td\PYGZgt{}\PYGZlt{}\PYGZbs{}/tr\PYGZgt{}\PYGZdq{}}\PYG{p}{,}
+                             \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{line}\PYG{p}{))}
+        \PYG{k}{if} \PYG{n}{matches} \PYG{o+ow}{is} \PYG{n+nb+bp}{None}\PYG{p}{:}
+            \PYG{k}{continue}
+        \PYG{k}{for} \PYG{n}{match} \PYG{o+ow}{in} \PYG{n}{matches}\PYG{p}{:}
+            \PYG{n}{key} \PYG{o}{=} \PYG{n}{match}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+            \PYG{n}{tree}\PYG{p}{[}\PYG{n}{key}\PYG{p}{]} \PYG{o}{=} \PYG{n}{match}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{o}{.}\PYG{n}{strip}\PYG{p}{()}
+    \PYG{k}{return} \PYG{n}{tree}
+
+
+\PYG{n}{build\PYGZus{}tree}\PYG{p}{(}\PYG{n}{BASE\PYGZus{}URL} \PYG{o}{+} \PYG{n}{STARTING\PYGZus{}URL}\PYG{p}{,} \PYG{n}{LIST\PYGZus{}OF\PYGZus{}IDS}\PYG{p}{,} \PYG{n}{BASE\PYGZus{}URL}\PYG{p}{)}
+\end{Verbatim}

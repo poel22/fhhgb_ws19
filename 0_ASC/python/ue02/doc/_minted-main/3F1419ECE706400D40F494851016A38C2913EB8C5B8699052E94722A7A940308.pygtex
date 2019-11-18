@@ -1,0 +1,100 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} version 3.8.0}
+\PYG{k+kn}{import} \PYG{n+nn}{os}
+\PYG{k+kn}{import} \PYG{n+nn}{urllib.request}
+\PYG{k+kn}{import} \PYG{n+nn}{random}
+\PYG{k+kn}{import} \PYG{n+nn}{gzip}
+\PYG{k+kn}{import} \PYG{n+nn}{re}
+\PYG{k+kn}{import} \PYG{n+nn}{pprint}
+\PYG{k+kn}{import} \PYG{n+nn}{sqlite3}
+
+\PYG{n}{pp} \PYG{o}{=} \PYG{n}{pprint}\PYG{o}{.}\PYG{n}{PrettyPrinter}\PYG{p}{(}\PYG{n}{indent}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{)}
+
+\PYG{n}{filePath} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}./ftpSourceView.txt\PYGZdq{}}\PYG{p}{;}
+
+\PYG{n}{fileContent} \PYG{o}{=} \PYG{n+nb}{open}\PYG{p}{(}\PYG{n}{filePath}\PYG{p}{)}\PYG{o}{.}\PYG{n}{readlines}\PYG{p}{();}
+
+\PYG{n}{sourceUrl} \PYG{o}{=} \PYG{n}{fileContent}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{.}\PYG{n}{split}\PYG{p}{()[}\PYG{l+m+mi}{1}\PYG{p}{]}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}URL: \PYGZdq{}} \PYG{o}{+} \PYG{n}{sourceUrl}\PYG{p}{)}
+
+\PYG{n}{unzippedFiles} \PYG{o}{=} \PYG{p}{[]}
+
+
+\PYG{k}{def} \PYG{n+nf}{get\PYGZus{}data}\PYG{p}{(}\PYG{n}{nr\PYGZus{}files}\PYG{p}{):}
+    \PYG{n}{pp}\PYG{o}{.}\PYG{n}{pprint}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZgt{}\PYGZgt{}\PYGZgt{}\PYGZgt{} STARTING DOWNLOAD \PYGZlt{}\PYGZlt{}\PYGZlt{}\PYGZlt{}\PYGZlt{}\PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{toReturn} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{n}{dead\PYGZus{}files} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{nr\PYGZus{}files}\PYG{p}{):}
+        \PYG{n}{data} \PYG{o}{=} \PYG{p}{\PYGZob{}\PYGZcb{}}
+        \PYG{n}{fullUrl} \PYG{o}{=} \PYG{n}{sourceUrl} \PYG{o}{+} \PYG{n}{fileContent}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{:][}\PYG{n}{random}\PYG{o}{.}\PYG{n}{randint}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{fileContent}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{2}\PYG{p}{)]}\PYG{o}{.}\PYG{n}{split}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}\PYGZdq{}\PYGZsq{}}\PYG{p}{)[}\PYG{l+m+mi}{1}\PYG{p}{]}
+        \PYG{k}{try}\PYG{p}{:}
+            \PYG{n}{content} \PYG{o}{=} \PYG{n}{gzip}\PYG{o}{.}\PYG{n}{GzipFile}\PYG{p}{(}\PYG{n}{fileobj}\PYG{o}{=}\PYG{n}{urllib}\PYG{o}{.}\PYG{n}{request}\PYG{o}{.}\PYG{n}{urlopen}\PYG{p}{(}\PYG{n}{fullUrl}\PYG{p}{))}\PYG{o}{.}\PYG{n}{readlines}\PYG{p}{()}
+            \PYG{n}{matched\PYGZus{}header} \PYG{o}{=} \PYG{n}{re}\PYG{o}{.}\PYG{n}{search}\PYG{p}{(}\PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}HEADER\PYGZbs{}s*([/\PYGZbs{}w\PYGZbs{}s\PYGZhy{}]*)\PYGZbs{}d\PYGZob{}2\PYGZcb{}\PYGZhy{}\PYGZbs{}w\PYGZob{}3\PYGZcb{}\PYGZhy{}\PYGZbs{}d\PYGZob{}2\PYGZcb{}\PYGZbs{}s*(\PYGZbs{}d*\PYGZbs{}w*)\PYGZdq{}}\PYG{p}{,} \PYG{n}{content}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{.}\PYG{n}{decode}\PYG{p}{())}
+            \PYG{n}{data}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}header\PYGZdq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{matched\PYGZus{}header}\PYG{o}{.}\PYG{n}{group}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{.}\PYG{n}{strip}\PYG{p}{()}
+            \PYG{n}{data}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}pdbid\PYGZdq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{matched\PYGZus{}header}\PYG{o}{.}\PYG{n}{group}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{)}
+            \PYG{n}{data}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}X\PYGZdq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mi}{0}
+            \PYG{n}{data}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}Y\PYGZdq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mi}{0}
+            \PYG{n}{data}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}Z\PYGZdq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mi}{0}
+            \PYG{n}{data}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}title\PYGZdq{}}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[]}
+            \PYG{k}{for} \PYG{n}{line\PYGZus{}src} \PYG{o+ow}{in} \PYG{n}{content}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{:]:}
+                \PYG{n}{line} \PYG{o}{=} \PYG{n}{line\PYGZus{}src}\PYG{o}{.}\PYG{n}{decode}\PYG{p}{()}
+                \PYG{n}{match} \PYG{o}{=} \PYG{n}{re}\PYG{o}{.}\PYG{n}{match}\PYG{p}{(}\PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}TITLE\PYGZbs{}s\PYGZbs{}d?\PYGZbs{}s?(.*)\PYGZdq{}}\PYG{p}{,} \PYG{n}{line}\PYG{p}{)}
+                \PYG{k}{if} \PYG{n}{match} \PYG{o}{!=} \PYG{n+nb+bp}{None}\PYG{p}{:}
+                    \PYG{n}{data}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}title\PYGZdq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{match}\PYG{o}{.}\PYG{n}{group}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{.}\PYG{n}{strip}\PYG{p}{())}
+                \PYG{k}{elif} \PYG{n}{line}\PYG{o}{.}\PYG{n}{startswith}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}ATOM\PYGZdq{}}\PYG{p}{):}
+                    \PYG{n}{split} \PYG{o}{=} \PYG{n}{line}\PYG{o}{.}\PYG{n}{split}\PYG{p}{();}
+                    \PYG{n}{data}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}X\PYGZdq{}}\PYG{p}{]} \PYG{o}{+=} \PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{split}\PYG{p}{[}\PYG{l+m+mi}{6}\PYG{p}{])}
+                    \PYG{n}{data}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}Y\PYGZdq{}}\PYG{p}{]} \PYG{o}{+=} \PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{split}\PYG{p}{[}\PYG{l+m+mi}{7}\PYG{p}{])}
+                    \PYG{n}{data}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}Z\PYGZdq{}}\PYG{p}{]} \PYG{o}{+=} \PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{split}\PYG{p}{[}\PYG{l+m+mi}{8}\PYG{p}{])}
+                \PYG{k}{else}\PYG{p}{:}
+                    \PYG{n}{match} \PYG{o}{=} \PYG{n}{re}\PYG{o}{.}\PYG{n}{match}\PYG{p}{(}\PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}.*CHAIN:\PYGZbs{}s(.*);\PYGZdq{}}\PYG{p}{,} \PYG{n}{line}\PYG{p}{)}
+                    \PYG{k}{if} \PYG{n}{match} \PYG{o}{!=} \PYG{n+nb+bp}{None}\PYG{p}{:}
+                        \PYG{n}{data}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}chain\PYGZdq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{match}\PYG{o}{.}\PYG{n}{group}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}
+            \PYG{n}{data}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}title\PYGZdq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{} \PYGZdq{}}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}title\PYGZdq{}}\PYG{p}{])}
+            \PYG{n}{pp}\PYG{o}{.}\PYG{n}{pprint}\PYG{p}{(}\PYG{n+nb}{str}\PYG{p}{(((}\PYG{n}{i} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{/} \PYG{n}{nr\PYGZus{}files}\PYG{p}{)} \PYG{o}{*} \PYG{l+m+mi}{100}\PYG{p}{)} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZpc{} c}\PYG{l+s+s2}{ompleted\PYGZdq{}}\PYG{p}{)}
+            \PYG{n}{toReturn}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}
+        \PYG{k}{except}\PYG{p}{:}
+            \PYG{n}{pp}\PYG{o}{.}\PYG{n}{pprint}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}got a faulty file, continuing ...\PYGZdq{}}\PYG{p}{)}
+            \PYG{n}{dead\PYGZus{}files} \PYG{o}{+=} \PYG{l+m+mi}{1}
+    \PYG{n}{pp}\PYG{o}{.}\PYG{n}{pprint}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZgt{}\PYGZgt{}\PYGZgt{}\PYGZgt{} DONE \PYGZlt{}\PYGZlt{}\PYGZlt{}\PYGZlt{}\PYGZlt{}\PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{pp}\PYG{o}{.}\PYG{n}{pprint}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}!! Encountered \PYGZdq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{dead\PYGZus{}files}\PYG{p}{)} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{} files.\PYGZdq{}}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{toReturn}
+
+\PYG{k}{def} \PYG{n+nf}{insert\PYGZus{}data}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,} \PYG{n}{database\PYGZus{}file}\PYG{p}{):}
+    \PYG{n}{pp}\PYG{o}{.}\PYG{n}{pprint}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZgt{}\PYGZgt{}\PYGZgt{}\PYGZgt{} STARTING DB INSERT \PYGZlt{}\PYGZlt{}\PYGZlt{}\PYGZlt{}\PYGZlt{}\PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{con} \PYG{o}{=} \PYG{n}{sqlite3}\PYG{o}{.}\PYG{n}{connect}\PYG{p}{(}\PYG{n}{database\PYGZus{}file}\PYG{p}{)}
+    \PYG{n}{cur} \PYG{o}{=} \PYG{n}{con}\PYG{o}{.}\PYG{n}{cursor}\PYG{p}{()}
+    \PYG{k}{for} \PYG{n}{i}\PYG{p}{,} \PYG{n}{element} \PYG{o+ow}{in} \PYG{n+nb}{enumerate}\PYG{p}{(}\PYG{n}{data}\PYG{p}{):}
+        \PYG{n}{cur}\PYG{o}{.}\PYG{n}{execute}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}insert into proteins (\PYGZsq{}} \PYG{o}{+}
+                    \PYG{l+s+s1}{\PYGZsq{}header, title, pbid, chain, X, Y, Z\PYGZsq{}} \PYG{o}{+}
+                    \PYG{l+s+s1}{\PYGZsq{}) VALUES (?,?,?,?,?,?,?)\PYGZsq{}}\PYG{p}{,}
+                    \PYG{p}{[}\PYG{n}{element}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}header\PYGZdq{}}\PYG{p}{],} \PYG{n}{element}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}title\PYGZdq{}}\PYG{p}{],} \PYG{n}{element}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}pdbid\PYGZdq{}}\PYG{p}{],}
+                     \PYG{n}{element}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}chain\PYGZdq{}}\PYG{p}{],} \PYG{n}{element}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}X\PYGZdq{}}\PYG{p}{],} \PYG{n}{element}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}Y\PYGZdq{}}\PYG{p}{],} \PYG{n}{element}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}Z\PYGZdq{}}\PYG{p}{]])}
+        \PYG{n}{pp}\PYG{o}{.}\PYG{n}{pprint}\PYG{p}{(}\PYG{n+nb}{str}\PYG{p}{(((}\PYG{n}{i} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{/} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data}\PYG{p}{))} \PYG{o}{*} \PYG{l+m+mi}{100}\PYG{p}{)} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZpc{} c}\PYG{l+s+s2}{ompleted\PYGZdq{}}\PYG{p}{)}
+        \PYG{n}{con}\PYG{o}{.}\PYG{n}{commit}\PYG{p}{()}
+    \PYG{n}{con}\PYG{o}{.}\PYG{n}{close}\PYG{p}{()}
+    \PYG{n}{pp}\PYG{o}{.}\PYG{n}{pprint}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZgt{}\PYGZgt{}\PYGZgt{}\PYGZgt{} DONE WITH DB INSERT \PYGZlt{}\PYGZlt{}\PYGZlt{}\PYGZlt{}\PYGZlt{}\PYGZdq{}}\PYG{p}{)}
+
+\PYG{k}{def} \PYG{n+nf}{setup\PYGZus{}db}\PYG{p}{(}\PYG{n}{database\PYGZus{}file}\PYG{p}{):}
+    \PYG{n}{con} \PYG{o}{=} \PYG{n}{sqlite3}\PYG{o}{.}\PYG{n}{connect}\PYG{p}{(}\PYG{n}{database\PYGZus{}file}\PYG{p}{)}
+
+    \PYG{n}{cur} \PYG{o}{=} \PYG{n}{con}\PYG{o}{.}\PYG{n}{cursor}\PYG{p}{()}
+
+    \PYG{n}{cur}\PYG{o}{.}\PYG{n}{execute}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}create table if not exists proteins (\PYGZsq{}} \PYG{o}{+}
+                \PYG{l+s+s1}{\PYGZsq{}id integer primary key autoincrement,\PYGZsq{}} \PYG{o}{+}
+                \PYG{l+s+s1}{\PYGZsq{}header text,\PYGZsq{}} \PYG{o}{+}
+                \PYG{l+s+s1}{\PYGZsq{}title text,\PYGZsq{}} \PYG{o}{+}
+                \PYG{l+s+s1}{\PYGZsq{}pbid text,\PYGZsq{}} \PYG{o}{+}
+                \PYG{l+s+s1}{\PYGZsq{}chain text,\PYGZsq{}} \PYG{o}{+}
+                \PYG{l+s+s1}{\PYGZsq{}X float,\PYGZsq{}} \PYG{o}{+}
+                \PYG{l+s+s1}{\PYGZsq{}Y float,\PYGZsq{}} \PYG{o}{+}
+                \PYG{l+s+s1}{\PYGZsq{}Z float\PYGZsq{}} \PYG{o}{+}
+                \PYG{l+s+s1}{\PYGZsq{})\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{con}\PYG{o}{.}\PYG{n}{commit}\PYG{p}{()}
+    \PYG{n}{con}\PYG{o}{.}\PYG{n}{close}\PYG{p}{()}
+
+\PYG{n}{database\PYGZus{}file} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}./protein.db\PYGZdq{}}
+
+\PYG{n}{setup\PYGZus{}db}\PYG{p}{(}\PYG{n}{database\PYGZus{}file}\PYG{p}{)}
+\PYG{n}{insert\PYGZus{}data}\PYG{p}{(}\PYG{n}{get\PYGZus{}data}\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{),} \PYG{n}{database\PYGZus{}file}\PYG{p}{)}
+\end{Verbatim}
