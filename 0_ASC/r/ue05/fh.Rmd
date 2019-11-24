@@ -1,0 +1,105 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+data <- rnorm(10000,0,1)
+head(data)
+```
+
+```{r}
+hist(data, xlim=c(-4,4), ylim=c(0,2000))
+par(new=T)
+plot(dnorm(seq(5,20,0.01),10,1),type="l",col="red",xaxt="n",yaxt="n",ylab="",xlab="")
+par(new=T)
+plot(dnorm(seq(5,20,0.01),15,1),type="l",col="red",xaxt="n",yaxt="n",ylab="",xlab="")
+
+```
+
+```{r}
+sw.s <- iris[which(iris$Species=="setosa"), "Sepal.Width"]
+sw.vi <- iris[which(iris$Species=="virginica"), "Sepal.Width"]
+pw.vi <- iris[which(iris$Species=="virginica"), "Petal.Width"]
+hist(sw.s)
+mean(sw.s)
+median(sw.s)
+boxplot(sw.s)
+qqnorm(sw.s)
+qqline(sw.s, col="red")
+```
+```{r}
+# betrachtet vor allem die Mittlere flächenmäßige Abweichung
+# relative geringe Güte
+ks.test(sw.s, "pnorm", mean(sw.s), sd(sw.s))
+```
+
+```{r}
+# betrachtet vor allem die Mittlere flächenmäßige Abweichung
+# relative geringe Güte
+library(nortest)
+lillie.test(sw.s)
+# anderson-darling
+# n > 7
+# paarweisen vergleich extremer werte
+ad.test(sw.s)
+cvm.test(sw.s)
+# Shapiro-Wilk
+# n > 3, n < 5000 laut literatur höchste Güte
+shapiro.test(sw.s)
+shapiro.test(iris$Petal.Length)
+shapiro.test(iris$Sepal.Width)
+sapply(iris[1:4], shapiro.test)
+
+aggregate(Sepal.Width~Species, iris, shapiro.test)
+x <- aggregate(iris[1:4], by=list(iris$Species), FUN=shapiro.test)
+x
+```
+
+```{r}
+z.test = function (a,mu,var,alt=1) {
+  zeta <- (mean(a)-mu)/(sqrt(var/length(a)))
+  p <- 1 - pnorm(zeta)
+  if (alt==2) p <- p * 2
+  return(p)
+}
+
+set <- iris[which(iris$Species=="setosa"),]
+vir <- iris[which(iris$Species=="virginica"),]
+z.test(a=set$Sepal.Length, mu=5, var=0.124)
+```
+```{r}
+# n<30 oder sigma=?
+# -> ttest
+t.t <- t.test(set$Sepal.Length, mu=5)
+t.t$p.vaule
+t.t$statistic
+t.t$parameter
+```
+```{r}
+# 2 Gruppen
+# unpaired ttest
+# Test auf Homoskedasdizität (gleiche Var)
+# ftest
+var.test(set$Sepal.Width, vir$Petal.Width)
+```
+```{r}
+library(compute.es)
+
+tes(6.4503, 10, 10)
+
+```
+
+```{r}
+aov.iris <- aov(Sepal.Width~Species, iris)
+summary(aov.iris)
+```
+
+```{r}
+# -> p < 2e-16 -> H1: mid 1 gruppe ist unterschiedlich
+```
+

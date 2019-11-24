@@ -1,0 +1,127 @@
+---
+title: "gl04_hoermann"
+author: "Paul Hörmann"
+date: "11/23/2019"
+output: pdf_document
+---
+
+```{r}
+getwd()
+```
+# Aufgabe 1
+```{r}
+monitorData = read.csv("./monitor.csv", sep=";")
+head(monitorData)
+```
+
+```{r}
+boxplot(monitorData$zeit~monitorData$stadt,ylab = "Zeit in Minuten",xlab = "1 = Wien, 2 = Umgebung")
+```
+
+H0: Zeit des fernsehens ist gleich
+H1: Jugendliche in der Stadt schauen länger
+```{r}
+# teste auf gruppe 1 größer gruppe 2, aber falsche reihenfolge daher less statt greater
+testresult = t.test(monitorData$zeit~monitorData$stadt,alternative="less")
+testresult
+```
+Ergebnis:
+```{r}
+testresult$statistic
+```
+Kritischer Wert:
+```{r}
+critT = qt(0.05, lower.tail=F, df=83.504)
+critT
+```
+T Wert größer als kritischer Wert?
+```{r}
+critT > testresult$statistic
+```
+Daher können wir H0 zugunsten von H1 verwerfen.
+
+# Aufgabe 2
+Daten:
+```{r}
+politData = matrix(c(120, 23, 11, 182),nrow=2)
+rownames(politData) = c("Partei A", "Partei B")
+colnames(politData) = c("Partei A", "Partei B")
+politData
+```
+Test Ergebnis:
+```{r}
+politTestResult = mcnemar.test(politData)
+politTestResult
+```
+Test Statistiken:
+```{r}
+politTestResult$statistic
+```
+Kritscher Wert:
+```{r}
+chiCrit = qchisq(0.95, 1)
+```
+Gab es einen signifikanten Einfluss?
+```{r}
+politTestResult$statistic > chiCrit
+```
+Daher nein.
+
+## Aufgabe 3
+Daten:
+```{r}
+library(readxl)
+babyData = read_excel("./Babydaten.xlsx")
+head(babyData)
+```
+### a)
+Test:
+H0: Gewicht ist unabhängig vom Geschlecht.
+H1: Gewicht von Buben ist größer.
+```{r}
+boxplot(babyData$Gewicht~babyData$Geschlecht,ylab = "Gewicht")
+```
+```{r}
+weightmgf = t.test(babyData$Gewicht~babyData$Geschlecht,alternative="greater")
+weightmgf
+```
+T wert:
+```{r}
+weightmgf$statistic
+```
+Kritischer wert:
+```{r}
+weightmgfCrit = qt(0.05,362.62)
+weightmgfCrit
+```
+Ergebnis:
+```{r}
+abs(weightmgf$statistic) > abs(weightmgfCrit)
+```
+Daher wird H0 zugunsten von H1 verworfen.
+### b)
+Test:
+H0: Größe ist unabhängig vom Geschlecht.
+H1: Größe von Buben ist größer.
+```{r}
+boxplot(babyData$Größe~babyData$Geschlecht,ylab = "Größe in cm")
+```
+
+```{r}
+heightmgf = t.test(babyData$Größe~babyData$Geschlecht,alternative="greater")
+heightmgf
+```
+T wert:
+```{r}
+heightmgf$statistic
+```
+Kritischer wert:
+```{r}
+heightmgfCrit = qt(0.05,370.94)
+heightmgfCrit
+```
+Ergebnis:
+```{r}
+abs(heightmgf$statistic) > abs(heightmgfCrit)
+```
+Daher wird H0 zugunsten von H1 verworfen.
