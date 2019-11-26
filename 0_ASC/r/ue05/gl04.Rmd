@@ -73,6 +73,7 @@ Daten:
 library(readxl)
 babyData = read_excel("./Babydaten.xlsx")
 head(babyData)
+nval = nrow(babyData)
 ```
 ### a)
 Test:
@@ -82,7 +83,7 @@ H1: Gewicht von Buben ist größer.
 boxplot(babyData$Gewicht~babyData$Geschlecht,ylab = "Gewicht")
 ```
 ```{r}
-weightmgf = t.test(babyData$Gewicht~babyData$Geschlecht,alternative="greater")
+weightmgf = wilcox.test(babyData$Gewicht~babyData$Geschlecht,alternative="greater")
 weightmgf
 ```
 T wert:
@@ -91,14 +92,14 @@ weightmgf$statistic
 ```
 Kritischer wert:
 ```{r}
-weightmgfCrit = qt(0.05,362.62)
+weightmgfCrit = qsignrank(0.05, n = nval, lower.tail = F)
 weightmgfCrit
 ```
 Ergebnis:
 ```{r}
 abs(weightmgf$statistic) > abs(weightmgfCrit)
 ```
-Daher wird H0 zugunsten von H1 verworfen.
+Daher bleibt H0.
 ### b)
 Test:
 H0: Größe ist unabhängig vom Geschlecht.
@@ -108,7 +109,7 @@ boxplot(babyData$Größe~babyData$Geschlecht,ylab = "Größe in cm")
 ```
 
 ```{r}
-heightmgf = t.test(babyData$Größe~babyData$Geschlecht,alternative="greater")
+heightmgf = wilcox.test(babyData$Größe~babyData$Geschlecht,alternative="greater")
 heightmgf
 ```
 T wert:
@@ -117,11 +118,25 @@ heightmgf$statistic
 ```
 Kritischer wert:
 ```{r}
-heightmgfCrit = qt(0.05,370.94)
+heightmgfCrit = qsignrank(0.025, n = nval, lower.tail = F)
 heightmgfCrit
 ```
 Ergebnis:
 ```{r}
 abs(heightmgf$statistic) > abs(heightmgfCrit)
 ```
-Daher wird H0 zugunsten von H1 verworfen.
+Daher bleibt H0.
+### c)
+```{r}
+plot(babyData$Gewicht, babyData$Größe) + abline(lm(babyData$Größe~babyData$Gewicht), col="red")
+```
+
+```{r}
+cor.test(babyData$Gewicht, babyData$Größe, alternative="two.sided",
+         method = "kendall")
+```
+
+```{r}
+cor(babyData$Gewicht, babyData$Größe)
+```
+
