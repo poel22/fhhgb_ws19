@@ -1,0 +1,100 @@
+---
+title: "gl04_4_hoermann"
+author: "Paul Hörmann"
+date: "11/26/2019"
+output: pdf_document
+---
+
+## Aufgabe 4
+### a)
+```{r}
+library(foreign)
+dmobile = read.dta(file = "./mobil-1.dta")
+head(dmobile)
+```
+```{r}
+dmobile[which(dmobile$dauer == max(dmobile$dauer)),]
+```
+Durchschnittliche Telefonat dauer:
+```{r}
+mean(dmobile$dauer)
+```
+Frauen telefonieren im Schnitt:
+```{r}
+mean(dmobile[which(dmobile$geschlecht == "Frau"),]$dauer)
+```
+Männer telefonieren im Schnitt:
+```{r}
+mean(dmobile[which(dmobile$geschlecht == "Mann"),]$dauer)
+```
+\pagebreak
+```{r}
+boxplot(dmobile$dauer~dmobile$geschlecht)
+```
+
+H0: Telefondauer unabhängig vom Geschlecht
+
+H1: Frauen telefonieren länger
+```{r}
+library(ggplot2)
+ggplot(dmobile, aes(x=dauer, fill=geschlecht), col = "red") +
+  geom_histogram(binwidth = 10) +
+  geom_vline(data = dmobile, aes(xintercept = mean(dauer)))
+```
+
+```{r}
+wilcox.test(dmobile$dauer~dmobile$geschlecht, alternative = "greater")
+```
+Das heißt Frauen telefonieren im Schnitt länger.
+### c)
+```{r}
+dtelnorm = dmobile[dmobile$tarif == "Normal",]
+dtelviel = dmobile[dmobile$tarif == "Viel",]
+dtelwenig = dmobile[dmobile$tarif == "Wenig",]
+ltelnorm = lm(dtelnorm$kosten~dtelnorm$dauer)
+ltelviel = lm(dtelviel$kosten~dtelviel$dauer)
+ltelwenig = lm(dtelwenig$kosten~dtelwenig$dauer)
+```
+\newpage
+```{r}
+ltelnorm
+```
+```{r}
+plot(dtelnorm$dauer, dtelnorm$kosten)
+abline(ltelnorm, col = "red")
+```
+
+Aus der Grafik lässt sich erkennen dass die Regressionsgerade eine gute Näherung ist.
+\pagebreak
+```{r}
+ltelviel
+```
+```{r}
+plot(dtelviel$dauer, dtelviel$kosten)
+abline(ltelviel, col = "red")
+```
+
+Wie zu erkennen und im Modell zu sehen sind die Punkte sehr verstreut, also wird vermutlich keine lineare Funktion hinter den Kosten stecken. Wohl eher ein personalisiertes Angebot.
+\pagebreak
+```{r}
+ltelwenig
+```
+```{r}
+plot(dtelwenig$dauer, dtelwenig$kosten)
+abline(ltelwenig, col = "red")
+```
+
+Die Regressionsgerade scheint auch hier eine gute Näherung zu sein.
+\pagebreak
+```{r}
+attach(dmobile)
+ltelmultivar = lm(kosten~dauer)
+detach(dmobile)
+ltelmultivar
+```
+```{r} 
+plot(dmobile$dauer, dmobile$kosten)
+abline(ltelmultivar, col = "red")
+```
+
+Die Regressionsgerade scheint auch hier eine gute Näherung zu sein.
