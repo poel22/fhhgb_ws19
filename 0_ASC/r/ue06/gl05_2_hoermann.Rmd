@@ -1,0 +1,29 @@
+---
+title: "gl05_2_hoermann"
+author: "Paul Hörmann"
+date: "11/27/2019"
+output: pdf_document
+---
+# Aufgabe 2: Tips
+```{r echo=F}
+library(data.table)
+library(dplyr)
+library(plyr)
+```
+```{r}
+dtips = data.table(read.csv("./tips.csv"))
+head(dtips)
+```
+```{r}
+ratio = function(tip=tip, total_bill=total_bill) {
+        round(sum(tip) / sum(total_bill) * 100, digits = 1)
+      }
+aggregate(dtips$tip~sex + day, data = dtips, mean)
+dmodified = data.table(ddply(.data = dtips, .variables = c("sex", "day", "time"), .fun = summarize,
+      n = length(tip),
+      tip_mw = round(mean(tip), 2),
+      tip_sd = round(sd(tip), 2),
+      anteil = ratio(tip, total_bill)))
+dmodified[order(-anteil)]
+```
+

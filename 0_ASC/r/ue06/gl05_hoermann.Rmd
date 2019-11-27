@@ -1,4 +1,4 @@
----
+ls---
 title: "gl05_hoermann"
 author: "Paul Hörmann"
 date: "11/25/2019"
@@ -6,13 +6,22 @@ output: pdf_document
 ---
 # Aufgabe 1: Forbes 2000
 
+Setup Environment
 ```{r}
+library(data.table)
+library(dplyr)
+```
+
+```{r echo=F}
 dtforbes = data.table(fread("./Forbes2000.csv"))
+```
+```{r}
 str(dtforbes)
 ```
 ```{r}
 ndtforbes = nrow(dtforbes)
 ```
+Erste & Letzte 5:
 ```{r}
 slice(dtforbes, c(1:5, (n() - 5):n()))
 ```
@@ -74,7 +83,13 @@ Mittel pro Land und Kategorie
 ```{r}
 dtforbes[,.(Mittel_Land_Kategorie = mean(assets)), by = list(country, category)]
 ```
+Mittel Marktwert und Verkaufserlös
 ```{r}
-dtforbes[,.(Mittel_assets = mean(assets)),.(Mittel_profit = mean(sales)) by = list(country, category)]
+dtforbes[,list(Mittel_assets = mean(assets),Mittel_profit = mean(sales))]
 ```
-
+Anzahl US Unternehmen und mittlerer Marktwert und Erlös pro Kategorie
+```{r}
+dtforbes[("United States"),
+         list(Anzahl = length(name),Mittel_assets = mean(assets),Mittel_profit = mean(sales)),
+         by = category]
+```
