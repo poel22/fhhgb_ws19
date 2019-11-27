@@ -1,0 +1,15 @@
+---
+title: "exercise7"
+author: "Paul Hörmann"
+date: "11/27/2019"
+output: pdf_document
+---
+Calculate Tylor polynom for pol. function: $f = 2x^4 - 3x^2 + 2x$ around point $x_0 = 2$.
+```{r}
+f = function(x) {
+  var = 2 * x^4 - 3 * x^2 + 2 * x
+}
+library(pracma)
+taylor(f, x0 = 2)
+```
+

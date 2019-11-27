@@ -10,6 +10,12 @@ output: pdf_document
 dtforbes = data.table(fread("./Forbes2000.csv"))
 str(dtforbes)
 ```
+```{r}
+ndtforbes = nrow(dtforbes)
+```
+```{r}
+slice(dtforbes, c(1:5, (n() - 5):n()))
+```
 
 ## Sales
 ```{r}
@@ -52,5 +58,23 @@ dtforbes[,list(
 )]
 ```
 
-
+## Keys
+```{r}
+setkey(dtforbes, country, assets, category, profits)
+```
+ * österreichische Finanzinstitute:
+```{r}
+dtforbes[("Austria")]
+```
+Mittelwert pro Land:
+```{r}
+dtforbes[,.(Mittel_Land = mean(assets)), by = country]
+```
+Mittel pro Land und Kategorie
+```{r}
+dtforbes[,.(Mittel_Land_Kategorie = mean(assets)), by = list(country, category)]
+```
+```{r}
+dtforbes[,.(Mittel_assets = mean(assets)),.(Mittel_profit = mean(sales)) by = list(country, category)]
+```
 

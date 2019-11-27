@@ -1,0 +1,12 @@
+---
+title: "projekt_info"
+author: "Paul Hörmann"
+date: "11/27/2019"
+output: pdf_document
+---
+## Gütekriterien
+ * Objektivität
+ * Reliabilität
+  * wiederholte Testausführung führt zum selben Ergebnis
+ * Validität
+  * wird wirklich das "getestete" getestet (und zb. nicht Konzentrationsfähigkeit bei Langeweile)
