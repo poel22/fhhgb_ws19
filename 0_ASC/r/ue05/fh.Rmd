@@ -1,6 +1,8 @@
 ---
-title: "R Notebook"
-output: html_notebook
+title: "gl05_hoermann"
+author: "Paul Hörmann"
+date: "11/25/2019"
+output: pdf_document
 ---
 
 ```{r}
