@@ -1,0 +1,56 @@
+---
+title: "gl05_hoermann"
+author: "Paul Hörmann"
+date: "11/25/2019"
+output: pdf_document
+---
+# Aufgabe 1: Forbes 2000
+
+```{r}
+dtforbes = data.table(fread("./Forbes2000.csv"))
+str(dtforbes)
+```
+
+## Sales
+```{r}
+dtforbes[,list(
+  Min = min(sales),
+  Median = median(sales),
+  Max = max(sales),
+  SD = sd(sales)
+)]
+```
+
+
+## Profits
+```{r}
+dtforbes[,list(
+  Min = min(profits),
+  Median = median(profits),
+  Max = max(profits),
+  SD = sd(profits)
+)]
+```
+
+## Assets
+```{r}
+dtforbes[,list(
+  Min = min(assets),
+  Median = median(assets),
+  Max = max(assets),
+  SD = sd(assets)
+)]
+```
+
+## Marketvalue
+```{r}
+dtforbes[,list(
+  Min = min(marketvalue),
+  Median = median(marketvalue),
+  Max = max(marketvalue),
+  SD = sd(marketvalue)
+)]
+```
+
+
+
