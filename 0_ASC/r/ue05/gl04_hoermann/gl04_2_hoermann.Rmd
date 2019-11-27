@@ -1,0 +1,20 @@
+---
+title: "gl04_2_hoermann"
+author: "Paul Hörmann"
+date: "11/26/2019"
+output: pdf_document
+---
+# Aufgabe 2
+Daten:
+```{r}
+politData = matrix(c(120, 23, 11, 182),nrow=2)
+rownames(politData) = c("Partei A", "Partei B")
+colnames(politData) = c("Partei A", "Partei B")
+politData
+```
+Test Ergebnis:
+```{r}
+politTestResult = mcnemar.test(politData)
+politTestResult
+```
+Weil p größer als alpha akzeptieren wir H0.

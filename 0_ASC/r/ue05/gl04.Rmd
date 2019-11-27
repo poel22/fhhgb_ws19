@@ -21,24 +21,10 @@ boxplot(monitorData$zeit~monitorData$stadt,ylab = "Zeit in Minuten",xlab = "1 = 
 H0: Zeit des fernsehens ist gleich
 H1: Jugendliche in der Stadt schauen länger
 ```{r}
-# teste auf gruppe 1 größer gruppe 2, aber falsche reihenfolge daher less statt greater
-testresult = t.test(monitorData$zeit~monitorData$stadt,alternative="less")
-testresult
+# teste auf gruppe 1 größer gruppe 2
+wilcox.test(monitorData$zeit~monitorData$stadt, alternative = "greater")
 ```
-Ergebnis:
-```{r}
-testresult$statistic
-```
-Kritischer Wert:
-```{r}
-critT = qt(0.05, lower.tail=F, df=83.504)
-critT
-```
-T Wert größer als kritischer Wert?
-```{r}
-critT > testresult$statistic
-```
-Daher können wir H0 zugunsten von H1 verwerfen.
+Weil p kleiner alpha akzeptieren wir H0.
 
 # Aufgabe 2
 Daten:
@@ -53,19 +39,7 @@ Test Ergebnis:
 politTestResult = mcnemar.test(politData)
 politTestResult
 ```
-Test Statistiken:
-```{r}
-politTestResult$statistic
-```
-Kritscher Wert:
-```{r}
-chiCrit = qchisq(0.95, 1)
-```
-Gab es einen signifikanten Einfluss?
-```{r}
-politTestResult$statistic > chiCrit
-```
-Daher nein.
+Weil p größer als alpha akzeptieren wir H0.
 
 ## Aufgabe 3
 Daten:
@@ -73,8 +47,9 @@ Daten:
 library(readxl)
 babyData = read_excel("./Babydaten.xlsx")
 head(babyData)
+nval = nrow(babyData)
 ```
-### a)
+### b)
 Test:
 H0: Gewicht ist unabhängig vom Geschlecht.
 H1: Gewicht von Buben ist größer.
@@ -82,24 +57,10 @@ H1: Gewicht von Buben ist größer.
 boxplot(babyData$Gewicht~babyData$Geschlecht,ylab = "Gewicht")
 ```
 ```{r}
-weightmgf = t.test(babyData$Gewicht~babyData$Geschlecht,alternative="greater")
-weightmgf
+wilcox.test(babyData$Gewicht~babyData$Geschlecht,alternative = "less")
 ```
-T wert:
-```{r}
-weightmgf$statistic
-```
-Kritischer wert:
-```{r}
-weightmgfCrit = qt(0.05,362.62)
-weightmgfCrit
-```
-Ergebnis:
-```{r}
-abs(weightmgf$statistic) > abs(weightmgfCrit)
-```
-Daher wird H0 zugunsten von H1 verworfen.
-### b)
+Da p größer als alpha können wir H0 zugunsten von H1 verwerfen.
+### a)
 Test:
 H0: Größe ist unabhängig vom Geschlecht.
 H1: Größe von Buben ist größer.
@@ -108,20 +69,90 @@ boxplot(babyData$Größe~babyData$Geschlecht,ylab = "Größe in cm")
 ```
 
 ```{r}
-heightmgf = t.test(babyData$Größe~babyData$Geschlecht,alternative="greater")
-heightmgf
+wilcox.test(babyData$Größe~babyData$Geschlecht,alternative="less")
 ```
-T wert:
+Da p größer als alpha können wir H0 zugunsten von H1 verwerfen.
+### c)
 ```{r}
-heightmgf$statistic
+plot(babyData$Gewicht, babyData$Größe) + abline(lm(babyData$Größe~babyData$Gewicht), col="red")
 ```
-Kritischer wert:
+
 ```{r}
-heightmgfCrit = qt(0.05,370.94)
-heightmgfCrit
+cor.test(babyData$Gewicht, babyData$Größe, alternative="two.sided",
+         method = "kendall")
 ```
-Ergebnis:
+Da p kleiner als alpha können wir H0 zugunsten von H1 verwerfen.
+
+## Aufgabe 4
+### a)
 ```{r}
-abs(heightmgf$statistic) > abs(heightmgfCrit)
+library(foreign)
+dmobile = read.dta(file = "./mobil-1.dta")
+head(dmobile)
 ```
-Daher wird H0 zugunsten von H1 verworfen.
+```{r}
+dmobile[which(dmobile$dauer == max(dmobile$dauer)),]
+```
+Durchschnittliche Telefonat dauer:
+```{r}
+mean(dmobile$dauer)
+```
+Frauen telefonieren im Schnitt:
+```{r}
+mean(dmobile[which(dmobile$geschlecht == "Frau"),]$dauer)
+```
+Männer telefonieren im Schnitt:
+```{r}
+mean(dmobile[which(dmobile$geschlecht == "Mann"),]$dauer)
+```
+```{r}
+boxplot(dmobile$dauer~dmobile$geschlecht)
+```
+H0: Telefondauer unabhängig vom Geschlecht
+H1: Frauen telefonieren länger
+```{r}
+library(ggplot2)
+ggplot(dmobile, aes(x=dauer, fill=geschlecht), col = "red") + geom_histogram(binwidth = 10) + geom_vline(data = dmobile, aes(xintercept = mean(dauer), fill=geschlecht))
+```
+
+```{r}
+wilcox.test(dmobile$dauer~dmobile$geschlecht, alternative = "greater")
+```
+Das heißt Frauen telefonieren im Schnitt länger.
+### c)
+```{r}
+dtelnorm = dmobile[dmobile$tarif == "Normal",]
+dtelviel = dmobile[dmobile$tarif == "Viel",]
+dtelwenig = dmobile[dmobile$tarif == "Wenig",]
+ltelnorm = lm(dtelnorm$kosten~dtelnorm$dauer)
+ltelviel = lm(dtelviel$kosten~dtelviel$dauer)
+ltelwenig = lm(dtelwenig$kosten~dtelwenig$dauer)
+```
+```{r}
+ltelnorm
+```
+```{r}
+plot(dtelnorm$dauer, dtelnorm$kosten) + abline(ltelnorm, col = "red")
+```
+```{r}
+ltelviel
+```
+```{r}
+plot(dtelviel$dauer, dtelviel$kosten) + abline(ltelviel, col = "red")
+```
+```{r}
+ltelwenig
+```
+```{r}
+plot(dtelwenig$dauer, dtelwenig$kosten) + abline(ltelwenig, col = "red")
+```
+```{r}
+attach(dmobile)
+ltelmultivar = lm(kosten~dauer)
+detach(dmobile)
+ltelmultivar
+```
+```{r}
+plot(dmobile$dauer, dmobile$kosten) + abline(ltelmultivar, col = "red")
+```
+

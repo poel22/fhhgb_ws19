@@ -1,0 +1,25 @@
+---
+title: "gl04_1_hoermann"
+author: "Paul Hörmann"
+date: "11/23/2019"
+output: pdf_document
+---
+# Aufgabe 1
+```{r}
+monitorData = read.csv("./monitor.csv", sep=";")
+head(monitorData)
+```
+
+```{r}
+boxplot(monitorData$zeit~monitorData$stadt,ylab = "Zeit in Minuten",xlab = "1 = Wien, 2 = Umgebung")
+```
+\pagebreak
+
+H0: Zeit des fernsehens ist gleich
+
+H1: Jugendliche in der Stadt schauen länger
+```{r}
+# teste auf gruppe 1 größer gruppe 2
+wilcox.test(monitorData$zeit~monitorData$stadt, alternative = "greater")
+```
+Weil p größer alpha akzeptieren wir H0.

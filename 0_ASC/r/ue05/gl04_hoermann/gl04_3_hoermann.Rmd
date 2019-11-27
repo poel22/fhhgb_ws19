@@ -1,0 +1,50 @@
+---
+title: "gl04_3_hoermann"
+author: "Paul Hörmann"
+date: "11/26/2019"
+output: pdf_document
+---
+## Aufgabe 3
+Daten:
+```{r}
+library(readxl)
+babyData = read_excel("./Babydaten.xlsx")
+head(babyData)
+nval = nrow(babyData)
+```
+### a)
+Test:
+H0: Größe ist unabhängig vom Geschlecht.
+H1: Größe von Buben ist größer.
+```{r}
+boxplot(babyData$Größe~babyData$Geschlecht,ylab = "Größe in cm")
+```
+### b)
+
+Test:
+H0: Gewicht ist unabhängig vom Geschlecht.
+H1: Gewicht von Buben ist größer.
+```{r}
+boxplot(babyData$Gewicht~babyData$Geschlecht,ylab = "Gewicht")
+```
+```{r}
+wilcox.test(babyData$Gewicht~babyData$Geschlecht,alternative = "less")
+```
+Da p größer als alpha können wir H0 zugunsten von H1 verwerfen.
+
+```{r}
+wilcox.test(babyData$Größe~babyData$Geschlecht,alternative="less")
+```
+Da p größer als alpha können wir H0 zugunsten von H1 verwerfen.
+\pagebreak
+
+### c)
+```{r}
+plot(babyData$Gewicht, babyData$Größe) + abline(lm(babyData$Größe~babyData$Gewicht), col="red")
+```
+
+```{r}
+cor.test(babyData$Gewicht, babyData$Größe, alternative="two.sided",
+         method = "kendall")
+```
+Da p kleiner als alpha können wir H0 zugunsten von H1 verwerfen.

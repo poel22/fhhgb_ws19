@@ -1,0 +1,38 @@
+---
+title: "A24_Hoermann"
+output: pdf_document
+---
+```{r}
+c(5, 10, 10, 10)
+```
+```{r}
+qv = c(0.5,0.95, 0.975, 0.99)
+qunif(p = qv, min = 1, max = 10)
+```
+```{r}
+qnorm(p = qv, mean = 2, sd = sqrt(1.6))
+```
+```{r}
+qnorm(p = qv)
+```
+```{r}
+qchisq(p = qv, df = 2)
+```
+```{r}
+qchisq(p = qv, df = 3)
+```
+```{r}
+qt(p = qv, df = 2)
+```
+```{r}
+qt(p = qv, df = 3)
+```
+```{r}
+qf(p = qv, df1 = 1, df2 = 3)
+```
+```{r}
+qf(p = qv, df1 = 3, df2 = 1)
+```
+```{r}
+qf(p = qv, df1 = 3, df2 = 3)
+```
