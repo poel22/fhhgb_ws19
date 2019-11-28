@@ -15,15 +15,22 @@ dtips = data.table(read.csv("./tips.csv"))
 head(dtips)
 ```
 ```{r}
+# ratio function
 ratio = function(tip=tip, total_bill=total_bill) {
         round(sum(tip) / sum(total_bill) * 100, digits = 1)
-      }
+}
+# group by and calculate necessasry values
 aggregate(dtips$tip~sex + day, data = dtips, mean)
 dmodified = data.table(ddply(.data = dtips, .variables = c("sex", "day", "time"), .fun = summarize,
       n = length(tip),
       tip_mw = round(mean(tip), 2),
       tip_sd = round(sd(tip), 2),
       anteil = ratio(tip, total_bill)))
+# add index column
+dmodified$i <- seq.int(nrow(dmodified))
+# put index column to the first place
+setcolorder(dmodified, c("i", setdiff(names(dmodified), "i")))
+# order
 dmodified[order(-anteil)]
 ```
 
