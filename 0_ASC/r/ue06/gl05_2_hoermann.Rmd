@@ -32,5 +32,9 @@ dmodified$i <- seq.int(nrow(dmodified))
 setcolorder(dmodified, c("i", setdiff(names(dmodified), "i")))
 # order
 dmodified[order(-anteil)]
+dmodified$tip_sd = paste("(", dmodified$tip_sd, "")
+dmodified$tip_sd = paste(dmodified$tip_sd, ")", "")
+dnamed <- rename(dmodified, c("i" = "", "sex" = "Geschlecht","day" = "Tag","time" = "Zeit", "n" = "Anzahl", "anteil" = "Anteil"))
+dnamed         
 ```
 
