@@ -7,8 +7,11 @@ output: pdf_document
 
 # Aufgabe 3: Datensatz "Marketing"
 ```{r echo=F}
+library(data.table)
+library(plyr)
 library(dplyr)
 library(tidyr)
+library(ggplot2)
 ```
 ```{r}
 dmarketing = data.table(read.csv("./Marketing.csv", sep = ";"))
@@ -21,6 +24,24 @@ dmarketingEncoded <- mutate(dmarketing,
 head(dmarketingEncoded)
 ```
 ```{r}
-distSize = 
+dSize = dmarketingEncoded %>% group_by(Size) %>% summarize(
+  nr = length(LocationID)
+)
+dSize
+```
+```{r}
+dmarketingEncoded %>% group_by(Promotion) %>% summarize(
+  nr = length(LocationID)
+)
+```
+```{r}
+ggplot(dmarketingEncoded, aes(x=Size, fill=Size)) + geom_histogram(position = "dodge",stat = "count")
+```
+```{r}
+ggplot(dmarketingEncoded, aes(x=Promotion), fill=Psdfromotion) + geom_histogram(position = "dodge",stat = "count")
+```
+
+```{r}
+
 ```
 
