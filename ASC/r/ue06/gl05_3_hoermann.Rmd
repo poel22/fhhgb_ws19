@@ -1,0 +1,26 @@
+---
+title: "gl05_3_hoermann"
+author: "Paul Hörmann"
+date: "11/30/2019"
+output: pdf_document
+---
+
+# Aufgabe 3: Datensatz "Marketing"
+```{r echo=F}
+library(dplyr)
+library(tidyr)
+```
+```{r}
+dmarketing = data.table(read.csv("./Marketing.csv", sep = ";"))
+head(dmarketing)
+```
+```{r}
+dmarketingEncoded <- mutate(dmarketing,
+  Size = ifelse(MarketSize > 500, "Supermarkt",
+                ifelse(MarketSize <= 301, "Geschaeft", "Markt")))
+head(dmarketingEncoded)
+```
+```{r}
+distSize = 
+```
+
