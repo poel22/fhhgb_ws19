@@ -1,0 +1,39 @@
+---
+title: "A28_Hoermann"
+author: "Paul Hörmann"
+date: "12/2/2019"
+output: pdf_document
+---
+## Input Data
+```{r}
+x = c(25, 30, 35, 40, 46, 50, 60, 64, 68, 70, 77, 80)
+y = c(1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1)
+dt = do.call(rbind, Map(data.frame, x = x, y = y))
+dt
+```
+## Logistic Regression
+```{r}
+lr_x = glm(y~x, family = binomial)
+lr_x
+```
+## Visualization
+```{r}
+b = lr_x$coefficients[1]
+a = lr_x$coefficients[2]
+f_x = function(x) {
+  1/ (1 + exp(-(a*x + b)))
+}
+curve(f_x, from = -150, to = 250)
+```
+## Anger potential
+```{r}
+anger_pot = c(-150:250)
+p_x = lapply(anger_pot, f_x)
+p_anger = do.call(rbind, Map(data.frame, x = anger_pot, y = p_x))
+p_anger[(p_anger$y > 0.245 & p_anger$y < 0.255) |
+        (p_anger$y > 0.495 & p_anger$y < 0.505) |
+        (p_anger$y > 0.745 & p_anger$y < 0.755),]
+```
+## Picking closest:
+For 0.25 it is -2, for 0.5 it is 40 and for 0.75 it's 82.
+

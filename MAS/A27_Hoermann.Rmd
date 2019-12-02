@@ -12,10 +12,12 @@ A = c(0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1)
 dt = do.call(rbind, Map(data.frame, i = i, T = T, A = A))
 dt
 ```
+
 ## Logistic Regression
 ```{r}
 lr_x = glm(A~T, family = binomial)
 ```
+
 ## Visualization
 ```{r}
 b = lr_x$coefficients[1]
@@ -25,10 +27,12 @@ f_x = function(x) {
 }
 curve(f_x, from = 40, to = 90)
 ```
+
 ## Boxplot where A is 1
 ```{r}
 boxplot(dt[A == 1,]$T)
 ```
+
 ## Boxplot where A is 0
 ```{r}
 boxplot(dt[A == 0,]$T)
