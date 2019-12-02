@@ -1,0 +1,51 @@
+---
+title: "A26_Hoermann"
+author: "Paul Hörmann"
+date: "12/2/2019"
+output: pdf_document
+---
+# A26
+## a)
+```{r}
+a = log(1/.99 - 1) / -2
+b = -a * 32
+f_x = function(x) {
+  1/ (1 + exp(-(a*x + b)))
+}
+```
+## Plot
+```{r}
+curve(f_x,from = 28, to = 36)
+```
+## c)
+```{r}
+x = seq(30, 34, by = 0.5)
+x
+```
+## Get probability Values
+```{r}
+p_x = lapply(x, f_x)
+```
+## "roll the dice"
+```{r}
+roll_dice = function(prob) {
+  rbinom(1, 1, prob)
+}
+y = lapply(p_x, roll_dice)
+```
+## combine
+```{r}
+dt = do.call(rbind, Map(data.frame, x=x, p_x=p_x, y=y))
+dt
+```
+## Logistic regression
+```{r}
+form_x <- unlist(y) ~ x
+lr_x = glm(formula = form_x, family = binomial)
+lr_x
+```
+## Test the new formula
+```{r}
+
+```
+
