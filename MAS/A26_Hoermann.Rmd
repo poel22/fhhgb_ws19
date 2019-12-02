@@ -2,7 +2,10 @@
 title: "A26_Hoermann"
 author: "Paul Hörmann"
 date: "12/2/2019"
-output: pdf_document
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
 ---
 # A26
 ## a)
@@ -44,8 +47,20 @@ form_x <- unlist(y) ~ x
 lr_x = glm(formula = form_x, family = binomial)
 lr_x
 ```
-## Test the new formula
+## Test and compare the new formula
 ```{r}
 
+curve(f_x,from = 28, to = 36)
+b1 = b
+a1 = a
+b = lr_x$coefficients[1]
+a = lr_x$coefficients[2]
+p1_x = lapply(x, f_x)
+curve(f_x,from = 28, to = 36, add = TRUE, col = "red")
+```
+```{r}
+y1 = lapply(p_x, roll_dice)
+dt1 = do.call(rbind, Map(data.frame, x=x, p_x=p_x, y=y, p1_x=p1_x, y1=y1))
+dt1
 ```
 
