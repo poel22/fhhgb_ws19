@@ -1,0 +1,35 @@
+---
+title: "A27_Hoermann"
+author: "Paul Hörmann"
+date: "12/2/2019"
+output: pdf_document
+---
+## Input Data
+```{r}
+i = c(1:23)
+T = c(66, 67, 68, 70, 72, 75, 76, 79, 53, 58, 70, 75, 67, 67, 69, 70, 73, 76, 78, 81, 57, 63, 70)
+A = c(0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1)
+dt = do.call(rbind, Map(data.frame, i = i, T = T, A = A))
+dt
+```
+## Logistic Regression
+```{r}
+lr_x = glm(A~T, family = binomial)
+```
+## Visualization
+```{r}
+b = lr_x$coefficients[1]
+a = lr_x$coefficients[2]
+f_x = function(x) {
+  1/ (1 + exp(-(a*x + b)))
+}
+curve(f_x, from = 40, to = 90)
+```
+## Boxplot where A is 1
+```{r}
+boxplot(dt[A == 1,]$T)
+```
+## Boxplot where A is 0
+```{r}
+boxplot(dt[A == 0,]$T)
+```
