@@ -1,0 +1,56 @@
+---
+title: "A29_Hoermann"
+author: "Paul Hörmann"
+date: "12/5/2019"
+output: pdf_document
+---
+
+```{r}
+v1 = rnorm(n = 5, mean = 30, sd = 3)
+v2 = runif(n = 5, min = 20, max = 40)
+v3 = rnorm(n = 50, mean = 30, sd = 3)
+v4 = runif(n = 50, min = 20, max = 40)
+```
+
+# Visualization
+```{r}
+hist(v1, probability = TRUE, xlim = c(20, 40), ylim = c(0, 0.3))
+lines(density(v1, kernel = "rectangular"), col = "green", )
+lines(density(v1, kernel = "epanechnikov"), col = "blue")
+lines(density(v1, kernel = "gaussian"), col = "red")
+legend(x = 20.5, y = 0.28,
+       legend = c("rectangular", "epanechnikov", "gaussian"),
+       col = c("green", "blue", "red"),
+       lty=1, cex = 1)
+```
+
+```{r}
+hist(v2, probability = TRUE, xlim = c(20, 40), ylim = c(0, 0.15))
+lines(density(v2, kernel = "rectangular"), col = "green")
+lines(density(v2, kernel = "epanechnikov"), col = "blue")
+lines(density(v2, kernel = "gaussian"), col = "red")
+legend(x = 20.5, y = 0.15,
+       legend = c("rectangular", "epanechnikov", "gaussian"),
+       col = c("green", "blue", "red"),
+       lty=1, cex = 1)
+```
+```{r}
+hist(v3, probability = TRUE, xlim = c(20, 40), ylim = c(0, 0.25))
+lines(density(v3, kernel = "rectangular"), col = "green")
+lines(density(v3, kernel = "epanechnikov"), col = "blue")
+lines(density(v3, kernel = "gaussian"), col = "red")
+legend(x = 20.5, y = 0.25,
+       legend = c("rectangular", "epanechnikov", "gaussian"),
+       col = c("green", "blue", "red"),
+       lty=1, cex = 1)
+```
+```{r}
+hist(v4, probability = TRUE, xlim = c(20, 40), ylim = c(0, 0.15))
+lines(density(v4, kernel = "rectangular"), col = "green")
+lines(density(v4, kernel = "epanechnikov"), col = "blue")
+lines(density(v4, kernel = "gaussian"), col = "red")
+legend(x = 19.5, y = 0.15,
+       legend = c("rectangular", "epanechnikov", "gaussian"),
+       col = c("green", "blue", "red"),
+       lty=1, cex = 1)
+```
