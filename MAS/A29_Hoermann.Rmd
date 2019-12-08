@@ -9,15 +9,18 @@ library(data.table)
 ```
 
 ```{r}
+set.seed(1)
 v1 = rnorm(n = 5, mean = 30, sd = 3)
 v2 = runif(n = 5, min = 20, max = 40)
 v3 = rnorm(n = 50, mean = 30, sd = 3)
 v4 = runif(n = 50, min = 20, max = 40)
 ```
 ```{r}
-data.table(v1=v1, v2=v2, v3=v3, v4=v3)
+data.table(v1=v1, v2=v2)
+head(data.table(v3=v3, v4=v3))
+tail(data.table(v3=v3, v4=v3))
 ```
-
+\newpage
 
 # Visualization
 ```{r}
@@ -30,7 +33,7 @@ legend(x = 20.5, y = 0.28,
        col = c("green", "blue", "red"),
        lty=1, cex = 1)
 ```
-
+\newpage
 ```{r}
 hist(v2, probability = TRUE, xlim = c(20, 40), ylim = c(0, 0.15))
 lines(density(v2, kernel = "rectangular"), col = "green")
@@ -41,6 +44,7 @@ legend(x = 20.5, y = 0.15,
        col = c("green", "blue", "red"),
        lty=1, cex = 1)
 ```
+\newpage
 ```{r}
 hist(v3, probability = TRUE, xlim = c(20, 40), ylim = c(0, 0.25))
 lines(density(v3, kernel = "rectangular"), col = "green")
@@ -51,6 +55,7 @@ legend(x = 20.5, y = 0.25,
        col = c("green", "blue", "red"),
        lty=1, cex = 1)
 ```
+\newpage
 ```{r}
 hist(v4, probability = TRUE, xlim = c(20, 40), ylim = c(0, 0.15))
 lines(density(v4, kernel = "rectangular"), col = "green")

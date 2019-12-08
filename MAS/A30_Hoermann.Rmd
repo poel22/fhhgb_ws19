@@ -3,13 +3,24 @@ title: "A30_Hoermann"
 author: "Paul Hörmann"
 date: "12/5/2019"
 output: pdf_document
+header-includes:
+  - \usepackage{float}
+  - \floatplacement{figure}{H} 
+fig_caption: yes
 ---
-
 ```{r}
+library(data.table)
+```
+```{r}
+set.seed(1)
 v1 = rnorm(n = 5, mean = 30, sd = 3)
 v2 = runif(n = 5, min = 20, max = 40)
 v3 = rnorm(n = 50, mean = 30, sd = 3)
 v4 = runif(n = 50, min = 20, max = 40)
+```
+```{r}
+data.table(v1=v1, v2=v2)
+head(data.table(v3=v3, v4=v3))
 ```
 # Tests
 ```{r}
@@ -21,6 +32,12 @@ ks.test(v1, "punif", 20, 40)
 ```{r}
 ks.test(v2, "pnorm", 30, 3)
 ```
+
+Manual Test:
+
+![Manuallay executed KS test](A30_Hoermann.png)
+
+Double Check:
 ```{r}
 ks.test(v2, "punif", 20, 40)
 ```
