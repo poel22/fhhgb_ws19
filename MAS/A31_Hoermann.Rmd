@@ -10,6 +10,7 @@ fig_caption: yes
 ---
 ```{r}
 library(data.table)
+library(zoo)
 ```
 ```{r}
 set.seed(1)
@@ -22,6 +23,8 @@ tail(data.table(v3=v3, v4=v3))
 ```
 ```{r}
 h3 = hist(v3)
+```
+```{r}
 h4 = hist(v4)
 ```
 ```{r}
@@ -29,7 +32,16 @@ bincount = length(h3$counts)
 chisq.test(h3$counts, p=rep(1/bincount, bincount))
 ```
 ```{r}
-qnorm
-chisq.test()
+v3centers = rollmean(h3$breaks, 2)
+v3p = pnorm(v3centers, mean = 30, sd = 3)
+v3p
+chisq.test(v3)
+```
+```{r}
+bincount = length(h4$counts)
+chisq.test(h4$counts, p=rep(1/bincount, bincount))
+```
+```{r}
+chisq.test(v4)
 ```
 
