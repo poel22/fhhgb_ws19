@@ -17,6 +17,8 @@ library(ggplot2)
 dmarketing = data.table(read.csv("./Marketing.csv", sep = ";"))
 head(dmarketing)
 ```
+
+## a
 ```{r}
 dmarketingEncoded <- mutate(dmarketing,
   Size = ifelse(MarketSize > 500, "Supermarkt",
@@ -34,6 +36,8 @@ dmarketingEncoded %>% group_by(Promotion) %>% summarize(
   nr = length(LocationID)
 )
 ```
+
+## b
 ```{r}
 ggplot(dmarketingEncoded, aes(x=Size, fill=Size)) + geom_histogram(position = "dodge",stat = "count")
 ```
@@ -41,6 +45,54 @@ ggplot(dmarketingEncoded, aes(x=Size, fill=Size)) + geom_histogram(position = "d
 ggplot(dmarketingEncoded, aes(x=Promotion), fill=Psdfromotion) + geom_histogram(position = "dodge",stat = "count")
 ```
 
+## c
+```{r}
+dmarketingByLoc = data.table(dmarketingEncoded %>% group_by(LocationID))
+
+calculateSales = function (data, wstart, wend) {
+  currentCompany = 0
+  dLength = length(data$LocationID)
+  data[, Diff := 0]
+  index = 4 * currentCompany + 1
+  while (index < dLength) {
+    index = currentCompany * 4 + 1
+    for (week in wstart:wend) {
+      index = index + 1
+      data[index]$Diff = data[index,]$Sales - data[index - 1,]$Sales
+    }
+    currentCompany = currentCompany + 1
+  }
+  data
+}
+dmarketingDiff = calculateSales(dmarketingByLoc, 2, 4)
+```
+
+Mittelwert Verkäufe erste Woche
+```{r}
+salesWeek1 = colMeans(dmarketingByLoc %>% filter(Week == 1) %>% select(Sales))
+```
+
+Mittelwert +- SD
+```{r}
+
+```
+
+Mittelwert & SD am Ende der Studie
+```{r}
+
+```
+
+Median, IQR & Spannweite zum Beginn der Studie
+```{r}
+
+```
+
+MW aller numerischen Werte
+```{r}
+
+```
+
+MW Verkäufe gruppiert nach Geschäftsgröße
 ```{r}
 
 ```
