@@ -106,12 +106,42 @@ statgsize = dmarketingByLoc %>% group_by(Size) %>% summarize(Mean = mean(Sales))
 statgsize
 ```
 
-## e
+## e i
 ```{r}
+bySize = dmarketingDiff %>% group_by(Size)
 
+ei = data.table(W1 = bySize %>% filter(Week == 1) %>% summarize(Sales = mean(Sales)),
+                W1 = (bySize %>% filter(Week == 2) %>% summarize(Diff = mean(Diff)))[,2],
+                W4 = (bySize %>% filter(Week == 4) %>% summarize(Diff = mean(Diff)))[,2])
+ei
+```
+
+
+## e ii
+```{r}
+byPromo = dmarketingDiff %>% group_by(Promotion)
+
+eii = data.table(W1 = byPromo %>% filter(Week == 1) %>% summarize(Sales = mean(Sales)),
+                W1 = (byPromo %>% filter(Week == 2) %>% summarize(Diff = mean(Diff)))[,2],
+                W4 = (byPromo %>% filter(Week == 4) %>% summarize(Diff = mean(Diff)))[,2])
+eii
+```
+
+
+## e iii
+```{r}
+byPromoAndSize = dmarketingDiff %>% group_by(Promotion, Size)
+
+eiii = data.table(W1 = byPromoAndSize %>% filter(Week == 1) %>% summarize(Sales = mean(Sales)),
+                W1 = (byPromoAndSize %>% filter(Week == 2) %>% summarize(Diff = mean(Diff)))[,3],
+                W4 = (byPromoAndSize %>% filter(Week == 4) %>% summarize(Diff = mean(Diff)))[,3])
+eiii
 ```
 
 ## d
 ```{r}
-
+t.test(ei[,2:4], eii[,2:4])
 ```
+
+P Wert beinahe 1, daher akzeptieren wir H1, welche lautet dass die Werte nicht auf der gleichen Verteilung beruhen.
+
