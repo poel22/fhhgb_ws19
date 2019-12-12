@@ -7,8 +7,8 @@ output: pdf_document
 # Aufgabe 2: Tips
 ```{r echo=F}
 library(data.table)
-library(dplyr)
 library(plyr)
+library(dplyr)
 ```
 ```{r}
 dtips = data.table(read.csv("./tips.csv"))
@@ -33,7 +33,7 @@ dmodified$tip = paste(dmodified$tip_mw, dmodified$tip_sd, " ");
 dmodified$tip_mw = dmodified$tip_sd = NULL
 dmodified$i <- seq.int(nrow(dmodified))
 setcolorder(dmodified, c("i", setdiff(names(dmodified), "i")))
-dnamed <- rename(dmodified, c("i" = "", "sex" = "Geschlecht","day" = "Tag","time" = "Zeit", "n" = "Anzahl", "anteil" = "Anteil", "tip" = "Tip MW(SD)"))
+dnamed <- plyr::rename(dmodified, c("i" = "", "sex" = "Geschlecht","day" = "Tag","time" = "Zeit", "n" = "Anzahl", "anteil" = "Anteil", "tip" = "Tip MW(SD)"))
 # add index column
 # put index column to the first place
 dnamed

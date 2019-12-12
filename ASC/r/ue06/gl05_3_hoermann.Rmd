@@ -69,31 +69,49 @@ dmarketingDiff = calculateSales(dmarketingByLoc, 2, 4)
 
 Mittelwert Verkäufe erste Woche
 ```{r}
-salesWeek1 = colMeans(dmarketingByLoc %>% filter(Week == 1) %>% select(Sales))
+msw1 = colMeans(dmarketingByLoc %>% filter(Week == 1) %>% select(Sales))
+msw1
 ```
 
 Mittelwert +- SD
 ```{r}
+sdsw1 = dmarketingByLoc %>% filter(Week == 1) %>% summarize(SD = sd(Sales))
 
+paste(c(round(msw1), " +- ", round(sdsw1)), collapse = '')
 ```
 
 Mittelwert & SD am Ende der Studie
 ```{r}
+msw4 = colMeans(dmarketingByLoc %>% filter(Week == 4) %>% select(Sales))
+sdsw4 = dmarketingByLoc %>% filter(Week == 4) %>% summarize(SD = sd(Sales))
 
+paste(c(round(msw4), " +- ", round(sdsw4)), collapse = '')
 ```
 
 Median, IQR & Spannweite zum Beginn der Studie
 ```{r}
-
+statw1 = dmarketingByLoc %>% filter(Week == 1) %>% summarize(Median = median(Sales), IQR = IQR(Sales), range = paste(range(Sales), collapse = ' - '))
+statw1
 ```
 
 MW aller numerischen Werte
 ```{r}
-
+mwnum = colMeans(dmarketingByLoc %>% select_if(is.numeric))
+mwnum
 ```
 
 MW Verkäufe gruppiert nach Geschäftsgröße
 ```{r}
+statgsize = dmarketingByLoc %>% group_by(Size) %>% summarize(Mean = mean(Sales))
+statgsize
+```
+
+## e
+```{r}
 
 ```
 
+## d
+```{r}
+
+```
