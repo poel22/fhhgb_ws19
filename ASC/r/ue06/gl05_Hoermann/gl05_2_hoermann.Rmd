@@ -1,0 +1,48 @@
+---
+title: "gl05_2_hoermann"
+author: "Paul Hörmann"
+date: "11/27/2019"
+output: pdf_document
+---
+# Aufgabe 2: Tips
+```{r echo=F}
+library(data.table)
+library(plyr)
+library(dplyr)
+```
+```{r}
+dtips = data.table(read.csv("./tips.csv"))
+head(dtips)
+```
+```{r}
+# ratio function
+ratio = function(tip=tip, total_bill=total_bill) {
+        round(sum(tip) / sum(total_bill) * 100, digits = 1)
+}
+# group by and calculate necessasry values
+aggregate(dtips$tip~sex + day, data = dtips, mean)
+dmodified = data.table(ddply(.data = dtips, .variables = c("sex", "day", "time"), .fun = summarize,
+      n = length(tip),
+      tip_mw = round(mean(tip), 2),
+      tip_sd = round(sd(tip), 2),
+      anteil = ratio(tip, total_bill)))
+# order
+dmodified$tip_sd = paste("(", dmodified$tip_sd, "")
+dmodified$tip_sd = paste(dmodified$tip_sd, ")", "")
+dmodified$tip = paste(dmodified$tip_mw, dmodified$tip_sd, " ");
+dmodified$tip_mw = dmodified$tip_sd = NULL
+dmodified$i <- seq.int(nrow(dmodified))
+setcolorder(dmodified, c("i", setdiff(names(dmodified), "i")))
+dnamed <- plyr::rename(dmodified, c("i" = "", "sex" = "Geschlecht","day" = "Tag","time" = "Zeit", "n" = "Anzahl", "anteil" = "Anteil", "tip" = "Tip MW(SD)"))
+# add index column
+# put index column to the first place
+dnamed
+setcolorder(dnamed, c(setdiff(names(dnamed), "Anteil"), "Anteil"))
+dnamed = dnamed[order(-Anteil)]
+dnamed$Anteil = paste(dnamed$Anteil, "%", " ");
+dnamed$Tag = mapvalues(dnamed$Tag, from = c("Thur", "Fri", "Sat", "Sun"), to = c("Do", "Fr", "Sa", "So"))
+dnamed$Zeit = mapvalues(dnamed$Zeit, from = c("Lunch", "Dinner"), to = c("Mittag", "Abend"))
+dnamed$Geschlecht = mapvalues(dnamed$Geschlecht, from = c("Female", "Male"), to = c("Männlich", "Weiblich"))
+dnamed
+```
+
