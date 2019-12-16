@@ -1,0 +1,47 @@
+---
+title: "A32_Hoermann"
+author: "Paul Hörmann"
+date: "12/16/2019"
+output: pdf_document
+---
+
+```{r}
+daten = read.table(file.choose(),header=TRUE) # read values
+str(daten) # prints summary
+(v = rle(c(7,7,7,8,8,9))) # rle .. run length encoding -> table of occurences and values
+v$values = daten$A
+v$lengths = daten$X
+x = inverse.rle(v) # inverse of rle
+v$lengths = daten$Y
+y = inverse.rle(v)
+```
+
+```{r}
+hist(x) # seperates distribution into bars and counts occurences of x within this bar
+```
+
+```{r}
+hist(x,breaks=100,freq=FALSE)
+```
+
+```{r}
+hist(x,breaks=seq(-1,100),freq=FALSE) # same as before, but with probability not count
+lines(density(x),col="blue") # plots the density of x values
+```
+
+```{r}
+hist(y,breaks=seq(-1,100),freq=FALSE)
+lines(density(y),col="blue")
+```
+
+```{r}
+c(mean(x),mean(y),median(x),median(y)) # creates vector of means
+```
+
+```{r}
+qqplot(x,y) # TODO
+abline(0,1,col="red")
+abline(v=median(x),col="blue")
+abline(h=median(y),col="blue")
+```
+
