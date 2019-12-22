@@ -1,0 +1,100 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+ls---
+title: "gl05_hoermann"
+author: "Paul Hörmann"
+date: "11/25/2019"
+output: pdf_document
+---
+# Aufgabe 1: Forbes 2000
+
+Setup Environment
+```{r}
+library(data.table)
+library(dplyr)
+```
+
+```{r echo=F}
+dtforbes = data.table(fread("./Forbes2000.csv"))
+```
+```{r}
+str(dtforbes)
+```
+```{r}
+ndtforbes = nrow(dtforbes)
+```
+Erste & Letzte 5:
+```{r}
+slice(dtforbes, c(1:5, (n() - 5):n()))
+```
+
+## Sales
+```{r}
+dtforbes[,list(
+  Min = min(sales),
+  Median = median(sales),
+  Max = max(sales),
+  SD = sd(sales)
+)]
+```
+
+
+## Profits
+```{r}
+dtforbes[,list(
+  Min = min(profits),
+  Median = median(profits),
+  Max = max(profits),
+  SD = sd(profits)
+)]
+```
+
+## Assets
+```{r}
+dtforbes[,list(
+  Min = min(assets),
+  Median = median(assets),
+  Max = max(assets),
+  SD = sd(assets)
+)]
+```
+
+## Marketvalue
+```{r}
+dtforbes[,list(
+  Min = min(marketvalue),
+  Median = median(marketvalue),
+  Max = max(marketvalue),
+  SD = sd(marketvalue)
+)]
+```
+
+## Keys
+```{r}
+setkey(dtforbes, country, assets, category, profits)
+```
+ * österreichische Finanzinstitute:
+```{r}
+dtforbes[("Austria")]
+```
+Mittelwert pro Land:
+```{r}
+dtforbes[,.(Mittel_Land = mean(assets)), by = country]
+```
+Mittel pro Land und Kategorie
+```{r}
+dtforbes[,.(Mittel_Land_Kategorie = mean(assets)), by = list(country, category)]
+```
+Mittel Marktwert und Verkaufserlös
+```{r}
+dtforbes[,list(Mittel_assets = mean(assets),Mittel_profit = mean(sales))]
+```
+Anzahl US Unternehmen und mittlerer Marktwert und Erlös pro Kategorie
+```{r}
+dtforbes[("United States"),
+         list(Anzahl = length(name),Mittel_assets = mean(assets),Mittel_profit = mean(sales)),
+         by = category]
+```
