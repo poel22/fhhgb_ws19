@@ -1,0 +1,38 @@
+---
+title: "A34_Hoermann"
+author: "Paul Hörmann"
+date: "1/5/2020"
+output: pdf_document
+---
+```{r}
+library(data.table)
+library(DescTools)
+```
+
+```{r}
+data = read.csv('../../../sizes.csv')
+data = as.numeric(data[,1])
+data = data / 1000000
+```
+```{r}
+boxplot(data)
+```
+```{r}
+hist(x = data)
+```
+```{r}
+mean(data)
+```
+```{r}
+max(data)
+```
+```{r}
+trimmed = Trim(data, 0.1)
+```
+```{r}
+hist(trimmed)
+```
+```{r}
+boxplot(trimmed)
+```
+
