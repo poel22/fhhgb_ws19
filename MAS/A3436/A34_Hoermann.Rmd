@@ -10,9 +10,9 @@ library(DescTools)
 ```
 
 ```{r}
-data = read.csv('../../../sizes.csv')
+data = read.csv('sizes.csv')
 data = as.numeric(data[,1])
-data = data / 1000000
+data.table(Mean=mean(data), Median=median(data), IQR=IQR(data), SD=sd(data))
 ```
 ```{r}
 boxplot(data)
@@ -21,18 +21,13 @@ boxplot(data)
 hist(x = data)
 ```
 ```{r}
-mean(data)
+dtransformed = sqrt(sqrt(sqrt(data)))
+data.table(Mean=mean(dtransformed), Median=median(dtransformed), IQR=IQR(dtransformed), SD=sd(dtransformed))
 ```
 ```{r}
-max(data)
+hist(dtransformed)
 ```
 ```{r}
-trimmed = Trim(data, 0.1)
-```
-```{r}
-hist(trimmed)
-```
-```{r}
-boxplot(trimmed)
+boxplot(dtransformed)
 ```
 
