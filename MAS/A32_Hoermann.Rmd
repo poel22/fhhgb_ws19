@@ -6,7 +6,7 @@ output: pdf_document
 ---
 
 ```{r}
-daten = read.table(file.choose(),header=TRUE) # read values
+daten = read.table("./Daten.txt",header=TRUE) # read values
 str(daten) # prints summary
 (v = rle(c(7,7,7,8,8,9))) # rle .. run length encoding -> table of occurences and values
 v$values = daten$A
@@ -38,10 +38,11 @@ lines(density(y),col="blue")
 c(mean(x),mean(y),median(x),median(y)) # creates vector of means
 ```
 
-```{r}
-qqplot(x,y) # TODO
-abline(0,1,col="red")
-abline(v=median(x),col="blue")
-abline(h=median(y),col="blue")
+```{r eval=F}
+# disabled because PDF Readers dont like that plot
+qqplot(x,y) # scatter plots the values
+abline(0,1,col="red") # adds diagonal line to plot
+abline(v=median(x),col="blue") # adds vertical line at median of x
+abline(h=median(y),col="blue") # adds horizontal line at median of y
 ```
 

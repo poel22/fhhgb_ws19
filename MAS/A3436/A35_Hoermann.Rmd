@@ -1,0 +1,72 @@
+---
+title: "A35_Hoermann"
+author: "Paul Hörmann"
+date: "1/6/2020"
+output: pdf_document
+---
+```{r}
+library(data.table)
+library(tidyr)
+```
+
+```{r}
+x = c(122, 120, 123, 126, 124)
+y = c(114, 125, 121, 127, 128)
+z = c(118, 129, 131, 135, 137)
+data = data.table(x, y, z)
+data
+```
+
+## Wilcoxon singed-rank
+```{r}
+diff = data.table(diff = (data$x - data$y))
+diff$abs = abs(diff$diff)
+as.data.table(diff)
+o = order(diff$abs)
+odiff = diff[o]
+odiff$rank = seq.int(nrow(odiff))
+odiff
+```
+```{r}
+wm = 1 + 3 + 4
+wp = 2 + 5
+v = min(c(wm, wp))
+v
+```
+```{r}
+wilcox.test(data$x, data$y, paired = T)
+```
+```{r}
+wilcox.test(data$x, data$z, paired = T)
+```
+```{r}
+wilcox.test(data$y, data$z, paired = T)
+```
+## Wilcoxon-Mann-Whitney U-test
+```{r}
+wmwv = sort(c(data$x, data$y))
+wmw = data.table(n = seq.int(2*nrow(data)), v = wmwv)
+wmw
+```
+```{r}
+wmwranked = data.table(n = seq.int(nrow(data)), x = data$x, rx = c(4, 2, 5, 8, 6), y = data$y, ry = c(1, 7, 3, 9, 10))
+wmwranked
+```
+```{r}
+ux = sum(wmwranked$rx) - 5*6/2
+uy = sum(wmwranked$ry) - 5*6/2
+ustat = min(c(ux, uy))
+ustat
+```
+```{r}
+ustat < 2
+```
+```{r}
+wilcox.test(data$x, data$y)
+```
+```{r}
+wilcox.test(data$x, data$z)
+```
+```{r}
+wilcox.test(data$y, data$z)
+```

@@ -1,0 +1,33 @@
+---
+title: "A34_Hoermann"
+author: "Paul Hörmann"
+date: "1/5/2020"
+output: pdf_document
+---
+```{r}
+library(data.table)
+library(DescTools)
+```
+
+```{r}
+data = read.csv('sizes.csv')
+data = as.numeric(data[,1])
+data.table(Mean=mean(data), Median=median(data), IQR=IQR(data), SD=sd(data))
+```
+```{r}
+boxplot(data)
+```
+```{r}
+hist(x = data)
+```
+```{r}
+dtransformed = sqrt(sqrt(sqrt(data)))
+data.table(Mean=mean(dtransformed), Median=median(dtransformed), IQR=IQR(dtransformed), SD=sd(dtransformed))
+```
+```{r}
+hist(dtransformed)
+```
+```{r}
+boxplot(dtransformed)
+```
+
