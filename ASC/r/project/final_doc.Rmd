@@ -1,0 +1,211 @@
+---
+title: "Endprojekt_Hoermann"
+author: "Paul Hörmann"
+date: "1/12/2020"
+output: pdf_document
+---
+
+## Acknowledgement
+If not otherwise stated a error of 5% is used. For all Tests / Overviews data was removed if the attribute of interest had an unknown value. As we are taking a look at if the loan was given or not, data where it's unknown has been removed right away.
+
+## Overview
+```{r, echo=FALSE}
+# Preparation
+library(gdata)
+library(data.table)
+library(plyr)
+library(dplyr)
+library(ggplot2)
+library(scales)
+```
+
+
+```{r, echo=FALSE}
+setwd("~/git/fhhgb_ws19/ASC/r/project/")
+source = data.table(read.xls("./deposit.xlsx"))
+head(source)
+
+
+source = droplevels(source %>% filter(source$loan != 'unknown'))
+
+source %>% group_by(loan) %>% add_tally(name = "Count") %>%
+  ggplot(., aes(x = loan, y = Count, fill = loan)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(x = loan, y = Count, label = Count),
+            position = position_dodge(width = 1),
+            hjust = -1) + 
+  scale_y_continuous(labels = comma) +
+  coord_flip()
+```
+
+```{r, echo=FALSE}
+cleaned_marital = droplevels(source %>% filter(source$marital != 'unknown'))
+cleaned_marital %>% count(marital, loan) %>%
+  group_by(marital) %>%
+  mutate(Ratio = prop.table(n)) %>%
+  ggplot(., aes(x = marital,
+                y = Ratio, fill = loan)) +
+  geom_col() +
+  geom_text(aes(label = percent(Ratio)), position = position_stack(vjust = .5)) +
+  scale_y_continuous(labels = percent)
+```
+
+```{r, echo=FALSE}
+cleaned_jobs = droplevels(source %>% filter(source$job != 'unknown'))
+cleaned_jobs %>% count(job, loan) %>%
+  group_by(job) %>%
+  mutate(Ratio = prop.table(n)) %>%
+  ggplot(., aes(x = job,
+                y = Ratio, fill = loan)) +
+  geom_col() +
+  geom_text(aes(label = percent(Ratio)), position = position_stack(vjust = .5)) +
+  scale_y_continuous(labels = percent) +
+  coord_flip()
+```
+
+```{r, echo=FALSE}
+cleaned_edu = droplevels(source %>% filter(source$education != 'unknown'))
+cleaned_edu %>% count(education, loan) %>%
+  group_by(education) %>%
+  mutate(Ratio = prop.table(n)) %>%
+  ggplot(., aes(x = education,
+                y = Ratio, fill = loan)) +
+  geom_col() +
+  geom_text(aes(label = percent(Ratio)), position = position_stack(vjust = .5)) +
+  scale_y_continuous(labels = percent) +
+  coord_flip()
+```
+
+
+```{r, echo=FALSE}
+cleaned_day = droplevels(source %>% filter(source$day_of_week != 'unknown'))
+cleaned_day %>% count(day_of_week, loan) %>%
+  group_by(day_of_week) %>%
+  mutate(Ratio = prop.table(n)) %>%
+  ggplot(., aes(x = day_of_week,
+                y = Ratio, fill = loan)) +
+  geom_col() +
+  geom_text(aes(label = percent(Ratio)), position = position_stack(vjust = .5)) +
+  scale_y_continuous(labels = percent) +
+  coord_flip()
+```
+
+```{r, echo=FALSE}
+cleaned_poutcome = droplevels(source %>% filter(source$poutcome != 'unknown'))
+cleaned_poutcome %>% count(poutcome, loan) %>%
+  group_by(poutcome) %>%
+  mutate(Ratio = prop.table(n)) %>%
+  ggplot(., aes(x = poutcome,
+                y = Ratio, fill = loan)) +
+  geom_col() +
+  geom_text(aes(label = percent(Ratio)), position = position_stack(vjust = .5)) +
+  scale_y_continuous(labels = percent) +
+  coord_flip()
+```
+
+
+```{r, echo=FALSE}
+converted = source
+converted$previous = as.factor(converted$previous)
+converted %>% count(previous, loan) %>%
+  group_by(previous) %>%
+  mutate(Ratio = prop.table(n)) %>%
+  ggplot(., aes(x = previous,
+                y = Ratio, fill = loan)) +
+  geom_col() +
+  geom_text(aes(label = percent(Ratio)), position = position_stack(vjust = .5)) +
+  scale_y_continuous(labels = percent) +
+  coord_flip()
+```
+```{r, echo=FALSE}
+# TODO test
+```
+
+```{r, echo=FALSE}
+emp_rate_encoded = source
+emp_rate_encoded$emp_rate = apply(source, 1, function(line) {
+  if (as.numeric(line["emp.var.rate"]) > 0) {
+    "+"
+  } else {
+    "-"
+  }
+})
+emp_rate_encoded %>% count(emp_rate, loan) %>%
+  group_by(emp_rate) %>%
+  mutate(Ratio = prop.table(n)) %>%
+  ggplot(., aes(x = emp_rate,
+                y = Ratio, fill = loan)) +
+  geom_col() +
+  geom_text(aes(label = percent(Ratio)), position = position_stack(vjust = .5)) +
+  scale_y_continuous(labels = percent) +
+  coord_flip()
+```
+```{r, echo=FALSE}
+source %>% count(campaign, loan) %>%
+  group_by(campaign) %>%
+  mutate(Ratio = prop.table(n)) %>%
+  ggplot(., aes(x = campaign,
+                y = Ratio, fill = loan)) +
+  geom_col() +
+  geom_text(aes(label = percent(Ratio)), position = position_stack(vjust = .5)) +
+  scale_y_continuous(labels = percent) +
+  coord_flip()
+```
+
+```{r, echo=FALSE}
+source %>%
+  ggplot(., aes(x = age)) +
+  geom_histogram(binwidth = 10, fill = "orange") +
+  stat_bin(binwidth = 10, aes(y = ..count../sum(..count..),
+                              label=percent(..count../sum(..count..))),
+           geom = "text")
+```
+
+```{r, echo=FALSE}
+age_enc = droplevels(source %>% filter(source$age != 'unknown'))
+age_enc$age_encoded = apply(source, 1, function(line) {
+  age = as.numeric(line["age"])
+  if (age  < 25) {
+    "<25"
+  } else if (age < 35) {
+    "25-34"
+  } else if (age < 45) {
+    "35-44"
+  } else if (age < 55) {
+    "45-54"
+  } else if (age < 65) {
+    "55-64"
+  } else {
+    "64>"
+  }
+})
+age_enc %>% arrange(age) %>% count(age_encoded, loan) %>%
+  group_by(age_encoded) %>%
+  mutate(Ratio = prop.table(n)) %>%
+  ggplot(., aes(x = age_encoded,
+                y = Ratio, fill = loan)) +
+  geom_col() +
+  geom_text(aes(label = percent(Ratio)), position = position_stack(vjust = .5)) +
+  scale_y_continuous(labels = percent) +
+  coord_flip()
+```
+
+```{r}
+cleaned_housing = droplevels(source %>% filter(source$housing != 'unknown'))
+cleaned_housing %>% count(housing, loan) %>%
+  group_by(housing) %>%
+  mutate(Ratio = prop.table(n)) %>%
+  ggplot(., aes(x = housing,
+                y = Ratio, fill = loan)) +
+  geom_col() +
+  geom_text(aes(label = percent(Ratio)), position = position_stack(vjust = .5)) +
+  scale_y_continuous(labels = percent) +
+  coord_flip()
+```
+```{r}
+data_for_test = cleaned_housing %>% filter(loan == "yes") %>%
+  group_by(housing) %>% count(housing, loan) %>% select(housing, n)
+data_for_test
+chisq.test(data_for_test$n)
+```
+

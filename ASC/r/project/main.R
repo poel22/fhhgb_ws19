@@ -3,6 +3,8 @@ library(gdata)
 library(plyr)
 library(dplyr)
 library(data.table)
+library(ggplot2)
+library(scales)
 setwd("./git/fhhgb_ws19/ASC/r/project/")
 source = data.table(read.xls("./deposit.xlsx"))
 head(source)
@@ -26,6 +28,17 @@ unique(source$nr.employed)
 unique(source$y)
 
 source = droplevels(source %>% filter(source$loan != 'unknown'))
+
+source %>% group_by(loan) %>% add_tally(name = "Count") %>%
+  ggplot(., aes(x = loan, y = Count), fill = loan) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(x = loan, y = Count, label = Count),
+            position = position_dodge(width = 1),
+            hjust = -1) + 
+  scale_y_continuous(labels = comma) +
+  coord_flip()
+
+## Taking a look at Marital Status
 
 pie(prop.table(table(source$loan)))
 
