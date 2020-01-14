@@ -1,0 +1,52 @@
+---
+title: "A39_Hoermann"
+author: "Paul Hörmann"
+date: "1/13/2020"
+output: pdf_document
+---
+
+## Power of R
+
+```{r}
+library(data.table)
+```
+```{r}
+data = data.table(x = c(122, 120, 123, 126, 124),
+           y = c(114, 125, 121, 127, 128),
+           z = c(118, 129, 131, 135, 137))
+data
+```
+```{r}
+kruskal.test(data)
+```
+
+Thus don't drop H0, meaning those values stem from the same distribution.
+
+## Manual Calculation
+
+```{r}
+drank = data.table(x = c(5, 3, 6, 9, 7),
+                   y = c(1, 8, 4, 10, 11),
+                   z = c(2, 12, 13, 14, 15))
+drank
+```
+```{r}
+dsum = colSums(drank)
+dsum = dsum^2
+dsum = dsum / 5
+dsum
+```
+
+```{r}
+hcalc = (12 / (15 * 16)) * sum(dsum) - 3 * 16
+hcalc
+```
+```{r}
+hcrit = qchisq(0.95, 2)
+hcrit
+```
+```{r}
+hcalc < hcrit
+```
+
+Thus don't drop H0, values stem from the same distribution.

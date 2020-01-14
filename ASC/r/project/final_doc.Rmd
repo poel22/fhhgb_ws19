@@ -18,7 +18,11 @@ library(plyr)
 library(dplyr)
 library(ggplot2)
 library(scales)
+library(corrplot)
+library(RColorBrewer)
+library(xtable)
 ```
+
 
 
 ```{r, echo=FALSE}
@@ -26,118 +30,160 @@ setwd("~/git/fhhgb_ws19/ASC/r/project/")
 source = data.table(read.xls("./deposit.xlsx"))
 head(source)
 
+source = droplevels(source %>% filter(source$y != 'unknown'))
+source$private_loan = +(source$loan=="yes")
+source$signed_deposit_enc = +(source$y=="yes")
+source$housing_loan = +(source$housing =="yes")
+source$signed_deposit =  source$y
 
-source = droplevels(source %>% filter(source$loan != 'unknown'))
-source$loan_enc = +(source$loan=="yes")
-
-source %>% group_by(loan) %>% add_tally(name = "Count") %>%
-  ggplot(., aes(x = loan, y = Count, fill = loan)) +
+source %>% group_by(signed_deposit) %>% add_tally(name = "Count") %>%
+  ggplot(., aes(x = signed_deposit, y = Count, fill = signed_deposit)) +
   geom_bar(stat = "identity") +
-  geom_text(aes(x = loan, y = Count, label = Count),
+  geom_text(aes(x = signed_deposit, y = Count, label = Count),
             position = position_dodge(width = 1),
             hjust = -1) + 
   scale_y_continuous(labels = comma) +
   coord_flip()
 ```
 
+## Correlation Analysis
+```{r, echo=FALSE}
+num_source = source %>% filter(pdays != 999) %>%
+  select(signed_deposit_enc, housing_loan, private_loan,
+         age, duration, campaign, pdays, previous,
+         emp.var.rate, cons.price.idx, cons.conf.idx,
+         euribor3m, nr.employed)
+
+corr = cor(num_source$signed_deposit_enc, as.matrix(num_source))
+corrplot(corr, type = "upper", order = "original",
+         col = brewer.pal(n = 4, name = "RdYlBu"))
+```
+
+As Visible above there are 5 main factors correlating with the signage of a deposit. Positively correlating is the duration of the call, the consumer price index and the consumer confidence index. Negatively correlating is the 3 month euribor and the number of employed.
+
+Below you can see the values ordered by their correlation.
+
+```{r, echo=FALSE}
+corr_tab = as.data.table(cor(
+  as.matrix(num_source$signed_deposit_enc),
+  as.matrix(num_source)
+  ))
+as.data.table(c(corr_tab)[order(-corr_tab^2)])
+```
+
+Now we take a look at the coefficient of determination, to find out how much influence those values really have.
+
+```{r, echo=FALSE}
+summary(lm(source$signed_deposit_enc~source$nr.employed))$r.squared
+```
+```{r, echo=FALSE}
+summary(lm(source$signed_deposit_enc~source$euribor3m))$r.squared
+```
+```{r, echo=FALSE}
+summary(lm(source$signed_deposit_enc~source$duration))$r.squared
+```
+```{r, echo=FALSE}
+summary(lm(source$signed_deposit_enc~source$cons.price.idx))$r.squared
+```
+```{r, echo=FALSE}
+summary(lm(source$signed_deposit_enc~source$cons.conf.idx))$r.squared
+```
+
+## Taking a look at the most important factors
+
+```{r, echo=FALSE}
+source %>% ggplot(., aes(x = duration, fill = signed_deposit)) +
+  geom_histogram(bins = 10) +
+  stat_bin(bins = 10)
+```
+
+As you can see, the ratio of yes to no increases the longer the duration of the call was.
+
+```{r, echo=FALSE}
+kruskal.test(source$signed_deposit~ source$signed_deposit_enc)
+```
+
+And the test shows, that the influence is statistifically significant.
+
+```{r, echo=FALSE}
+cleaned_poutcome = droplevels(source %>% filter(source$poutcome != 'unknown'))
+cleaned_poutcome %>% count(poutcome, signed_deposit) %>%
+  group_by(poutcome) %>%
+  mutate(Ratio = prop.table(n)) %>%
+  ggplot(., aes(x = poutcome,
+                y = Ratio, fill = signed_deposit)) +
+  geom_col() +
+  geom_text(aes(label = percent(Ratio)), position = position_stack(vjust = .5)) +
+  scale_y_continuous(labels = percent) +
+  coord_flip()
+```
+
+Especially people previously signed tend to do the same again.
+
+```{r, echo=FALSE}
+kruskal.test(cleaned_poutcome$signed_deposit~ cleaned_poutcome$poutcome)
+```
+
+Which is also statistically significant.
+
 ```{r, echo=FALSE}
 cleaned_marital = droplevels(source %>% filter(source$marital != 'unknown'))
-cleaned_marital %>% count(marital, loan) %>%
+cleaned_marital %>% count(marital, signed_deposit) %>%
   group_by(marital) %>%
   mutate(Ratio = prop.table(n)) %>%
   ggplot(., aes(x = marital,
-                y = Ratio, fill = loan)) +
+                y = Ratio, fill = signed_deposit)) +
   geom_col() +
   geom_text(aes(label = percent(Ratio)), position = position_stack(vjust = .5)) +
   scale_y_continuous(labels = percent)
 ```
-```{r}
-kruskal.test(cleaned_jobs$loan ~ cleaned_jobs$marital)
-```
+
 
 ```{r, echo=FALSE}
 cleaned_jobs = droplevels(source %>% filter(source$job != 'unknown'))
-cleaned_jobs %>% count(job, loan) %>%
+cleaned_jobs %>% count(job, signed_deposit) %>%
   group_by(job) %>%
   mutate(Ratio = prop.table(n)) %>%
   ggplot(., aes(x = job,
-                y = Ratio, fill = loan)) +
+                y = Ratio, fill = signed_deposit)) +
   geom_col() +
   geom_text(aes(label = percent(Ratio)), position = position_stack(vjust = .5)) +
   scale_y_continuous(labels = percent) +
   coord_flip()
 ```
-```{r}
-kruskal.test(cleaned_jobs$loan ~ cleaned_jobs$job)
-```
+
 
 ```{r, echo=FALSE}
 cleaned_edu = droplevels(source %>% filter(source$education != 'unknown'))
-cleaned_edu %>% count(education, loan) %>%
+cleaned_edu %>% count(education, signed_deposit) %>%
   group_by(education) %>%
   mutate(Ratio = prop.table(n)) %>%
   ggplot(., aes(x = education,
-                y = Ratio, fill = loan)) +
-  geom_col() +
-  geom_text(aes(label = percent(Ratio)), position = position_stack(vjust = .5)) +
-  scale_y_continuous(labels = percent) +
-  coord_flip()
-```
-```{r}
-kruskal.test(cleaned_edu$loan ~ cleaned_edu$education)
-```
-
-
-```{r, echo=FALSE}
-cleaned_day = droplevels(source %>% filter(source$day_of_week != 'unknown'))
-cleaned_day %>% count(day_of_week, loan) %>%
-  group_by(day_of_week) %>%
-  mutate(Ratio = prop.table(n)) %>%
-  ggplot(., aes(x = day_of_week,
-                y = Ratio, fill = loan)) +
+                y = Ratio, fill = signed_deposit)) +
   geom_col() +
   geom_text(aes(label = percent(Ratio)), position = position_stack(vjust = .5)) +
   scale_y_continuous(labels = percent) +
   coord_flip()
 ```
 
-```{r}
-kruskal.test(cleaned_day$loan ~ cleaned_day$day_of_week)
-```
 
-```{r, echo=FALSE}
-cleaned_poutcome = droplevels(source %>% filter(source$poutcome != 'unknown'))
-cleaned_poutcome %>% count(poutcome, loan) %>%
-  group_by(poutcome) %>%
-  mutate(Ratio = prop.table(n)) %>%
-  ggplot(., aes(x = poutcome,
-                y = Ratio, fill = loan)) +
-  geom_col() +
-  geom_text(aes(label = percent(Ratio)), position = position_stack(vjust = .5)) +
-  scale_y_continuous(labels = percent) +
-  coord_flip()
-```
-```{r}
-kruskal.test(cleaned_poutcome$loan ~ cleaned_poutcome$poutcome)
-```
-
+As you can see from the three previous graphs students, retired people and also illiterate people tend more to sign a deposit than others, whereas marital status has no big influence.
 
 ```{r, echo=FALSE}
 converted = source
 converted$previous = as.factor(converted$previous)
-converted %>% count(previous, loan) %>%
+converted %>% count(previous, signed_deposit) %>%
   group_by(previous) %>%
   mutate(Ratio = prop.table(n)) %>%
   ggplot(., aes(x = previous,
-                y = Ratio, fill = loan)) +
+                y = Ratio, fill = signed_deposit)) +
   geom_col() +
   geom_text(aes(label = percent(Ratio)), position = position_stack(vjust = .5)) +
   scale_y_continuous(labels = percent) +
   coord_flip()
 ```
-```{r, echo=FALSE}
-kruskal.test(converted$loan ~ converted$previous)
-```
+
+
 
 ```{r, echo=FALSE}
 emp_rate_encoded = source
@@ -148,17 +194,18 @@ emp_rate_encoded$emp_rate = apply(source, 1, function(line) {
     "-"
   }
 })
-emp_rate_encoded %>% count(emp_rate, loan) %>%
+emp_rate_encoded %>% count(emp_rate, signed_deposit) %>%
   group_by(emp_rate) %>%
   mutate(Ratio = prop.table(n)) %>%
   ggplot(., aes(x = emp_rate,
-                y = Ratio, fill = loan)) +
+                y = Ratio, fill = signed_deposit)) +
   geom_col() +
   geom_text(aes(label = percent(Ratio)), position = position_stack(vjust = .5)) +
   scale_y_continuous(labels = percent) +
   coord_flip()
-kruskal.test(emp_rate_encoded$loan ~ emp_rate_encoded$emp_rate)
 ```
+
+As already seen before, the employment rate has big influence on wether people tend to sign or not.
 
 ```{r, echo=FALSE}
 source %>%
@@ -187,44 +234,26 @@ age_enc$age_encoded = apply(source, 1, function(line) {
     "64>"
   }
 })
-age_enc %>% arrange(age) %>% count(age_encoded, loan) %>%
+age_enc %>% arrange(age) %>% count(age_encoded, signed_deposit) %>%
   group_by(age_encoded) %>%
   mutate(Ratio = prop.table(n)) %>%
   ggplot(., aes(x = age_encoded,
-                y = Ratio, fill = loan)) +
+                y = Ratio, fill = signed_deposit)) +
   geom_col() +
   geom_text(aes(label = percent(Ratio)), position = position_stack(vjust = .5)) +
   scale_y_continuous(labels = percent) +
   coord_flip()
 
+```
+```{r, echo=FALSE}
 grouped_data = age_enc %>%
   group_by(age_encoded) %>%
-  count(loan_enc) %>%
-  mutate(Ratio = prop.table(n)) %>% filter(loan_enc == 1)
+  count(signed_deposit_enc) %>%
+  mutate(Ratio = prop.table(n)) %>% filter(signed_deposit_enc== 1)
   
-new_age <- age_enc %>% filter(!(age_encoded == "25-34" & loan_enc == 0))
+new_age <- age_enc %>% filter(!(age_encoded == "25-34" & signed_deposit_enc == 0))
 
-kruskal.test(age_enc$loan~age_enc$age_encoded)
+kruskal.test(age_enc$signed_deposit_enc~age_enc$age_encoded)
 ```
 
-
-```{r}
-cleaned_housing = droplevels(source %>% filter(source$housing != 'unknown'))
-cleaned_housing %>% count(housing, loan) %>%
-  group_by(housing) %>%
-  mutate(Ratio = prop.table(n)) %>%
-  ggplot(., aes(x = housing,
-                y = Ratio, fill = loan)) +
-  geom_col() +
-  geom_text(aes(label = percent(Ratio)), position = position_stack(vjust = .5)) +
-  scale_y_continuous(labels = percent) +
-  coord_flip()
-```
-
-```{r}
-data_for_test = cleaned_housing %>% filter(loan == "yes") %>%
-  group_by(housing) %>% count(housing, loan) %>% select(housing, n)
-data_for_test
-chisq.test(data_for_test)
-```
-
+The age more or less matches the job, meaning younger students and older retired people are more likely to sign a deposit.

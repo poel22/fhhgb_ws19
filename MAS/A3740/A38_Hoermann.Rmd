@@ -1,0 +1,82 @@
+---
+title: "A38_Hoermann"
+author: "Paul Hörmann"
+date: "1/13/2020"
+output: pdf_document
+---
+
+## Power of R
+
+```{r}
+library(data.table)
+```
+```{r}
+data = data.table(x = c(122, 120, 123, 126, 124),
+           y = c(114, 125, 121, 127, 128),
+           z = c(118, 129, 131, 135, 137))
+data
+```
+```{r}
+dataforanova = c(data$x,data$y,data$z)
+groups = factor(rep(c("x", "y", "z"), each = 5))
+groups
+```
+```{r}
+fit = lm(formula = dataforanova~groups)9
+anova(fit)
+```
+
+Thus don't drop H0.
+
+## Manual Calculation
+
+```{r}
+dtransform = data.table(x = data$x - mean(data$x),
+                        y = data$y - mean(data$y),
+                        z = data$z - mean(data$z))
+dtransform
+```
+```{r}
+derror = data.table(x = dtransform$x^2,
+                    y = dtransform$y^2,
+                    z = dtransform$z^2)
+derror
+sserror = sum(derror)
+sserror
+```
+```{r}
+colmean = colMeans(data)
+dmean = mean(colmean)
+dmean
+```
+```{r}
+ssvar = (colmean - dmean)^2
+ssvar = ssvar * 6
+ssvar = sum(ssvar)
+ssvar
+```
+```{r}
+dfvar = 2
+msvar = ssvar / dfvar
+msvar
+```
+```{r}
+dferror = 12
+mserror = sserror / dferror
+mserror
+```
+```{r}
+fcalc = msvar / mserror
+fcalc9
+```
+```{r}
+fcrit = qf(0.95, 2, 12)
+fcrit
+```
+```{r}
+fcalc < fcrit
+```
+
+Thus don't drop H0, meaning all samples stem from distribution with same variance.
+
+

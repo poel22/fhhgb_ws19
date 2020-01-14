@@ -1,0 +1,45 @@
+---
+title: "A37_Hoermann"
+author: "Paul Hörmann"
+date: "1/13/2020"
+output: pdf_document
+---
+```{r}
+library(data.table)
+```
+
+```{r}
+data = data.table(x = c(122, 120, 123, 126, 124),
+           y = c(114, 125, 121, 127, 128),
+           z = c(118, 129, 131, 135, 137))
+data
+```
+```{r}
+res.xy = var.test(data$x, data$y)
+res.xy
+```
+```{r}
+res.xz = var.test(data$x, data$z)
+res.xz
+```
+```{r}
+res.yz = var.test(data$y, data$z)
+res.yz
+```
+
+## Holm - Bonferoni Correction
+
+```{r}
+data.var = data.table(xy = res.xy$p.value,
+                      xz = res.xz$p.value,
+                      yz = res.yz$p.value)
+data.var
+```
+```{r}
+p.adjust(data.var, method = "holm")
+```
+
+Thus no H0 are rejected.
+
+
+
